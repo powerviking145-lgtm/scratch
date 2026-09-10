@@ -6,33 +6,33 @@
   <title>Ваш подарок — Перекрёсток</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --g950: oklch(16% 0.08 148);
-      --g900: oklch(22% 0.11 148);
-      --g800: oklch(30% 0.14 148);
-      --g700: oklch(37% 0.16 148);
+      --g950: oklch(14% 0.07 148);
+      --g900: oklch(20% 0.10 148);
+      --g800: oklch(28% 0.13 148);
+      --g700: oklch(36% 0.16 148);
       --g600: oklch(44% 0.18 148);
-      --g500: oklch(51% 0.19 148);
-      --g400: oklch(60% 0.17 148);
-      --g300: oklch(70% 0.14 148);
-      --g200: oklch(83% 0.08 148);
+      --g500: oklch(52% 0.19 148);
+      --g400: oklch(61% 0.17 148);
+      --g300: oklch(71% 0.13 148);
+      --g200: oklch(84% 0.08 148);
       --g100: oklch(93% 0.04 148);
-      --g050: oklch(97% 0.02 148);
-      --au3: oklch(84% 0.17 82);
-      --au2: oklch(74% 0.18 78);
-      --au1: oklch(60% 0.15 72);
-      --muted: oklch(50% 0.03 148);
-      --border: oklch(87% 0.03 148);
-      --surf: oklch(99% 0.005 148);
+      --au4: oklch(90% 0.14 88);
+      --au3: oklch(83% 0.17 82);
+      --au2: oklch(73% 0.19 76);
+      --au1: oklch(58% 0.16 70);
+      --au0: oklch(42% 0.12 68);
+      --muted: oklch(52% 0.04 148);
+      --surf: oklch(99% 0.004 148);
     }
 
     html, body {
       height: 100%;
-      font-family: 'Manrope', system-ui, sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--g950);
       -webkit-font-smoothing: antialiased;
       overscroll-behavior: none;
@@ -44,100 +44,156 @@
       pointer-events: none; z-index: 300;
     }
 
+    .bg-glow {
+      position: fixed; inset: 0; z-index: 0;
+      overflow: hidden; pointer-events: none;
+    }
+    .bg-glow::before, .bg-glow::after {
+      content: ''; position: absolute;
+      border-radius: 50%; filter: blur(80px); opacity: .20;
+    }
+    .bg-glow::before {
+      width: 480px; height: 480px; top: -120px; left: -80px;
+      background: radial-gradient(circle, oklch(52% 0.19 148), transparent 70%);
+      animation: blob-a 9s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      width: 380px; height: 380px; bottom: -80px; right: -60px;
+      background: radial-gradient(circle, oklch(73% 0.19 76), transparent 70%);
+      animation: blob-b 11s ease-in-out infinite alternate;
+    }
+    @keyframes blob-a {
+      0%   { transform: translate(0,0) scale(1); }
+      100% { transform: translate(60px,40px) scale(1.18); }
+    }
+    @keyframes blob-b {
+      0%   { transform: translate(0,0) scale(1); }
+      100% { transform: translate(-50px,-30px) scale(1.12); }
+    }
+
     .scene {
+      position: relative; z-index: 1;
       min-height: 100dvh;
       display: flex; align-items: center; justify-content: center;
-      padding: 24px 16px 40px;
+      padding: 24px 16px 44px;
     }
 
     .card {
-      width: 100%; max-width: 400px;
+      width: 100%; max-width: 420px;
       background: var(--surf);
-      border-radius: 28px; overflow: hidden;
+      border-radius: 32px; overflow: hidden;
       box-shadow:
-        0 0 0 1px oklch(100% 0 0 / .07),
-        0 32px 80px oklch(0% 0 0 / .55),
-        0 8px 20px  oklch(0% 0 0 / .25);
+        0 0 0 1px oklch(100% 0 0 / .08),
+        0 40px 100px oklch(0% 0 0 / .60),
+        0 8px 24px oklch(0% 0 0 / .28);
     }
 
-    /* ── Header ─── */
+    /* ── HEADER ── */
     .card-header {
       position: relative; overflow: hidden;
-      background: var(--g600);
-      padding: 32px 28px 44px; text-align: center;
+      background: var(--g700);
+      padding: 36px 28px 52px; text-align: center;
     }
     .card-header::before {
       content: ''; position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 65% 55% at 50% 25%, oklch(62% 0.2 148 / .5) 0%, transparent 70%),
-        radial-gradient(ellipse 90% 50% at 50% 110%, var(--g800) 0%, transparent 70%);
+        radial-gradient(ellipse 70% 60% at 50% 0%, oklch(64% 0.21 148 / .55) 0%, transparent 65%),
+        radial-gradient(ellipse 100% 55% at 50% 115%, oklch(20% 0.10 148 / .90) 0%, transparent 70%);
       pointer-events: none;
     }
+    .card-header::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(112deg,
+        transparent 30%,
+        oklch(100% 0 0 / .07) 48%,
+        oklch(100% 0 0 / .07) 52%,
+        transparent 70%);
+      background-size: 200% 100%;
+      animation: header-shine 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes header-shine {
+      0%,40%  { background-position: 180% 0; }
+      70%     { background-position: -80% 0; }
+      100%    { background-position: -80% 0; }
+    }
+
     .brand {
       position: relative;
-      font-size: 10.5px; font-weight: 700;
-      letter-spacing: .15em; text-transform: uppercase;
-      color: oklch(88% 0.09 148); margin-bottom: 18px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: oklch(82% 0.10 148); margin-bottom: 20px;
     }
+    .brand-dot {
+      display: inline-block; width: 5px; height: 5px;
+      border-radius: 50%; background: var(--au3);
+      margin: 0 6px 1px; vertical-align: middle;
+    }
+
     .gift-wrap {
-      position: relative; width: 92px; height: 92px;
-      margin: 0 auto 18px;
-      animation: gift-float 3.4s ease-in-out infinite;
+      position: relative; width: 100px; height: 100px;
+      margin: 0 auto 22px;
+      animation: gift-float 3.6s ease-in-out infinite;
     }
     @keyframes gift-float {
-      0%,100% { transform: translateY(0) rotate(0deg); }
-      40%      { transform: translateY(-10px) rotate(-1.8deg); }
-      70%      { transform: translateY(-5px) rotate(1.2deg); }
+      0%,100% { transform: translateY(0) rotate(0deg);    filter: drop-shadow(0 14px 22px oklch(0% 0 0 / .35)); }
+      40%      { transform: translateY(-12px) rotate(-2deg); filter: drop-shadow(0 24px 30px oklch(0% 0 0 / .45)); }
+      70%      { transform: translateY(-6px) rotate(1.5deg);  filter: drop-shadow(0 20px 26px oklch(0% 0 0 / .40)); }
     }
+
     .header-title {
       position: relative;
-      font-size: 27px; font-weight: 900;
-      color: #fff; letter-spacing: -.45px; line-height: 1.15; margin-bottom: 5px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 30px; font-weight: 900;
+      color: #fff; letter-spacing: -.3px; line-height: 1.12;
+      margin-bottom: 7px;
+      text-shadow: 0 2px 18px oklch(0% 0 0 / .35);
     }
     .header-sub {
       position: relative;
-      font-size: 13.5px; font-weight: 500; color: oklch(88% 0.07 148);
+      font-size: 14px; font-weight: 500;
+      color: oklch(86% 0.07 148);
     }
 
-    /* ── Body ─── */
+    /* ── BODY ── */
     .card-body {
-      padding: 22px 20px 26px;
+      padding: 24px 20px 28px;
       display: flex; flex-direction: column; align-items: center; gap: 16px;
     }
 
-    /* ── Scratch zone ─── */
+    /* ── SCRATCH ZONE ── */
     .scratch-zone {
       width: 100%; position: relative;
-      border-radius: 16px; overflow: hidden;
+      border-radius: 18px; overflow: hidden;
       aspect-ratio: 2 / 1;
       touch-action: none; cursor: crosshair;
-      box-shadow: inset 0 0 0 1.5px oklch(60% 0.05 148), 0 4px 24px oklch(0% 0 0 / .08);
+      box-shadow: inset 0 0 0 1.5px oklch(55% 0.06 148), 0 6px 28px oklch(0% 0 0 / .10);
     }
     #cvsPrize {
       position: absolute; inset: 0;
-      width: 100%; height: 100%; border-radius: 16px;
+      width: 100%; height: 100%; border-radius: 18px;
     }
     #cvsFoil {
       position: absolute; inset: 0;
-      width: 100%; height: 100%; border-radius: 16px;
-      transition: opacity .65s ease;
+      width: 100%; height: 100%; border-radius: 18px;
+      transition: opacity .70s cubic-bezier(.4,0,.2,1);
     }
     #cvsFoil.fading { opacity: 0; pointer-events: none; }
 
-    /* ── Hint ─── */
+    /* ── HINT ── */
     .hint {
-      display: flex; align-items: center; gap: 7px;
+      display: flex; align-items: center; gap: 8px;
       font-size: 13px; font-weight: 500; color: var(--muted);
-      transition: opacity .35s;
+      transition: opacity .35s, transform .35s;
     }
-    .hint.gone { opacity: 0; pointer-events: none; }
-    .hint-hand { display: inline-block; font-size: 16px; animation: hint-swipe 1.9s ease-in-out infinite; }
+    .hint.gone { opacity: 0; pointer-events: none; transform: translateY(-4px); }
+    .hint-hand { display: inline-block; font-size: 17px; animation: hint-swipe 2s ease-in-out infinite; }
     @keyframes hint-swipe {
-      0%,100% { transform: translateX(-5px); opacity: .65; }
-      50%      { transform: translateX(6px); opacity: 1; }
+      0%,100% { transform: translateX(-6px); opacity: .6; }
+      50%      { transform: translateX(7px); opacity: 1; }
     }
 
-    /* ── Progress ─── */
+    /* ── PROGRESS ── */
     .prog-track {
       width: 100%; height: 4px;
       background: var(--g100); border-radius: 99px; overflow: hidden; transition: opacity .35s;
@@ -145,219 +201,273 @@
     .prog-track.gone { opacity: 0; }
     .prog-fill {
       height: 100%; width: 0%;
-      background: linear-gradient(90deg, var(--g500), var(--g300));
+      background: linear-gradient(90deg, var(--g500), var(--au3));
       border-radius: 99px; transition: width .07s linear;
     }
 
     /* ══ BUTTONS ══ */
     .btn {
       position: relative; overflow: hidden;
-      width: 100%; height: 56px; padding: 0 24px;
+      width: 100%; height: 58px; padding: 0 26px;
       border: none; border-radius: 99px;
-      font-family: inherit; font-size: 16px; font-weight: 700; letter-spacing: -.15px;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px; font-weight: 700; letter-spacing: -.12px;
       cursor: pointer;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
+      display: flex; align-items: center; justify-content: center; gap: 9px;
       -webkit-tap-highlight-color: transparent;
-      transition: transform .12s cubic-bezier(.34,1.56,.64,1), box-shadow .12s ease, opacity .3s ease;
+      transition: transform .13s cubic-bezier(.34,1.56,.64,1), box-shadow .13s ease, opacity .3s ease;
     }
-    /* shimmer sweep */
-    .btn::after {
-      content: ''; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
-      background: linear-gradient(90deg, transparent, oklch(100% 0 0 / .22), transparent);
-      transform: skewX(-18deg);
-      animation: btn-sweep 3.2s ease-in-out infinite;
-    }
-    @keyframes btn-sweep {
-      0%,55%  { left: -80%; }
-      70%      { left: 130%; }
-      71%,100% { left: 130%; opacity: 0; }
-    }
-    /* ripple */
     .ripple {
       position: absolute; border-radius: 50%;
-      background: oklch(100% 0 0 / .28);
+      background: oklch(100% 0 0 / .26);
       transform: scale(0); pointer-events: none;
-      animation: ripple-expand .6s ease-out forwards;
+      animation: ripple-expand .55s ease-out forwards;
     }
-    @keyframes ripple-expand { to { transform: scale(4); opacity: 0; } }
+    @keyframes ripple-expand { to { transform: scale(4.2); opacity: 0; } }
+    .btn::after {
+      content: ''; position: absolute; top: 0; left: -85%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, oklch(100% 0 0 / .20), transparent);
+      transform: skewX(-18deg);
+      animation: btn-sweep 3.4s ease-in-out infinite;
+    }
+    @keyframes btn-sweep {
+      0%,50%  { left: -85%; }
+      66%      { left: 135%; }
+      67%,100% { left: 135%; opacity: 0; }
+    }
 
     /* Green */
     .btn-clear {
-      background: linear-gradient(155deg, var(--g400) 0%, var(--g600) 55%, var(--g800) 100%);
+      background: linear-gradient(155deg, var(--g400) 0%, var(--g600) 45%, var(--g800) 100%);
       color: #fff;
       box-shadow:
-        inset 0  1px 0 oklch(100% 0 0 / .22),
-        inset 0 -2px 0 oklch(0% 0 0 / .18),
+        inset 0  1px 0 oklch(100% 0 0 / .24),
+        inset 0 -2px 0 oklch(0% 0 0 / .20),
         0  5px 0 var(--g900),
-        0  8px 20px oklch(44% 0.18 148 / .45),
-        0  2px  6px oklch(0% 0 0 / .18);
+        0  8px 22px oklch(44% 0.18 148 / .50),
+        0  2px  7px oklch(0% 0 0 / .20);
     }
     .btn-clear:hover {
-      transform: translateY(-1px);
+      transform: translateY(-2px);
       box-shadow:
-        inset 0  1px 0 oklch(100% 0 0 / .22),
-        inset 0 -2px 0 oklch(0% 0 0 / .18),
+        inset 0  1px 0 oklch(100% 0 0 / .24),
+        inset 0 -2px 0 oklch(0% 0 0 / .20),
         0  5px 0 var(--g900),
-        0 12px 28px oklch(44% 0.18 148 / .6),
-        0  2px  6px oklch(0% 0 0 / .18);
+        0 14px 30px oklch(44% 0.18 148 / .65),
+        0  3px  9px oklch(0% 0 0 / .22);
     }
     .btn-clear:active {
       transform: translateY(4px);
       box-shadow:
-        inset 0 1px 0 oklch(100% 0 0 / .14),
-        0 1px 0 var(--g900),
-        0 3px 10px oklch(44% 0.18 148 / .3);
+        inset 0  1px 0 oklch(100% 0 0 / .15),
+        0  1px 0 var(--g900),
+        0  3px 10px oklch(44% 0.18 148 / .30);
     }
     .btn-clear.gone { opacity: 0; pointer-events: none; }
 
-    /* Gold */
+    /* Gold CTA */
     .btn-cta {
-      background: linear-gradient(155deg, var(--au3) 0%, var(--au2) 55%, var(--au1) 100%);
-      color: oklch(18% 0.06 78); text-decoration: none;
-      box-shadow:
-        inset 0  1px 0 oklch(100% 0 0 / .30),
-        inset 0 -2px 0 oklch(0% 0 0 / .14),
-        0  5px 0 var(--au1),
-        0  8px 24px oklch(74% 0.18 78 / .55),
-        0  2px  6px oklch(0% 0 0 / .15);
-      opacity: 0; transform: translateY(16px) scale(.97); pointer-events: none;
-      transition: opacity .5s .3s cubic-bezier(.4,0,.2,1), transform .5s .3s cubic-bezier(.34,1.56,.64,1), box-shadow .12s ease;
-    }
-    .btn-cta:hover {
-      transform: translateY(-1px) !important;
+      background: linear-gradient(155deg, var(--au4) 0%, var(--au3) 35%, var(--au2) 70%, var(--au1) 100%);
+      color: oklch(16% 0.07 75); text-decoration: none;
       box-shadow:
         inset 0  1px 0 oklch(100% 0 0 / .32),
-        inset 0 -2px 0 oklch(0% 0 0 / .14),
-        0  5px 0 var(--au1),
-        0 14px 36px oklch(74% 0.18 78 / .7),
-        0  2px  8px oklch(0% 0 0 / .18);
+        inset 0 -2px 0 oklch(0% 0 0 / .15),
+        0  5px 0 var(--au0),
+        0  9px 26px oklch(73% 0.19 76 / .58),
+        0  2px  7px oklch(0% 0 0 / .16);
+      opacity: 0;
+      transform: translateY(18px) scale(.96);
+      pointer-events: none;
+      transition:
+        opacity .55s .35s cubic-bezier(.4,0,.2,1),
+        transform .55s .35s cubic-bezier(.34,1.56,.64,1),
+        box-shadow .13s ease;
+    }
+    .btn-cta:hover {
+      transform: translateY(-2px) !important;
+      box-shadow:
+        inset 0  1px 0 oklch(100% 0 0 / .34),
+        inset 0 -2px 0 oklch(0% 0 0 / .15),
+        0  5px 0 var(--au0),
+        0 16px 40px oklch(73% 0.19 76 / .72),
+        0  3px  9px oklch(0% 0 0 / .18);
     }
     .btn-cta:active {
       transform: translateY(4px) scale(1) !important;
       box-shadow:
-        inset 0 1px 0 oklch(100% 0 0 / .16),
-        0 1px 0 var(--au1),
-        0 3px 10px oklch(74% 0.18 78 / .3);
+        inset 0  1px 0 oklch(100% 0 0 / .18),
+        0  1px 0 var(--au0),
+        0  3px 10px oklch(73% 0.19 76 / .32);
     }
     .btn-cta.visible {
       opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;
-      animation: cta-breathe 2.8s 1s ease-in-out infinite;
+      animation: cta-breathe 2.8s 1.2s ease-in-out infinite;
     }
     @keyframes cta-breathe {
-      0%,100% { box-shadow: inset 0 1px 0 oklch(100% 0 0 / .30), inset 0 -2px 0 oklch(0% 0 0 / .14), 0 5px 0 var(--au1), 0 8px 24px oklch(74% 0.18 78 / .55), 0 2px 6px oklch(0% 0 0 / .15); }
-      50%      { box-shadow: inset 0 1px 0 oklch(100% 0 0 / .30), inset 0 -2px 0 oklch(0% 0 0 / .14), 0 5px 0 var(--au1), 0 18px 44px oklch(74% 0.18 78 / .75), 0 4px 12px oklch(0% 0 0 / .2); }
+      0%,100% { box-shadow: inset 0 1px 0 oklch(100% 0 0 / .32), inset 0 -2px 0 oklch(0% 0 0 / .15), 0 5px 0 var(--au0), 0 9px 26px oklch(73% 0.19 76 / .58),  0 2px 7px oklch(0% 0 0 / .16); }
+      50%      { box-shadow: inset 0 1px 0 oklch(100% 0 0 / .32), inset 0 -2px 0 oklch(0% 0 0 / .15), 0 5px 0 var(--au0), 0 20px 48px oklch(73% 0.19 76 / .80), 0 4px 12px oklch(0% 0 0 / .22); }
     }
-    .btn-cta::after { animation-duration: 3.8s; }
+    .btn-cta::after { animation-duration: 4s; }
+
+    .cta-icon {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      background: oklch(0% 0 0 / .12);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .2s ease;
+    }
+    .btn-cta:hover .cta-icon { transform: translateX(3px); }
 
     .scratch-zone.done { animation: ring-pulse .55s ease forwards; }
     @keyframes ring-pulse {
-      0%  { box-shadow: inset 0 0 0 1.5px oklch(60% 0.05 148), 0 0 0 0   oklch(51% 0.19 148 / .55); }
-      50% { box-shadow: inset 0 0 0 1.5px var(--g400),          0 0 0 12px oklch(51% 0.19 148 / 0);  }
-      100%{ box-shadow: inset 0 0 0 1.5px var(--g400),          0 0 0 12px oklch(51% 0.19 148 / 0);  }
+      0%  { box-shadow: inset 0 0 0 1.5px oklch(55% 0.06 148), 0 0 0 0   oklch(52% 0.19 148 / .55); }
+      50% { box-shadow: inset 0 0 0 1.5px var(--g400),          0 0 0 14px oklch(52% 0.19 148 / 0);  }
+      100%{ box-shadow: inset 0 0 0 1.5px var(--g400),          0 0 0 14px oklch(52% 0.19 148 / 0);  }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .gift-wrap, .hint-hand { animation: none; }
-      .btn::after, .btn-cta.visible { animation: none; }
+      .gift-wrap, .hint-hand, .bg-glow::before, .bg-glow::after,
+      .card-header::after, .btn::after { animation: none; }
     }
-    /* Visual edition: emerald glass, warm metal and restrained motion. */
-    html, body { background: #052c24; touch-action: auto; }
-    .scene { padding: 22px 16px 40px; background: radial-gradient(ellipse at 10% 15%, #12865b55, transparent 55%), radial-gradient(ellipse at 100% 85%, #dbb65722, transparent 50%); }
-    .card { max-width: 420px; border-radius: 34px; background: #fcfff5; border: 1px solid #c7ffe65c; box-shadow: 0 30px 90px #001d1acc, 0 0 65px #37e99d12; }
-    .card-header { padding: 24px 24px 30px; background: linear-gradient(145deg,#158f62,#07533e 65%,#033a30); }
-    .card-header::before { background: radial-gradient(ellipse at 50% 25%,#c5ff9b55,transparent 60%); animation: ambient-glow 6s ease-in-out infinite alternate; }
-    .card-header::after { content:''; position:absolute; width:280px; height:280px; left:50%; top:-70px; margin-left:-140px; border:1px solid #dbffcf22; border-radius:50%; box-shadow:0 0 0 32px #dcffb809,0 0 0 64px #dcffb805; pointer-events:none; }
-    .brand { display:inline-flex; border:1px solid #e8ffd64a; background:#f4ffdb12; border-radius:30px; padding:8px 16px; color:#e5ffce; font-size:10px; margin-bottom:14px; }
-    .gift-wrap { width:82px; height:82px; margin-bottom:14px; filter:drop-shadow(0 12px 16px #001a2880); z-index:1; }
-    .gift-wrap svg { overflow:visible; }
-    .gift-wrap svg rect { stroke:#faffd126; stroke-width:.7; }
-    .header-title { font-size:32px; letter-spacing:-1.1px; font-weight:800; text-shadow:0 3px 20px #002d3866; z-index:1; }
-    .header-sub { color:#d0edcd; font-size:13px; max-width:280px; margin:9px auto 0; line-height:1.55; z-index:1; }
-    .card-body { padding:22px 20px 28px; gap:17px; background:radial-gradient(ellipse at 100% 20%,#e6f8b466,transparent 65%),#fcfff5; }
-    .scratch-zone { aspect-ratio:1.45; border-radius:23px; outline:1px solid #bea66788; box-shadow:0 10px 26px #25423522,0 0 0 5px #e6ebd9; isolation:isolate; }
-    #cvsPrize, #cvsFoil { border-radius:23px; }
-    #foilLight { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; border-radius:23px; transition:opacity .65s; }
-    .scratch-zone.done #foilLight { opacity:0; }
-    .hint { font-size:12px; color:#607767; text-align:center; gap:9px; }
-    .hint-hand { color:#148553; display:flex; }
-    .prog-track { height:5px; background:#dfe9d8; }
-    .prog-fill { background:linear-gradient(90deg,#00845f,#9de45f,#ebcb7d); box-shadow:0 0 10px #8bd95c88; }
-    .btn { min-height:59px; height:auto; padding:17px 18px; border-radius:19px; font-weight:800; font-size:15px; line-height:1.3; border:1px solid #ffffff55; }
-    .btn::before { content:''; position:absolute; top:1px; left:12px; right:12px; height:46%; border-radius:16px 16px 50% 50%; background:linear-gradient(#ffffff24,#ffffff00); pointer-events:none; }
-    .btn::after { animation:lux-sweep 4s ease-in-out infinite; background:linear-gradient(90deg,transparent,#fff9,transparent); width:35%; }
-    .btn-clear { background:linear-gradient(150deg,#39cf85,#079968 48%,#006a50); box-shadow:inset 0 1px 1px #ffffff88,inset 0 -2px 1px #004e4280,0 5px 0 #005740,0 12px 25px #06976440; }
-    .btn-clear:hover { background:linear-gradient(150deg,#65e8a0,#0aad77 48%,#00765a); }
-    .btn-cta { background:linear-gradient(135deg,#fff1ab,#f9cf65 48%,#e5ad43); color:#3a2b0e; box-shadow:inset 0 1px 1px #fff8da,0 5px 0 #b58232,0 12px 28px #e4b44f55; visibility:hidden; }
-    .btn-cta.visible { visibility:visible; animation:gold-glow 4s 1s ease-in-out infinite; }
-    .btn-cta svg { order:2; flex-shrink:0; transition:transform .25s; }
-    .btn-cta:hover svg { transform:translateX(4px); }
-    .btn:focus-visible { outline:3px solid #36a0c1; outline-offset:6px; }
-    .hint.gone, .prog-track.gone, .btn-clear.gone { display:none; }
-    .btn-cta:not(.visible) { display:none; }
-    @keyframes ambient-glow { from {opacity:.55;transform:scale(.9)} to {opacity:1;transform:scale(1.12)} }
-    @keyframes lux-sweep { 0%,55%{left:-80%;opacity:0} 57%{opacity:1} 85%{left:145%;opacity:1} 86%,100%{left:145%;opacity:0} }
-    @keyframes gold-glow { 0%,100%{box-shadow:inset 0 1px 1px #fff8da,0 5px 0 #b58232,0 12px 28px #e4b44f55} 50%{box-shadow:inset 0 1px 1px #fff8da,0 5px 0 #b58232,0 15px 34px #e4b44f99} }
-    @media(prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important} }
-    /* Motion and typography refinement; scratch coordinates stay untouched. */
-    .header-title { font-family:'Manrope',sans-serif; font-weight:800; font-size:clamp(27px,8vw,34px); letter-spacing:-1.25px; line-height:1.18; }
-    .header-sub { font-weight:500; letter-spacing:-.15px; }
-    .btn { font-family:'Manrope',sans-serif; letter-spacing:-.35px; font-weight:800; background-size:220% 220%; }
-    .btn-clear { animation:liquid-color 5s ease-in-out infinite; }
-    .btn-cta.visible { animation:cta-arrive .65s cubic-bezier(.22,1.3,.4,1) both, liquid-color 5s ease-in-out infinite, gold-glow 3s ease-in-out infinite; }
-    .btn::after { animation-duration:2.6s; }
-    .btn-cta.visible svg { animation:arrow-invite 2s ease-in-out infinite; }
-    .gift-wrap { animation:gift-float 2.9s ease-in-out infinite; }
-    .gift-wrap svg > circle { transform-box:fill-box; transform-origin:center; animation:sparkle-bloom 2.4s ease-in-out infinite alternate; }
-    .gift-wrap svg > circle:nth-last-of-type(2) { animation-delay:-1.3s; }
-    .card-header::after { animation:halo-breathe 4s ease-in-out infinite; }
-    .prog-fill { background-size:220% 100%; animation:liquid-color 2.5s ease-in-out infinite; }
-    @keyframes liquid-color { 0%,100% {background-position:0% 50%} 50% {background-position:100% 50%} }
-    @keyframes arrow-invite { 0%,65%,100% {transform:translateX(0)} 40% {transform:translateX(5px)} }
-    @keyframes sparkle-bloom { from {opacity:.4;transform:scale(.8)} to {opacity:1;transform:scale(1.2)} }
-    @keyframes halo-breathe { 0%,100% {transform:scale(.95);opacity:.5} 50% {transform:scale(1.1);opacity:1} }
-    @keyframes cta-arrive { from {opacity:0;transform:translateY(14px) scale(.94)} to {opacity:1;transform:translateY(0) scale(1)} }
-    @media(prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important} }
+    /* SELECT edition: motion stays below the scratchable foil. */
+    html, body { font-family:'Manrope',system-ui,sans-serif; touch-action:pan-y; }
+    .scene { padding:18px 14px 30px; }
+    .card { max-width:420px; background:#fffdf7; }
+    .card-header { padding:23px 22px 25px; }
+    .brand { margin-bottom:12px; color:#c5e9cb; }
+    .gift-wrap { width:66px; height:66px; margin-bottom:14px; }
+    .header-title { font-family:'Manrope',system-ui,sans-serif; font-weight:800; font-size:clamp(28px,8vw,36px); letter-spacing:-1.5px; line-height:1.08; }
+    .header-title em { font-style:normal; color:#ffdf80; background:linear-gradient(100deg,#ffe7a4,#fffbed,#e6b548,#ffe7a4); background-size:250% 100%; background-clip:text; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:gold-flow 5s ease-in-out infinite; }
+    .header-sub { margin:12px auto 0; max-width:270px; font-size:13px; line-height:1.6; }
+    .card-body { padding:20px 18px 26px; gap:14px; }
+    .scratch-zone { aspect-ratio:auto; height:290px; border-radius:22px; isolation:isolate; }
+    #cvsPrize { display:none; }
+    #cvsFoil { z-index:2; border-radius:22px; animation:foil-colour 5s ease-in-out infinite; }
+    .coffee-prize { position:absolute; inset:0; overflow:hidden; display:flex; flex-direction:column; align-items:center; background:radial-gradient(ellipse at 50% 40%,#416d4f 0%,#163e2d 54%,#09291e 100%); color:#fff9e9; }
+    .coffee-prize::before { content:''; position:absolute; inset:-70%; background:conic-gradient(from 10deg,transparent,#b8e9bd22,transparent,#f5d17c22,transparent); animation:aura-turn 16s linear infinite; pointer-events:none; }
+    .coffee-prize::after { content:''; position:absolute; inset:10px; border:1px solid #e5c67a40; border-radius:15px; pointer-events:none; }
+    .coffee-label { z-index:1; margin-top:17px; font-size:10px; letter-spacing:2.2px; color:#e8d398; font-weight:800; }
+    .coffee-art { width:205px; height:186px; z-index:1; overflow:visible; margin-top:-2px; }
+    .cup-body { animation:cup-float 4s ease-in-out infinite; transform-origin:110px 133px; }
+    .steam { fill:none; stroke:#fff4d8; stroke-width:5; stroke-linecap:round; opacity:0; filter:drop-shadow(0 0 4px #ffefcbaa); animation:steam-rise 2.9s ease-in-out infinite; }
+    .steam.s2 { animation-delay:-.95s; stroke-width:6; }
+    .steam.s3 { animation-delay:-1.9s; stroke-width:4; }
+    .coffee-title { z-index:1; font-size:clamp(19px,5.5vw,24px); font-weight:800; letter-spacing:-.7px; line-height:1.2; margin-top:0; padding:0 12px; text-align:center; }
+    .coffee-caption { z-index:1; margin-top:7px; color:#d1deca; font-size:12px; }
+    .spark { position:absolute; color:#ffe4a0; font-size:22px; animation:sparkle 2.6s ease-in-out infinite; }
+    .spark.a { left:14%; top:34%; }.spark.b { right:12%; top:49%; animation-delay:-1.3s; }
+    .spark.c { right:20%; top:20%; font-size:12px; animation-delay:-.6s; }
+    .hint { font-size:12px; text-align:center; }
+    .btn { font-family:'Manrope',system-ui,sans-serif; font-weight:800; padding:0 18px; flex-shrink:0; }
+    .btn::after { opacity:1; background:linear-gradient(90deg,transparent,#ffffff65,transparent); }
+    .btn-clear { background:linear-gradient(120deg,#5ed477,#168840,#07572d); }
+    .btn-cta { display:none; font-size:14px; background-size:200% 100%; }
+    .btn-cta.visible { display:flex; animation:cta-entry .65s cubic-bezier(.2,1.4,.4,1),cta-breathe 2.8s 1s ease-in-out infinite,gold-flow 5s ease infinite; }
+    .hint.gone,.prog-track.gone,.btn-clear.gone { display:none; }
+    .claim { width:100%; background:linear-gradient(135deg,#f9efd5,#fffcf4); border:1px solid #e9d9b5; border-radius:20px; padding:18px; color:#163e2d; animation:claim-in .55s ease both; }
+    .claim[hidden] { display:none; }
+    .claim-top { display:flex; align-items:center; gap:10px; margin-bottom:11px; }
+    .claim-check { display:grid; place-items:center; width:29px; height:29px; background:#185d37; color:#ffe5a0; border-radius:50%; font-weight:800; }
+    .claim-title { font-size:17px; font-weight:800; letter-spacing:-.5px; }
+    .claim p { font-size:13px; line-height:1.7; margin:0; }
+    .select-word { letter-spacing:1px; font-weight:800; }
+    .claim-foot { font-size:11px!important; color:#6e755e; margin-top:9px!important; }
+    .scratch-zone.done .coffee-title { animation:title-pop .65s ease both; }
+    @keyframes steam-rise { 0% { opacity:0; transform:translateY(8px) scaleX(.85); } 25% { opacity:.85; } 65% { opacity:.65; } 100% { opacity:0; transform:translateY(-23px) scaleX(1.1); } }
+    @keyframes cup-float { 0%,100% { transform:translateY(0) rotate(-2deg); } 50% { transform:translateY(-4px) rotate(1deg); } }
+    @keyframes gold-flow { 0%,100% { background-position:0% 50%; } 50% { background-position:100% 50%; } }
+    @keyframes foil-colour { 0%,100% { filter:brightness(1) saturate(1.1); } 50% { filter:brightness(1.16) saturate(1.45); } }
+    @keyframes aura-turn { to { transform:rotate(360deg); } }
+    @keyframes sparkle { 0%,100% { opacity:.3; transform:scale(.65) rotate(0); } 50% { opacity:1; transform:scale(1.15) rotate(25deg); } }
+    @keyframes claim-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes cta-entry { from { opacity:0; transform:translateY(16px) scale(.94); } to { opacity:1; transform:translateY(0) scale(1); } }
+    @keyframes title-pop { from { transform:scale(.95); } to { transform:scale(1); } }
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { animation:none!important; transition:none!important; }
+      .steam { opacity:.7; }
+    }
   </style>
 </head>
 <body>
+<div class="bg-glow" aria-hidden="true"></div>
 <canvas id="ccvs"></canvas>
 <canvas id="pcvs"></canvas>
 
 <div class="scene">
   <div class="card">
     <div class="card-header">
-      <p class="brand">Перекрёсток</p>
+      <p class="brand"><span class="brand-dot"></span>Перекрёсток<span class="brand-dot"></span></p>
       <div class="gift-wrap" aria-hidden="true">
-        <svg viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="46" cy="84" rx="28" ry="5.5" fill="oklch(0% 0 0 / .2)"/>
-          <rect x="11" y="44" width="70" height="36" rx="8" fill="oklch(54% 0.20 148)"/>
-          <rect x="7"  y="34" width="78" height="20" rx="7" fill="oklch(63% 0.21 148)"/>
-          <rect x="7"  y="34" width="78" height="9"  rx="7" fill="oklch(100% 0 0 / .08)"/>
-          <rect x="41" y="34" width="10" height="46" rx="5" fill="var(--au3)"/>
-          <rect x="7"  y="41" width="78" height="7"  rx="3.5" fill="var(--au3)"/>
-          <ellipse cx="32" cy="30" rx="13" ry="8.5" fill="var(--au3)" transform="rotate(-20 32 30)"/>
-          <ellipse cx="60" cy="30" rx="13" ry="8.5" fill="var(--au3)" transform="rotate(20 60 30)"/>
-          <circle cx="46" cy="31" r="7" fill="var(--au3)"/>
-          <circle cx="46" cy="31" r="4" fill="oklch(91% 0.17 82)"/>
-          <circle cx="78" cy="13" r="3.5" fill="oklch(91% 0.17 82)" opacity=".9"/>
-          <circle cx="14" cy="19" r="2.5" fill="oklch(91% 0.17 82)" opacity=".7"/>
-          <path d="M80 4 L81.4 8.6 L86 8.6 L82.3 11.4 L83.7 16 L80 13.2 L76.3 16 L77.7 11.4 L74 8.6 L78.6 8.6Z" fill="oklch(91% 0.17 82)"/>
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="93" rx="30" ry="5" fill="oklch(0% 0 0 / .22)"/>
+          <rect x="10" y="46" width="80" height="42" rx="9" fill="oklch(52% 0.21 148)"/>
+          <rect x="10" y="46" width="80" height="16" rx="9" fill="oklch(60% 0.21 148)"/>
+          <rect x="6"  y="34" width="88" height="22" rx="8" fill="oklch(62% 0.22 148)"/>
+          <rect x="6"  y="34" width="88" height="9"  rx="8" fill="oklch(72% 0.19 148)"/>
+          <rect x="6"  y="51" width="88" height="5"  fill="oklch(48% 0.18 148)"/>
+          <rect x="44" y="34" width="12" height="54" rx="6" fill="var(--au3)"/>
+          <rect x="44" y="34" width="5"  height="54" rx="6" fill="oklch(100% 0 0 / .18)"/>
+          <rect x="6"  y="43" width="88" height="8"  rx="4" fill="var(--au3)"/>
+          <rect x="6"  y="43" width="88" height="3"  rx="3" fill="oklch(100% 0 0 / .18)"/>
+          <ellipse cx="34" cy="30" rx="14" ry="9" fill="var(--au2)" transform="rotate(-22 34 30)"/>
+          <ellipse cx="34" cy="30" rx="8"  ry="4" fill="var(--au3)" transform="rotate(-22 34 30)"/>
+          <ellipse cx="66" cy="30" rx="14" ry="9" fill="var(--au2)" transform="rotate(22 66 30)"/>
+          <ellipse cx="66" cy="30" rx="8"  ry="4" fill="var(--au3)" transform="rotate(22 66 30)"/>
+          <circle cx="50" cy="31" r="8"   fill="var(--au2)"/>
+          <circle cx="50" cy="31" r="5"   fill="var(--au3)"/>
+          <circle cx="50" cy="31" r="2.8" fill="var(--au4)"/>
+          <path d="M84 8 L85.4 12.5 L90 12.5 L86.3 15.4 L87.7 20 L84 17.2 L80.3 20 L81.7 15.4 L78 12.5 L82.6 12.5Z" fill="var(--au4)" opacity=".95"/>
+          <circle cx="16" cy="20" r="3"   fill="var(--au3)" opacity=".8"/>
+          <circle cx="88" cy="26" r="2"   fill="oklch(100% 0 0 / .55)"/>
+          <circle cx="14" cy="38" r="1.5" fill="oklch(100% 0 0 / .40)"/>
         </svg>
       </div>
-      <h1 class="header-title">Личный подарок</h1>
-      <p class="header-sub">Стирайте — под слоем кое-что приятное</p>
+      <h1 class="header-title">Потрите.<br><em>Улыбнитесь.</em></h1>
+      <p class="header-sub">Под мерцающим слоем — маленькая радость.<br>Откройте её одним прикосновением.</p>
     </div>
 
     <div class="card-body">
       <div class="scratch-zone" id="zone" role="img" aria-label="Скретч-карта">
+        <div class="coffee-prize" aria-hidden="true">
+          <div class="coffee-label">КУПОН · КАФЕ SELECT</div>
+          <span class="spark a">✦</span><span class="spark b">✧</span><span class="spark c">✦</span>
+          <svg class="coffee-art" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="porcelain" x1="0" y1="0" x2="1" y2=".3"><stop stop-color="#b7c8b2"/><stop offset=".25" stop-color="#fffef3"/><stop offset=".65" stop-color="#f4ead5"/><stop offset="1" stop-color="#a3b59b"/></linearGradient>
+              <linearGradient id="saucer"><stop stop-color="#9bad94"/><stop offset=".45" stop-color="#fff8e2"/><stop offset="1" stop-color="#adbea3"/></linearGradient>
+              <radialGradient id="espresso"><stop stop-color="#bb8346"/><stop offset=".72" stop-color="#824422"/><stop offset="1" stop-color="#422616"/></radialGradient>
+              <linearGradient id="gold"><stop stop-color="#c9993d"/><stop offset=".5" stop-color="#fff0b5"/><stop offset="1" stop-color="#ca9e42"/></linearGradient>
+            </defs>
+            <ellipse cx="111" cy="181" rx="72" ry="10" fill="#000" opacity=".18"/>
+            <g class="cup-body">
+              <ellipse cx="109" cy="170" rx="76" ry="15" fill="url(#saucer)"/>
+              <ellipse cx="109" cy="167" rx="57" ry="9" fill="none" stroke="#ffffff80" stroke-width="2"/>
+              <path d="M157 96 C201 82 196 143 158 141" fill="none" stroke="#96ab92" stroke-width="16"/>
+              <path d="M158 94 C196 88 190 134 159 134" fill="none" stroke="#f9f0db" stroke-width="9"/>
+              <path d="M49 90 Q52 154 82 163 Q111 176 142 161 Q163 147 166 90Z" fill="url(#porcelain)"/>
+              <path d="M60 110 Q63 143 77 151" stroke="#ffffffb0" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <ellipse cx="107" cy="90" rx="59" ry="21" fill="url(#gold)"/>
+              <ellipse cx="107" cy="88" rx="55" ry="18" fill="#fff0d2"/>
+              <ellipse cx="107" cy="89" rx="49" ry="14" fill="url(#espresso)"/>
+              <path d="M108 98 C73 89 85 77 98 85 C106 75 128 79 124 88 C121 93 114 95 108 98Z" fill="#f8dfad"/>
+              <path d="M107 99 L98 83" stroke="#fff1ce" stroke-width="2" stroke-linecap="round"/>
+
+            </g>
+            <g>
+              <path class="steam s1" d="M84 68 C62 50 103 40 84 20"/>
+              <path class="steam s2" d="M111 66 C91 44 133 33 113 9"/>
+              <path class="steam s3" d="M140 66 C121 50 154 34 139 17"/>
+            </g>
+          </svg>
+          <div class="coffee-title">100% кешбэк на кофе</div>
+          <div class="coffee-caption">Маленькая пауза. Большое удовольствие.</div>
+        </div>
         <canvas id="cvsPrize" aria-hidden="true"></canvas>
         <canvas id="cvsFoil"  aria-hidden="true"></canvas>
-        <canvas id="foilLight" aria-hidden="true"></canvas>
       </div>
 
       <div class="hint" id="hint">
         <span class="hint-hand" aria-hidden="true">👆</span>
-        <span>Стирайте пальцем — под слоем сразу видно</span>
+        <span>Стирайте пальцем — подарок уже видно</span>
       </div>
 
       <div class="prog-track" id="progTrack" aria-hidden="true">
@@ -366,12 +476,19 @@
 
       <button class="btn btn-clear" id="btnClear" type="button">Стереть всё</button>
 
+      <section class="claim" id="claim" hidden aria-live="polite" aria-labelledby="claimTitle">
+        <div class="claim-top"><span class="claim-check" aria-hidden="true">✓</span><h2 class="claim-title" id="claimTitle">Ваш кешбэк — 100%</h2></div>
+        <p>При покупке кофе в кафе <span class="select-word">SELECT</span> предъявите <strong>карту лояльности</strong>, чтобы получить 100% кешбэк на кофе.</p>
+      </section>
+      <p class="more-teaser" id="moreTeaser" hidden>А дальше — ещё больше приятного</p>
       <a class="btn btn-cta" id="btnCta"
          href="tsxapp://app/personal_offers_list"
          role="button" aria-label="Все персональные скидки">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-          <path d="M3 10h14M11 4l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <span class="cta-icon" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M2 8h12M8 3l5 5-5 5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
         Все мои персональные скидки
       </a>
     </div>
@@ -379,37 +496,31 @@
 </div>
 
 <script>
-/* ═══ CONFIG ═════════════════════════════════════════════
-   BRUSH smaller = harder to scratch (was 38, now 22)
-   More swipes needed = more satisfying
-═══════════════════════════════════════════════════════ */
-const BRUSH     = 22;    // smaller brush = more work to scratch
-const THRESHOLD = 0.60;  // need 60% cleared
-const TICK_MS   = 100;
+const BRUSH = 22, THRESHOLD = 0.60, TICK_MS = 100;
 
-/* ═══ ELEMENTS ══════════════════════════════════════════ */
-const zone      = document.getElementById('zone');
-const cvsPrize  = document.getElementById('cvsPrize');
-const ctxPrize  = cvsPrize.getContext('2d');
-const cvsFoil   = document.getElementById('cvsFoil');
-const ctxFoil   = cvsFoil.getContext('2d');
-const hint      = document.getElementById('hint');
-const progFill  = document.getElementById('progFill');
-const progTrk   = document.getElementById('progTrack');
-const btnClear  = document.getElementById('btnClear');
-const btnCta    = document.getElementById('btnCta');
-const ccvs      = document.getElementById('ccvs');
-const cctx      = ccvs.getContext('2d');
-const pcvs      = document.getElementById('pcvs');
-const pctx      = pcvs.getContext('2d');
+const zone     = document.getElementById('zone');
+const cvsPrize = document.getElementById('cvsPrize');
+const ctxPrize = cvsPrize.getContext('2d');
+const cvsFoil  = document.getElementById('cvsFoil');
+const ctxFoil  = cvsFoil.getContext('2d');
+const hint     = document.getElementById('hint');
+const progFill = document.getElementById('progFill');
+const progTrk  = document.getElementById('progTrack');
+const btnClear = document.getElementById('btnClear');
+const btnCta   = document.getElementById('btnCta');
+const ccvs     = document.getElementById('ccvs');
+const cctx     = ccvs.getContext('2d');
+const pcvs     = document.getElementById('pcvs');
+const pctx     = pcvs.getContext('2d');
 
 let revealed = false, drawing = false, lastPt = null, lastTick = 0;
 let flakes = [], confettiPieces = [];
 
-/* Soft continuous rustle: one loop, no repeated noise bursts. */
+/* ── AUDIO ── */
 let audioCtx = null, rustleGain = null, audioPoint = null;
 let resumePending = false, feedbackUntil = 0, lastResumeAttempt = -Infinity;
 let lastHaptic = -Infinity;
+
 function hapticTick() {
   const now = performance.now();
   if (now - lastHaptic < 65) return;
@@ -421,292 +532,244 @@ function scheduleRustle() {
       !drawing || revealed || performance.now() > feedbackUntil) return;
   const now = audioCtx.currentTime;
   holdRustle(now);
-  rustleGain.gain.setTargetAtTime(0.24, now, 0.035);
+  rustleGain.gain.setTargetAtTime(0.22, now, 0.035);
   rustleGain.gain.setTargetAtTime(0, now + 0.09, 0.035);
 }
 function resumeAudio() {
   if (!audioCtx || audioCtx.state === 'closed') return;
   if (audioCtx.state === 'running') { scheduleRustle(); return; }
-  // A pending resume from an earlier, non-activated event must not block
-  // retrying inside the next trusted user gesture.
-  if (performance.now() - lastResumeAttempt < 40) return;
-  lastResumeAttempt = performance.now();
-  resumePending = true;
-  audioCtx.resume().then(() => {
-    resumePending = false;
-    scheduleRustle();
-  }, () => { resumePending = false; });
+  const now = performance.now();
+  if (resumePending || now - lastResumeAttempt < 40) return;
+  lastResumeAttempt = now; resumePending = true;
+  audioCtx.resume().then(() => { resumePending = false; scheduleRustle(); }, () => { resumePending = false; });
 }
 function ensureAudio() {
   try {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       audioCtx.addEventListener('statechange', scheduleRustle);
-      // Request activation inside the original gesture, before buffer setup.
       resumeAudio();
       const sr = audioCtx.sampleRate;
-      const buffer = audioCtx.createBuffer(1, sr * 4, sr);
-      const data = buffer.getChannelData(0);
-      let smooth = 0;
-      for (let i = 0; i < data.length; i++) {
-        smooth = 0.88 * smooth + 0.12 * (Math.random() * 2 - 1);
-        // Bring both ends to zero so the loop has no seam click.
-        const edge = Math.min(1, i / (sr * .12), (data.length - 1 - i) / (sr * .12));
-        data[i] = smooth * Math.sin(edge * Math.PI / 2);
+      const buf = audioCtx.createBuffer(1, sr * 4, sr);
+      const d = buf.getChannelData(0);
+      let s = 0;
+      for (let i = 0; i < d.length; i++) {
+        s = 0.88 * s + 0.12 * (Math.random() * 2 - 1);
+        const e = Math.min(1, i / (sr * .12), (d.length - 1 - i) / (sr * .12));
+        d[i] = s * Math.sin(e * Math.PI / 2);
       }
-      const source = audioCtx.createBufferSource();
-      source.buffer = buffer;
-      source.loop = true;
-      const highpass = audioCtx.createBiquadFilter();
-      highpass.type = 'highpass'; highpass.frequency.value = 180;
-      const lowpass = audioCtx.createBiquadFilter();
-      lowpass.type = 'lowpass'; lowpass.frequency.value = 1200; lowpass.Q.value = 0.5;
-      rustleGain = audioCtx.createGain();
-      rustleGain.gain.value = 0;
-      source.connect(highpass); highpass.connect(lowpass);
-      lowpass.connect(rustleGain); rustleGain.connect(audioCtx.destination);
-      source.start();
+      const src = audioCtx.createBufferSource();
+      src.buffer = buf; src.loop = true;
+      const hp = audioCtx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 200;
+      const lp = audioCtx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1100; lp.Q.value = 0.5;
+      rustleGain = audioCtx.createGain(); rustleGain.gain.value = 0;
+      src.connect(hp); hp.connect(lp); lp.connect(rustleGain); rustleGain.connect(audioCtx.destination);
+      src.start();
     }
     resumeAudio();
-  } catch (_) { /* Audio is optional; scratching still works. */ }
+  } catch (_) {}
 }
 function holdRustle(now) {
-  const gain = rustleGain.gain;
-  if (gain.cancelAndHoldAtTime) gain.cancelAndHoldAtTime(now);
-  else {
-    const value = gain.value;
-    gain.cancelScheduledValues(now);
-    gain.setValueAtTime(value, now);
-  }
+  const g = rustleGain.gain;
+  if (g.cancelAndHoldAtTime) g.cancelAndHoldAtTime(now);
+  else { const v = g.value; g.cancelScheduledValues(now); g.setValueAtTime(v, now); }
 }
 function playTick(x, y) {
-  const previous = audioPoint;
-  audioPoint = { x, y };
-  if (previous && Math.hypot(x - previous.x, y - previous.y) < 0.5) return;
+  const prev = audioPoint; audioPoint = {x, y};
+  if (prev && Math.hypot(x - prev.x, y - prev.y) < 0.5) return;
   feedbackUntil = performance.now() + 150;
-  // First contact also requests feedback; replay it after async activation.
   ensureAudio();
 }
 function stopRustle() {
-  audioPoint = null;
-  feedbackUntil = 0;
+  audioPoint = null; feedbackUntil = 0;
   if (!audioCtx || !rustleGain) return;
   const now = audioCtx.currentTime;
-  holdRustle(now);
-  rustleGain.gain.setTargetAtTime(0, now, 0.025);
+  holdRustle(now); rustleGain.gain.setTargetAtTime(0, now, 0.025);
 }
-['touchend', 'touchcancel', 'mouseup', 'pointercancel', 'blur', 'pagehide'].forEach(event =>
-  window.addEventListener(event, stopRustle));
+['touchend','touchcancel','mouseup','pointercancel','blur','pagehide']
+  .forEach(ev => window.addEventListener(ev, stopRustle));
 document.addEventListener('visibilitychange', () => { if (document.hidden) stopRustle(); });
 
-/* ═══ INIT ══════════════════════════════════════════════ */
+/* ── CANVAS INIT ── */
 function initCanvas() {
-  const dpr  = devicePixelRatio || 1;
+  const dpr = devicePixelRatio || 1;
   const rect = zone.getBoundingClientRect();
   const W = rect.width, H = rect.height;
   for (const c of [cvsPrize, cvsFoil]) { c.width = W * dpr; c.height = H * dpr; }
-  ctxPrize.scale(dpr, dpr);
-  ctxFoil.scale(dpr, dpr);
-  ccvs.width = pcvs.width  = innerWidth;
-  ccvs.height = pcvs.height = innerHeight;
-  drawPrize(W, H);
-  drawFoil(W, H);
+  ctxPrize.scale(dpr, dpr); ctxFoil.scale(dpr, dpr);
+  ccvs.width = pcvs.width = innerWidth; ccvs.height = pcvs.height = innerHeight;
+  drawPrize(W, H); drawFoil(W, H);
 }
 
-/* ── Prize layer ── */
+/* ── PRIZE LAYER ── */
 function drawPrize(w, h) {
-  const c = ctxPrize;
-  c.save();
-  const bg = c.createLinearGradient(0, 0, w, h);
-  bg.addColorStop(0, '#fff9df'); bg.addColorStop(.55, '#f8ffe9'); bg.addColorStop(1, '#d5efc4');
-  c.fillStyle = bg; c.fillRect(0, 0, w, h);
-  c.strokeStyle = '#92b16b25'; c.lineWidth = 1;
-  for (let i = 0; i < 4; i++) {
-    c.beginPath(); c.ellipse(w*.5, h*.36, w*.26+i*15, h*.25+i*12, -.15, 0, Math.PI*2); c.stroke();
+  const bg = ctxPrize.createRadialGradient(w/2, h*.36, 0, w/2, h*.36, Math.max(w,h)*.75);
+  bg.addColorStop(0,   'oklch(98% 0.025 82)');
+  bg.addColorStop(.45, 'oklch(96% 0.030 148)');
+  bg.addColorStop(1,   'oklch(92% 0.042 148)');
+  ctxPrize.fillStyle = bg; ctxPrize.fillRect(0, 0, w, h);
+
+  const ir = ctxPrize.createLinearGradient(0, 0, w, 0);
+  ir.addColorStop(0,   'oklch(83% 0.12 200 / .16)');
+  ir.addColorStop(.25, 'oklch(81% 0.13 148 / .12)');
+  ir.addColorStop(.50, 'oklch(83% 0.13 80  / .16)');
+  ir.addColorStop(.75, 'oklch(80% 0.11 310 / .11)');
+  ir.addColorStop(1,   'oklch(83% 0.12 200 / .16)');
+  ctxPrize.fillStyle = ir; ctxPrize.fillRect(0, 0, w, h);
+
+  /* coffee cup */
+  ctxPrize.save();
+  ctxPrize.shadowColor = 'oklch(55% 0.14 78 / .40)';
+  ctxPrize.shadowBlur = 18; ctxPrize.shadowOffsetY = 5;
+  const es = Math.min(h * .52, 54);
+  ctxPrize.font = `${es}px serif`;
+  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
+  ctxPrize.fillText('☕', w/2, h*.40);
+  ctxPrize.restore();
+
+  /* title */
+  ctxPrize.save();
+  ctxPrize.font = `800 ${Math.min(h*.175,19)}px Inter, system-ui, sans-serif`;
+  ctxPrize.fillStyle = 'oklch(36% 0.16 148)';
+  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
+  ctxPrize.fillText('100% кешбэк на кофе', w/2, h*.70);
+  ctxPrize.restore();
+
+  /* corner stars */
+  const stars = [[w*.18,h*.22],[w*.82,h*.18],[w*.14,h*.68],[w*.86,h*.72]];
+  for (const [sx,sy] of stars) {
+    ctxPrize.save();
+    ctxPrize.font = `${Math.min(h*.14,14)}px serif`;
+    ctxPrize.globalAlpha = .50;
+    ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
+    ctxPrize.fillText('✦', sx, sy);
+    ctxPrize.restore();
   }
-  c.textAlign = 'center'; c.textBaseline = 'middle';
-  c.font = '700 10px Manrope, sans-serif'; c.fillStyle = '#537347';
-  c.fillText('ВАШ МАЛЕНЬКИЙ РИТУАЛ', w/2, h*.09);
-  // Draw a ceramic cup as vector paths: no platform-dependent emoji.
-  c.save(); c.translate(w/2-8, h*.37); c.scale(h/265, h/265);
-  const ellipse = (x,y,rx,ry,fill) => {
-    c.beginPath(); c.ellipse(x,y,rx,ry,0,0,Math.PI*2); c.fillStyle=fill; c.fill();
-  };
-  c.shadowColor='#47614745'; c.shadowBlur=14; c.shadowOffsetY=8;
-  ellipse(6,58,83,14,'#acba8d'); c.shadowBlur=0; c.shadowOffsetY=0;
-  const plate=c.createLinearGradient(0,42,0,68);
-  plate.addColorStop(0,'#ffffff'); plate.addColorStop(.5,'#e4e8bf'); plate.addColorStop(1,'#97b17f');
-  ellipse(6,53,84,16,plate); ellipse(4,49,70,10,'#fffceb');
-  // Handle behind body.
-  c.lineWidth=14; c.strokeStyle='#689f76';
-  c.beginPath(); c.ellipse(58,9,24,26,-.15,0,Math.PI*2); c.stroke();
-  c.lineWidth=7; c.strokeStyle='#e0f6c0';
-  c.beginPath(); c.ellipse(59,6,22,24,-.15,0,Math.PI*2); c.stroke();
-  const ceramic=c.createLinearGradient(-61,0,60,0);
-  ceramic.addColorStop(0,'#08624b'); ceramic.addColorStop(.17,'#2ca06c'); ceramic.addColorStop(.38,'#92d992'); ceramic.addColorStop(.62,'#3daa70'); ceramic.addColorStop(1,'#055340');
-  c.beginPath(); c.moveTo(-61,-13); c.bezierCurveTo(-61,39,-39,54,0,55); c.bezierCurveTo(40,56,60,32,60,-13); c.closePath(); c.fillStyle=ceramic; c.fill();
-  c.lineWidth=2; c.strokeStyle='#c6eeb05c'; c.stroke();
-  ellipse(0,-14,61,21,'#effad3'); ellipse(0,-14,55,16,'#b97a3e');
-  const coffee=c.createLinearGradient(0,-28,0,3);
-  coffee.addColorStop(0,'#502b19'); coffee.addColorStop(.6,'#96572c'); coffee.addColorStop(1,'#dcae69');
-  ellipse(0,-13,51,14,coffee);
-  // Latte heart, foamy rim and reflected light.
-  c.save(); c.translate(0,-13); c.scale(1,.55);
-  c.beginPath(); c.moveTo(0,18); c.bezierCurveTo(-43,-6,-20,-30,0,-9); c.bezierCurveTo(20,-30,43,-6,0,18); c.fillStyle='#ffeac0'; c.fill(); c.restore();
-  c.strokeStyle='#d1a16a'; c.lineWidth=1; c.beginPath(); c.ellipse(0,-13,47,11,0,0,Math.PI*2); c.stroke();
-  c.strokeStyle='#edffd480'; c.lineWidth=4; c.lineCap='round'; c.beginPath(); c.moveTo(-43,3); c.quadraticCurveTo(-40,24,-30,32); c.stroke();
-  // Steam moves subtly, while the cup stays still beneath the scratch mask.
-  const phase=window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : performance.now()/1200;
-  c.lineWidth=2; c.strokeStyle='#65845355';
-  for (let i=-1;i<=1;i++) {
-    const x=i*20, drift=Math.sin(phase+i)*5;
-    c.beginPath(); c.moveTo(x,-42); c.bezierCurveTo(x-10,-52,x+12+drift,-62,x+drift,-74); c.stroke();
-  }
-  c.restore();
-  c.fillStyle='#0a533e'; c.font=`800 ${Math.min(w*.067,25)}px Manrope,sans-serif`;
-  c.fillText('Бесплатный кофе',w/2,h*.75);
-  c.font='500 12px Manrope,sans-serif'; c.fillStyle='#57714b';
-  c.fillText('Персональный купон',w/2,h*.855,w-28);
-  c.restore();
 }
 
-/* ── Foil layer — DARKER, brighter label ── */
+/* ── FOIL LAYER — dark, iridescent ── */
 function drawFoil(w, h) {
-  // Much darker base — around 42-48% lightness instead of 76-88%
   const base = ctxFoil.createLinearGradient(0, 0, w, h);
-  base.addColorStop(0,   'oklch(42% 0.025 200)');
-  base.addColorStop(.25, 'oklch(50% 0.020 200)');
-  base.addColorStop(.55, 'oklch(44% 0.028 200)');
-  base.addColorStop(.80, 'oklch(52% 0.018 200)');
-  base.addColorStop(1,   'oklch(40% 0.030 200)');
-  ctxFoil.fillStyle = base;
-  ctxFoil.fillRect(0, 0, w, h);
+  base.addColorStop(0,   'oklch(38% 0.030 200)');
+  base.addColorStop(.22, 'oklch(48% 0.022 210)');
+  base.addColorStop(.50, 'oklch(40% 0.032 195)');
+  base.addColorStop(.78, 'oklch(50% 0.018 205)');
+  base.addColorStop(1,   'oklch(36% 0.034 200)');
+  ctxFoil.fillStyle = base; ctxFoil.fillRect(0, 0, w, h);
 
-  // Iridescent tint — more vivid on dark background
   const iri = ctxFoil.createLinearGradient(0, 0, w, 0);
-  iri.addColorStop(0,   'oklch(75% 0.14 200 / .15)');
-  iri.addColorStop(.25, 'oklch(72% 0.14 148 / .12)');
-  iri.addColorStop(.5,  'oklch(75% 0.14 80  / .15)');
-  iri.addColorStop(.75, 'oklch(72% 0.14 310 / .12)');
-  iri.addColorStop(1,   'oklch(75% 0.14 200 / .15)');
-  ctxFoil.fillStyle = iri;
-  ctxFoil.fillRect(0, 0, w, h);
+  iri.addColorStop(0,   'oklch(78% 0.16 200 / .18)');
+  iri.addColorStop(.22, 'oklch(75% 0.16 148 / .14)');
+  iri.addColorStop(.50, 'oklch(78% 0.15 80  / .18)');
+  iri.addColorStop(.78, 'oklch(74% 0.15 310 / .13)');
+  iri.addColorStop(1,   'oklch(78% 0.16 200 / .18)');
+  ctxFoil.fillStyle = iri; ctxFoil.fillRect(0, 0, w, h);
 
-  // Fine grain on dark
-  for (let i = 0; i < 600; i++) {
-    const x = Math.random()*w, y = Math.random()*h;
+  /* crosshatch */
+  ctxFoil.save();
+  ctxFoil.globalAlpha = 0.07;
+  ctxFoil.strokeStyle = 'oklch(92% 0.04 200)';
+  ctxFoil.lineWidth = 0.8;
+  for (let x = -h; x < w + h; x += 18) {
+    ctxFoil.beginPath(); ctxFoil.moveTo(x, 0); ctxFoil.lineTo(x + h, h); ctxFoil.stroke();
+  }
+  ctxFoil.restore();
+
+  /* grain */
+  for (let i = 0; i < 700; i++) {
     ctxFoil.beginPath();
-    ctxFoil.arc(x, y, Math.random()*.9+.2, 0, Math.PI*2);
-    ctxFoil.fillStyle = `oklch(${Math.random()>.5?70:30}% 0.02 200 / ${Math.random()*.18+.03})`;
+    ctxFoil.arc(Math.random()*w, Math.random()*h, Math.random()*.85+.2, 0, Math.PI*2);
+    ctxFoil.fillStyle = `oklch(${Math.random()>.5?75:32}% 0.01 200 / ${Math.random()*.18+.03})`;
     ctxFoil.fill();
   }
 
-  // Bright specular streak — more visible on dark
-  const streak = ctxFoil.createLinearGradient(0, h*.35, 0, h*.47);
-  streak.addColorStop(0,  'oklch(100% 0 0 / 0)');
-  streak.addColorStop(.5, 'oklch(100% 0 0 / .22)');
-  streak.addColorStop(1,  'oklch(100% 0 0 / 0)');
-  ctxFoil.fillStyle = streak;
-  ctxFoil.fillRect(0, h*.35, w, h*.12);
+  /* specular */
+  const spec = ctxFoil.createLinearGradient(0, h*.30, w*.6, h*.60);
+  spec.addColorStop(0,  'oklch(100% 0 0 / 0)');
+  spec.addColorStop(.4, 'oklch(100% 0 0 / .20)');
+  spec.addColorStop(.6, 'oklch(100% 0 0 / .18)');
+  spec.addColorStop(1,  'oklch(100% 0 0 / 0)');
+  ctxFoil.fillStyle = spec; ctxFoil.fillRect(0, 0, w, h);
 
-  // BRIGHT label — white + glow on dark foil
-  // Glow pass
+  /* label with glow */
   ctxFoil.save();
-  ctxFoil.shadowColor = 'oklch(100% 0 0 / .9)';
-  ctxFoil.shadowBlur  = 12;
-  ctxFoil.font = `700 14px Manrope, system-ui, sans-serif`;
+  ctxFoil.shadowColor = 'oklch(100% 0 0 / .85)'; ctxFoil.shadowBlur = 14;
+  ctxFoil.font = '700 15px Inter, system-ui, sans-serif';
   ctxFoil.textAlign = 'center'; ctxFoil.textBaseline = 'middle';
-  ctxFoil.fillStyle = 'oklch(95% 0.04 80)'; // warm white
+  ctxFoil.fillStyle = 'oklch(96% 0.05 82)';
   ctxFoil.fillText('✦  С Т И Р А Й  ✦', w/2, h/2);
   ctxFoil.restore();
-  // Second pass without shadow for crispness
   ctxFoil.save();
-  ctxFoil.font = `700 14px Manrope, system-ui, sans-serif`;
+  ctxFoil.font = '700 15px Inter, system-ui, sans-serif';
   ctxFoil.textAlign = 'center'; ctxFoil.textBaseline = 'middle';
-  ctxFoil.fillStyle = '#fff';
+  ctxFoil.fillStyle = '#ffffff';
   ctxFoil.fillText('✦  С Т И Р А Й  ✦', w/2, h/2);
   ctxFoil.restore();
 }
 
-/* ═══ SCRATCH ═══════════════════════════════════════════ */
+/* ── SCRATCH ── */
 function getPos(e) {
   const rect = cvsFoil.getBoundingClientRect();
   const src = e.changedTouches ? e.changedTouches[0] : e;
-  // The context is already scaled by DPR. Convert screen coordinates
-  // to its logical drawing units, not to physical pixels a second time.
-  const transform = ctxFoil.getTransform();
+  const t = ctxFoil.getTransform();
   return {
-    x: (src.clientX - rect.left) * cvsFoil.width / rect.width / transform.a,
-    y: (src.clientY - rect.top) * cvsFoil.height / rect.height / transform.d,
+    x: (src.clientX - rect.left) * cvsFoil.width / rect.width / t.a,
+    y: (src.clientY - rect.top)  * cvsFoil.height / rect.height / t.d,
   };
 }
 
 function scratchAt(x, y) {
   ctxFoil.globalCompositeOperation = 'destination-out';
   if (lastPt) {
-    ctxFoil.beginPath();
-    ctxFoil.moveTo(lastPt.x, lastPt.y);
-    ctxFoil.lineTo(x, y);
-    ctxFoil.lineWidth = BRUSH * 2; ctxFoil.lineCap = 'round'; ctxFoil.lineJoin = 'round';
+    ctxFoil.beginPath(); ctxFoil.moveTo(lastPt.x, lastPt.y); ctxFoil.lineTo(x, y);
+    ctxFoil.lineWidth = BRUSH*2; ctxFoil.lineCap = 'round'; ctxFoil.lineJoin = 'round';
     ctxFoil.stroke();
   }
-  ctxFoil.beginPath();
-  ctxFoil.arc(x, y, BRUSH, 0, Math.PI*2);
-  ctxFoil.fill();
+  ctxFoil.beginPath(); ctxFoil.arc(x, y, BRUSH, 0, Math.PI*2); ctxFoil.fill();
   lastPt = {x, y};
-
-  hapticTick();
-  playTick(x, y);
-  spawnFlakes(x, y);   // more flakes, bigger, darker colour
-
+  hapticTick(); playTick(x, y); spawnFlakes(x, y);
   const now = performance.now();
   if (now - lastTick > TICK_MS) { lastTick = now; checkCoverage(); }
 }
 
-/* ═══ COVERAGE ══════════════════════════════════════════ */
+/* ── COVERAGE ── */
 function checkCoverage() {
   if (revealed) return;
   const d = ctxFoil.getImageData(0, 0, cvsFoil.width, cvsFoil.height).data;
   let cleared = 0;
   for (let i = 3; i < d.length; i += 32) if (d[i] < 100) cleared++;
   const pct = cleared / (d.length / 32);
-  progFill.style.width = Math.min(pct * 100, 100) + '%';
+  progFill.style.width = Math.min(pct*100, 100) + '%';
   if (pct >= THRESHOLD) revealAll();
 }
 
-/* ═══ REVEAL ════════════════════════════════════════════ */
+/* ── REVEAL ── */
 function revealAll() {
   if (revealed) return;
-  stopRustle();
-  revealed = true;
+  stopRustle(); revealed = true;
   progFill.style.width = '100%';
-  cvsFoil.classList.add('fading');
-  zone.classList.add('done');
-  hint.classList.add('gone');
-  progTrk.classList.add('gone');
-  btnClear.classList.add('gone');
-  if (navigator.vibrate) navigator.vibrate([35,55,35,55,90]);
-  setTimeout(() => btnCta.classList.add('visible'), 650);
-  setTimeout(launchConfetti, 380);
+  cvsFoil.classList.add('fading'); zone.classList.add('done');
+  hint.classList.add('gone'); progTrk.classList.add('gone'); btnClear.classList.add('gone');
+  if (navigator.vibrate) navigator.vibrate([35,60,35,60,100]);
+  document.getElementById('claim').hidden = false;
+  document.getElementById('moreTeaser').hidden = false;
+  zone.setAttribute('aria-label', 'Купон на 100% кешбэк на кофе');
+  setTimeout(() => btnCta.classList.add('visible'), 680);
+  setTimeout(launchConfetti, 360);
 }
 
-/* ═══ EVENTS ════════════════════════════════════════════ */
+/* ── EVENTS ── */
 let activePointer = null;
 function endStroke(e) {
   if (e && e.pointerId !== undefined && e.pointerId !== activePointer) return;
-  activePointer = null;
-  drawing = false; lastPt = null;
-  stopRustle();
+  activePointer = null; drawing = false; lastPt = null; stopRustle();
 }
+
 if (window.PointerEvent) {
   zone.addEventListener('pointerdown', e => {
-    if (revealed || !e.isPrimary || (e.pointerType === 'mouse' && e.button !== 0)) return;
-    // Keep the trusted down event uncancelled. CSS touch-action prevents scroll.
-    activePointer = e.pointerId;
-    drawing = true; lastPt = null; audioPoint = null;
-    lastHaptic = -Infinity;
-    feedbackUntil = performance.now() + 150;
-    ensureAudio();
+    if (revealed || !e.isPrimary || (e.pointerType==='mouse' && e.button!==0)) return;
+    activePointer = e.pointerId; drawing = true; lastPt = null; audioPoint = null;
+    lastHaptic = -Infinity; feedbackUntil = performance.now()+150; ensureAudio();
     zone.setPointerCapture(e.pointerId);
     const p = getPos(e); scratchAt(p.x, p.y);
   });
@@ -716,9 +779,7 @@ if (window.PointerEvent) {
   });
   zone.addEventListener('pointerup', e => {
     if (e.pointerId !== activePointer) return;
-    endStroke(e);
-    // Some browsers grant audio activation only at the end of a touch.
-    ensureAudio();
+    endStroke(e); ensureAudio();
   });
   zone.addEventListener('pointercancel', endStroke);
   zone.addEventListener('lostpointercapture', endStroke);
@@ -731,8 +792,7 @@ if (window.PointerEvent) {
   }, {passive:true});
   zone.addEventListener('touchmove', e => {
     if (!drawing || revealed) return;
-    e.preventDefault();
-    const p = getPos(e); scratchAt(p.x, p.y);
+    e.preventDefault(); const p = getPos(e); scratchAt(p.x, p.y);
   }, {passive:false});
   zone.addEventListener('touchend', () => { endStroke(); ensureAudio(); });
   zone.addEventListener('touchcancel', () => endStroke());
@@ -743,177 +803,93 @@ if (window.PointerEvent) {
     const p = getPos(e); scratchAt(p.x, p.y);
   });
   zone.addEventListener('mousemove', e => {
-    if (!drawing || revealed) return;
-    const p = getPos(e); scratchAt(p.x, p.y);
+    if (!drawing || revealed) return; const p = getPos(e); scratchAt(p.x, p.y);
   });
   window.addEventListener('mouseup', () => endStroke());
 }
 window.addEventListener('blur', () => endStroke());
 btnClear.addEventListener('click', () => { ensureAudio(); revealAll(); });
-
 [btnClear, btnCta].forEach(btn =>
   btn.addEventListener('pointerdown', e => {
     const r = btn.getBoundingClientRect();
-    const size = Math.max(r.width, r.height) * 1.5;
+    const sz = Math.max(r.width, r.height) * 1.5;
     const el = document.createElement('span');
     el.className = 'ripple';
-    el.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px;`;
+    el.style.cssText = `width:${sz}px;height:${sz}px;left:${e.clientX-r.left-sz/2}px;top:${e.clientY-r.top-sz/2}px;`;
     btn.appendChild(el);
     el.addEventListener('animationend', () => el.remove());
   })
 );
 
-/* ═══ FLAKES — foil chips flying off ═══════════════════
-   Dark silver + gold chips, larger, more of them
-═══════════════════════════════════════════════════════ */
+/* ── FLAKES ── */
 const FLAKE_COLORS = [
-  // Dark foil chips (matches the new dark foil)
-  'oklch(42% 0.02 200)',
-  'oklch(52% 0.03 200)',
-  'oklch(38% 0.02 200)',
-  'oklch(60% 0.02 200)',
-  // Gold flecks
-  'oklch(78% 0.14 82)',
-  'oklch(65% 0.12 78)',
-  // Bright specular flakes
-  'oklch(88% 0.02 200)',
+  'oklch(40% 0.025 200)','oklch(50% 0.030 200)','oklch(35% 0.020 200)','oklch(58% 0.022 200)',
+  'oklch(78% 0.16 82)','oklch(66% 0.14 78)','oklch(90% 0.02 200)',
 ];
-
 function spawnFlakes(cx, cy) {
-  // Spawn more flakes (was 38%, now always spawn 2-5)
-  const count = Math.floor(Math.random() * 4) + 2;
+  const count = Math.floor(Math.random()*4)+2;
   const rect = cvsFoil.getBoundingClientRect();
-  const transform = ctxFoil.getTransform();
-  // Inverse of getPos: flakes originate exactly at the touch point.
-  const sx = rect.left + cx * transform.a * rect.width / cvsFoil.width;
-  const sy = rect.top + cy * transform.d * rect.height / cvsFoil.height;
-
+  const t = ctxFoil.getTransform();
+  const sx = rect.left + cx * t.a * rect.width  / cvsFoil.width;
+  const sy = rect.top  + cy * t.d * rect.height / cvsFoil.height;
   for (let i = 0; i < count; i++) {
-    const angle = Math.random() * Math.PI * 2;
-    const speed = Math.random() * 5 + 2;       // faster
-    const size  = Math.random() * 5 + 2;       // bigger (was 3.5+1.5)
-    // Random shape: circle or small rect
-    const isRect = Math.random() > .5;
+    const ang = Math.random()*Math.PI*2, spd = Math.random()*5+2.2, sz = Math.random()*5+2;
+    const ir = Math.random()>.5;
     flakes.push({
-      x: sx + (Math.random()-0.5)*4,
-      y: sy + (Math.random()-0.5)*4,
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed - 2.5,
-      r: size,
-      w: isRect ? size * 2.2 : size,     // rect width
-      h: isRect ? size * 0.9 : size,     // rect height
-      rot: Math.random() * Math.PI * 2,
-      vr: (Math.random() - 0.5) * 0.4,  // rotation speed
-      isRect,
-      a: 0.92,
-      c: FLAKE_COLORS[Math.floor(Math.random() * FLAKE_COLORS.length)],
+      x: sx+(Math.random()-.5)*4, y: sy+(Math.random()-.5)*4,
+      vx: Math.cos(ang)*spd, vy: Math.sin(ang)*spd-2.8,
+      r: sz, w: ir?sz*2.2:sz, h: ir?sz*.85:sz,
+      rot: Math.random()*Math.PI*2, vr: (Math.random()-.5)*.4, ir, a: .92,
+      c: FLAKE_COLORS[Math.floor(Math.random()*FLAKE_COLORS.length)],
     });
   }
 }
-
 function tickFlakes() {
-  pctx.clearRect(0, 0, pcvs.width, pcvs.height);
-  flakes = flakes.filter(p => p.a > .02);
+  pctx.clearRect(0,0,pcvs.width,pcvs.height);
+  flakes = flakes.filter(p=>p.a>.022);
   for (const p of flakes) {
-    p.x  += p.vx; p.y += p.vy; p.vy += .20;  // gravity
-    p.rot += p.vr;
-    p.a  *= 0.87;
-    pctx.save();
-    pctx.globalAlpha = p.a;
-    pctx.fillStyle   = p.c;
-    if (p.isRect) {
-      pctx.translate(p.x, p.y); pctx.rotate(p.rot);
-      pctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
-    } else {
-      pctx.beginPath(); pctx.arc(p.x, p.y, p.r, 0, Math.PI*2); pctx.fill();
-    }
+    p.x+=p.vx; p.y+=p.vy; p.vy+=.20; p.rot+=p.vr; p.a*=.875;
+    pctx.save(); pctx.globalAlpha=p.a; pctx.fillStyle=p.c;
+    if (p.ir) { pctx.translate(p.x,p.y); pctx.rotate(p.rot); pctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); }
+    else { pctx.beginPath(); pctx.arc(p.x,p.y,p.r,0,Math.PI*2); pctx.fill(); }
     pctx.restore();
   }
   requestAnimationFrame(tickFlakes);
 }
 tickFlakes();
 
-/* ═══ CONFETTI ══════════════════════════════════════════ */
-const CONF = ['oklch(51% 0.19 148)','oklch(63% 0.18 148)','oklch(84% 0.17 82)','#ffffff','oklch(86% 0.09 148)','oklch(74% 0.17 78)'];
+/* ── CONFETTI ── */
+const CONF = ['oklch(52% 0.19 148)','oklch(64% 0.18 148)','oklch(84% 0.17 82)','oklch(90% 0.14 88)','#ffffff','oklch(87% 0.09 148)','oklch(73% 0.17 76)'];
 function launchConfetti() {
-  ccvs.width = innerWidth; ccvs.height = innerHeight;
-  confettiPieces = [];
-  for (let i = 0; i < 140; i++) confettiPieces.push({
-    x: Math.random()*innerWidth,
-    y: -20-Math.random()*innerHeight*.25,
-    w: Math.random()*10+5, h: Math.random()*6+3,
-    r: Math.random()*Math.PI*2, vx: (Math.random()-.5)*5,
-    vy: Math.random()*4+2.5, vr: (Math.random()-.5)*.14,
-    c: CONF[Math.floor(Math.random()*CONF.length)], life: 1,
+  ccvs.width=innerWidth; ccvs.height=innerHeight; confettiPieces=[];
+  for (let i=0;i<160;i++) confettiPieces.push({
+    x:Math.random()*innerWidth, y:-20-Math.random()*innerHeight*.3,
+    w:Math.random()*11+5, h:Math.random()*6+3,
+    r:Math.random()*Math.PI*2, vx:(Math.random()-.5)*5.5,
+    vy:Math.random()*4.5+2.5, vr:(Math.random()-.5)*.15,
+    c:CONF[Math.floor(Math.random()*CONF.length)], life:1,
   });
   tickConf();
 }
 function tickConf() {
   cctx.clearRect(0,0,ccvs.width,ccvs.height);
-  let any = false;
+  let any=false;
   for (const p of confettiPieces) {
     if (p.life<=0||p.y>ccvs.height){p.life=0;continue;}
-    p.x+=p.vx; p.y+=p.vy; p.vy+=.055; p.r+=p.vr; p.life-=.005;
-    any=true;
+    p.x+=p.vx; p.y+=p.vy; p.vy+=.055; p.r+=p.vr; p.life-=.0045; any=true;
     cctx.save(); cctx.translate(p.x,p.y); cctx.rotate(p.r);
     cctx.globalAlpha=Math.max(p.life,0); cctx.fillStyle=p.c;
-    cctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
-    cctx.restore();
+    cctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); cctx.restore();
   }
   if (any) requestAnimationFrame(tickConf);
 }
 
-/* ═══ RESIZE ════════════════════════════════════════════ */
 window.addEventListener('resize', () => {
   if (!revealed) initCanvas();
   pcvs.width=ccvs.width=innerWidth; pcvs.height=ccvs.height=innerHeight;
 });
 
 requestAnimationFrame(() => requestAnimationFrame(initCanvas));
-
-// Animate the prize independently: never repaint or reset the scratched foil.
-const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
-const lightCanvas = document.getElementById('foilLight');
-const lightContext = lightCanvas.getContext('2d');
-let lastVisualFrame = 0;
-let cardInView = true;
-if ('IntersectionObserver' in window) {
-  new IntersectionObserver(entries => { cardInView = entries[0].isIntersecting; }).observe(zone);
-}
-function animatePrizeAndLight(time) {
-  requestAnimationFrame(animatePrizeAndLight);
-  if (document.hidden || !cardInView || time - lastVisualFrame < 33) return;
-  lastVisualFrame = time;
-  if (!cvsPrize.width || !cvsFoil.width) return;
-  const transform = ctxPrize.getTransform();
-  const w = cvsPrize.width / transform.a, h = cvsPrize.height / transform.d;
-  if (!motionPreference.matches) drawPrize(w, h);
-  if (lightCanvas.width !== cvsFoil.width || lightCanvas.height !== cvsFoil.height) {
-    lightCanvas.width = cvsFoil.width; lightCanvas.height = cvsFoil.height;
-  }
-  const c = lightContext, W = lightCanvas.width, H = lightCanvas.height;
-  c.clearRect(0, 0, W, H);
-  if (revealed || motionPreference.matches) return;
-  // Use the remaining foil alpha as the mask, so the moving light cannot
-  // paint over the holes or obscure the coffee during scratching.
-  c.globalCompositeOperation = 'source-over';
-  c.drawImage(cvsFoil, 0, 0);
-  c.globalCompositeOperation = 'source-in';
-  const x = ((time % 4200) / 4200 * 2 - .5) * W;
-  const shine = c.createLinearGradient(x - W*.3, 0, x + W*.3, H*.25);
-  shine.addColorStop(0, 'rgba(180,255,228,0)');
-  shine.addColorStop(.35, 'rgba(167,245,210,.06)');
-  shine.addColorStop(.5, 'rgba(255,245,199,.26)');
-  shine.addColorStop(.65, 'rgba(218,192,255,.08)');
-  shine.addColorStop(1, 'rgba(218,192,255,0)');
-  c.fillStyle = shine; c.fillRect(0, 0, W, H);
-  c.globalCompositeOperation = 'source-over';
-}
-requestAnimationFrame(animatePrizeAndLight);
-if (document.fonts) document.fonts.ready.then(() => {
-  const t = ctxPrize.getTransform();
-  drawPrize(cvsPrize.width / t.a, cvsPrize.height / t.d);
-});
 </script>
 </body>
 </html>

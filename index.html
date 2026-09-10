@@ -385,6 +385,85 @@
       *,*::before,*::after { animation:none!important; transition:none!important; }
       .steam { opacity:.7; }
     }
+    /* Visual finish only: no changes to scratch, audio, links or copy. */
+    html, body { text-rendering:optimizeLegibility; }
+    .card {
+      box-shadow:0 0 0 1px #ffeab438,0 28px 80px #0009,0 0 65px #59bd5020;
+      background:linear-gradient(150deg,#fffef8,#f5f4e9);
+    }
+    .card-header {
+      background:radial-gradient(ellipse at 50% 12%,#388d48 0%,#155936 48%,#082d23 100%);
+    }
+    .card-header::before {
+      background:radial-gradient(ellipse at 25% 0%,#c9f88730,transparent 58%),radial-gradient(ellipse at 95% 85%,#dec87818,transparent 55%);
+    }
+    .header-title { font-weight:800; letter-spacing:-1.35px; line-height:1.12; text-shadow:0 3px 20px #001b2380; }
+    .header-title em { background-image:linear-gradient(105deg,#e5b64e 0%,#ffe394 24%,#fffef3 44%,#f7d273 63%,#e4b34d 80%,#fff0b3 100%); text-shadow:none; }
+    .header-sub { color:#d6e9d9; font-weight:500; }
+    .brand { font-weight:800; letter-spacing:.24em; }
+    .brand-dot { box-shadow:0 0 10px #ffe19d8c; }
+    .gift-wrap svg { filter:drop-shadow(0 2px 1px #fcffe526); }
+    .coffee-prize {
+      background:radial-gradient(ellipse at 48% 36%,#659864 0%,#306649 33%,#123e2d 66%,#082a21 100%);
+    }
+    .coffee-prize::before {
+      background:conic-gradient(from 15deg,transparent 0deg,#e2ef9120 40deg,transparent 85deg,#b9ffe520 150deg,transparent 200deg,#ffe29a28 270deg,transparent 320deg);
+      animation-duration:22s;
+    }
+    .coffee-prize::after { border-color:#f8dc9566; box-shadow:inset 0 0 22px #d9ffc50d; }
+    .coffee-label { color:#ffe9ad; letter-spacing:2px; text-shadow:0 1px 8px #072219; }
+    .coffee-art { filter:drop-shadow(0 12px 9px #031d2850); }
+    .cup-body { filter:drop-shadow(0 1px 1px #fff2ba50); }
+    .steam {
+      stroke:#fffaf0; stroke-width:5.5; filter:drop-shadow(0 0 3px #fff0c5a0);
+      transform-box:fill-box; transform-origin:50% 100%;
+      animation-name:steam-silk; animation-duration:3.6s;
+    }
+    .steam.s2 { stroke-width:6.5; animation-delay:-1.2s; }
+    .steam.s3 { stroke-width:4.5; animation-delay:-2.4s; }
+    @keyframes steam-silk {
+      0% { opacity:.18; transform:translate(0,7px) scale(.92,.88); }
+      25% { opacity:.95; }
+      60% { opacity:.65; transform:translate(-3px,-5px) scale(1.06,1); }
+      100% { opacity:.08; transform:translate(5px,-15px) scale(1.13,1.06); }
+    }
+    .coffee-title {
+      font-size:clamp(19px,5.35vw,23px); letter-spacing:-.65px; line-height:1.22;
+      color:#fff5d9; text-shadow:0 2px 12px #001e2370;
+    }
+    .cashback-number {
+      color:#ffe091; font-weight:800;
+      background:linear-gradient(105deg,#f3c55e,#fff4cb 40%,#ffffff 50%,#efc76c 72%,#ffebb0);
+      background-size:230% 100%; background-clip:text; -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent; text-shadow:none; animation:gold-flow 6s ease-in-out infinite;
+    }
+    .coffee-caption { color:#e5ecda; font-weight:500; letter-spacing:.05px; }
+    .spark { text-shadow:0 0 10px #ffdf9170; }
+    .claim { background:linear-gradient(125deg,#fff9e8,#f7ecd1 65%,#fffaf0); box-shadow:inset 0 1px 0 #fff,0 7px 20px #7b621610; border-color:#ddc788; }
+    .claim-title { font-weight:800; letter-spacing:-.55px; }
+    .claim-check { background:linear-gradient(145deg,#3c9454,#135235); box-shadow:inset 0 1px 0 #ffffff50,0 3px 8px #18392325; }
+    .btn { letter-spacing:-.25px; }
+    .btn-clear { background:linear-gradient(125deg,#80e88c 0%,#31b861 30%,#138344 62%,#075b36 100%); text-shadow:0 1px 3px #05412565; }
+    .btn-cta { background-image:linear-gradient(115deg,#fff0b3 0%,#f4ce70 28%,#ffe6a0 47%,#e0ad44 75%,#fff0b3 100%); }
+    .btn::after { background:linear-gradient(90deg,transparent,#fff9dc70,transparent); }
+    @media (prefers-reduced-motion:reduce) {
+      .steam { animation:none!important; opacity:.8; transform:none; }
+      .cashback-number { animation:none!important; }
+    }
+    /* Compact header only; keep prize, copy and controls at their original sizes. */
+    .gift-wrap { display:none; }
+    .card-header { padding-top:12px; padding-bottom:14px; }
+    .brand { margin-bottom:7px; }
+    .header-sub { margin-top:7px; }
+    @media (max-height:820px) {
+      .header-sub { display:none; }
+    }
+    @media (max-height:740px) {
+      .card:has(.scratch-zone.done) .card-header { display:none; }
+    }
+    @media (max-height:600px) {
+      .card-header { display:none; }
+    }
   </style>
 </head>
 <body>
@@ -444,7 +523,10 @@
               <path d="M157 96 C201 82 196 143 158 141" fill="none" stroke="#96ab92" stroke-width="16"/>
               <path d="M158 94 C196 88 190 134 159 134" fill="none" stroke="#f9f0db" stroke-width="9"/>
               <path d="M49 90 Q52 154 82 163 Q111 176 142 161 Q163 147 166 90Z" fill="url(#porcelain)"/>
-              <path d="M60 110 Q63 143 77 151" stroke="#ffffffb0" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M60 110 Q63 143 77 151" stroke="#ffffffdc" stroke-width="5" fill="none" stroke-linecap="round"/>
+              <path d="M66 110 Q69 137 79 144" stroke="#fffce975" stroke-width="11" fill="none" stroke-linecap="round"/>
+              <path d="M141 111 Q139 142 128 151" stroke="#657c5830" stroke-width="8" fill="none" stroke-linecap="round"/>
+              <path d="M76 163 Q107 176 140 162" stroke="#fff4ca95" stroke-width="2" fill="none"/>
               <ellipse cx="107" cy="90" rx="59" ry="21" fill="url(#gold)"/>
               <ellipse cx="107" cy="88" rx="55" ry="18" fill="#fff0d2"/>
               <ellipse cx="107" cy="89" rx="49" ry="14" fill="url(#espresso)"/>
@@ -458,7 +540,7 @@
               <path class="steam s3" d="M140 66 C121 50 154 34 139 17"/>
             </g>
           </svg>
-          <div class="coffee-title">100% кешбэк на кофе</div>
+          <div class="coffee-title"><span class="cashback-number">100%</span> кешбэк на кофе</div>
           <div class="coffee-caption">Маленькая пауза. Большое удовольствие.</div>
         </div>
         <canvas id="cvsPrize" aria-hidden="true"></canvas>

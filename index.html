@@ -540,7 +540,7 @@
               <path class="steam s3" d="M140 66 C121 50 154 34 139 17"/>
             </g>
           </svg>
-          <div class="coffee-title"><span class="cashback-number">100%</span> кешбэк на кофе</div>
+          <div class="coffee-title"><span class="cashback-number">100%</span> кешбэк за кофе</div>
           <div class="coffee-caption">Маленькая пауза. Большое удовольствие.</div>
         </div>
         <canvas id="cvsPrize" aria-hidden="true"></canvas>
@@ -560,7 +560,7 @@
 
       <section class="claim" id="claim" hidden aria-live="polite" aria-labelledby="claimTitle">
         <div class="claim-top"><span class="claim-check" aria-hidden="true">✓</span><h2 class="claim-title" id="claimTitle">Ваш кешбэк — 100%</h2></div>
-        <p>При покупке кофе в кафе <span class="select-word">SELECT</span> предъявите <strong>карту лояльности</strong>, чтобы получить 100% кешбэк на кофе.</p>
+        <p>При покупке кофе в кафе <span class="select-word">SELECT</span> предъявите <strong>карту лояльности</strong>, чтобы получить 100% кешбэк за кофе.</p>
       </section>
       <p class="more-teaser" id="moreTeaser" hidden>А дальше — ещё больше приятного</p>
       <a class="btn btn-cta" id="btnCta"
@@ -714,7 +714,7 @@ function drawPrize(w, h) {
   ctxPrize.font = `800 ${Math.min(h*.175,19)}px Inter, system-ui, sans-serif`;
   ctxPrize.fillStyle = 'oklch(36% 0.16 148)';
   ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
-  ctxPrize.fillText('100% кешбэк на кофе', w/2, h*.70);
+  ctxPrize.fillText('100% кешбэк за кофе', w/2, h*.70);
   ctxPrize.restore();
 
   /* corner stars */
@@ -835,7 +835,7 @@ function revealAll() {
   if (navigator.vibrate) navigator.vibrate([35,60,35,60,100]);
   document.getElementById('claim').hidden = false;
   document.getElementById('moreTeaser').hidden = false;
-  zone.setAttribute('aria-label', 'Купон на 100% кешбэк на кофе');
+  zone.setAttribute('aria-label', 'Купон на 100% кешбэк за кофе');
   setTimeout(() => btnCta.classList.add('visible'), 680);
   setTimeout(launchConfetti, 360);
 }

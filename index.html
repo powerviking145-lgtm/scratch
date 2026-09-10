@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Ваш подарок — Перекрёсток</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Brand greens */
+      --g900: oklch(22% 0.10 145);
+      --g800: oklch(30% 0.13 145);
+      --g700: oklch(38% 0.15 145);
+      --g600: oklch(45% 0.17 145);
+      --g500: oklch(52% 0.18 145);
+      --g400: oklch(62% 0.16 145);
+      --g300: oklch(73% 0.13 145);
+      --g200: oklch(85% 0.07 145);
+      --g100: oklch(94% 0.04 145);
+      --g050: oklch(97% 0.02 145);
+      /* Gold accent */
+      --gold-hi:  oklch(82% 0.16 82);
+      --gold-mid: oklch(72% 0.17 78);
+      --gold-lo:  oklch(58% 0.14 70);
+      /* Neutrals */
+      --ink:      oklch(15% 0.01 145);
+      --muted:    oklch(52% 0.03 145);
+      --border:   oklch(88% 0.03 145);
+      --surface:  oklch(99% 0.005 145);
+      /* Space rhythm */
+      --r-sm: 10px;
+      --r-md: 18px;
+      --r-lg: 24px;
+      --r-xl: 32px;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--g900);
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior: none;
+      touch-action: none;
+    }
+
+    /* ── Layout ──────────────────────────────────────── */
+    .scene {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px 40px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--surface);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px oklch(100% 0 0 / .06),
+        0 24px 64px oklch(0% 0 0 / .55),
+        0 8px 16px oklch(0% 0 0 / .3);
+    }
+
+    /* ── Header ──────────────────────────────────────── */
+    .card-header {
+      position: relative;
+      overflow: hidden;
+      background: var(--g600);
+      padding: 32px 28px 40px;
+      text-align: center;
+    }
+
+    /* Radial glow behind gift */
+    .card-header::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 30%, oklch(65% 0.18 145 / .45) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 50% 100%, var(--g800) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .brand {
+      position: relative;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: oklch(88% 0.09 145);
+      margin-bottom: 20px;
+    }
+
+    /* SVG gift — inline so we can animate parts */
+    .gift-wrap {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 20px;
+      animation: hover 3.2s ease-in-out infinite;
+    }
+    @keyframes hover {
+      0%,100% { transform: translateY(0)   rotate(0deg); }
+      40%      { transform: translateY(-9px) rotate(-1.5deg); }
+      70%      { transform: translateY(-5px) rotate(1deg); }
+    }
+
+    .header-title {
+      position: relative;
+      font-size: 28px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.5px;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .header-sub {
+      position: relative;
+      font-size: 14px;
+      font-weight: 500;
+      color: oklch(88% 0.07 145);
+      letter-spacing: -.1px;
+    }
+
+    /* ── Card body ───────────────────────────────────── */
+    .card-body {
+      padding: 24px 20px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    /* ── Scratch zone ────────────────────────────────── */
+    .scratch-zone {
+      width: 100%;
+      position: relative;
+      border-radius: var(--r-md);
+      overflow: hidden;
+      box-shadow:
+        inset 0 0 0 1.5px var(--border),
+        0 4px 20px oklch(0% 0 0 / .1);
+      touch-action: none;
+      cursor: crosshair;
+    }
+    /* Force 16:8 aspect */
+    .scratch-zone::before {
+      content: '';
+      display: block;
+      padding-top: 50%;
+    }
+
+    /* Prize layer — revealed content underneath */
+    .prize-layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 16px;
+      /* Premium light background with subtle warmth */
+      background:
+        radial-gradient(ellipse 70% 80% at 50% 40%, oklch(98% 0.015 80) 0%, var(--g050) 100%);
+      user-select: none;
+    }
+
+    /* Rainbow shimmer over prize layer */
+    .prize-sheen {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        110deg,
+        transparent         20%,
+        oklch(82% 0.12 200 / .18) 32%,
+        oklch(80% 0.14 145 / .15) 44%,
+        oklch(82% 0.14 80  / .18) 56%,
+        oklch(80% 0.10 300 / .12) 68%,
+        transparent         80%
+      );
+      background-size: 250% 100%;
+      animation: sheen 3.6s linear infinite;
+      pointer-events: none;
+      border-radius: inherit;
+    }
+    @keyframes sheen {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -50% 0; }
+    }
+
+    .prize-icon {
+      font-size: 44px;
+      line-height: 1;
+      transform: scale(.8);
+      opacity: 0;
+      transition: transform .5s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
+    }
+    .prize-text-main {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--g700);
+      letter-spacing: -.3px;
+      text-align: center;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: transform .45s .08s ease, opacity .35s .08s ease;
+    }
+    .prize-text-sub {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      text-align: center;
+      transform: translateY(8px);
+      opacity: 0;
+      transition: transform .45s .16s ease, opacity .35s .16s ease;
+    }
+
+    /* When revealed, animate children in */
+    .prize-layer.revealed .prize-icon {
+      transform: scale(1);
+      opacity: 1;
+    }
+    .prize-layer.revealed .prize-text-main,
+    .prize-layer.revealed .prize-text-sub {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Scratch canvas — sits on top of prize layer */
+    #cvs {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: var(--r-md);
+      transition: opacity .7s ease;
+    }
+    #cvs.fading { opacity: 0; pointer-events: none; }
+
+    /* ── Hint row ────────────────────────────────────── */
+    .hint-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: opacity .4s;
+    }
+    .hint-row.hidden { opacity: 0; pointer-events: none; }
+    .hint-finger {
+      display: inline-block;
+      animation: swipe 1.8s ease-in-out infinite;
+      font-size: 17px;
+    }
+    @keyframes swipe {
+      0%   { transform: translateX(-5px); opacity: .7; }
+      50%  { transform: translateX(6px);  opacity: 1;  }
+      100% { transform: translateX(-5px); opacity: .7; }
+    }
+
+    /* ── Progress bar ────────────────────────────────── */
+    .progress-track {
+      width: 100%;
+      height: 5px;
+      background: var(--g100);
+      border-radius: 99px;
+      overflow: hidden;
+      transition: opacity .4s;
+    }
+    .progress-track.hidden { opacity: 0; }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--g500), var(--g300));
+      border-radius: 99px;
+      transition: width .08s linear;
+    }
+
+    /* ── Buttons ─────────────────────────────────────── */
+    .btn {
+      width: 100%;
+      padding: 16px 20px;
+      border: none;
+      border-radius: 99px;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -.15px;
+      cursor: pointer;
+      transition: transform .12s ease, box-shadow .12s ease, opacity .2s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn:disabled { opacity: .45; pointer-events: none; }
+
+    .btn-clear {
+      background: linear-gradient(135deg, var(--g500), var(--g700));
+      color: #fff;
+      box-shadow: 0 4px 18px var(--g600) / .4, 0 1px 3px oklch(0% 0 0 / .15);
+      transition: transform .12s, box-shadow .12s, opacity .4s;
+    }
+    .btn-clear.hidden { opacity: 0; pointer-events: none; }
+
+    .btn-cta {
+      background: linear-gradient(135deg, var(--gold-hi), var(--gold-mid));
+      color: oklch(18% 0.06 78);
+      box-shadow: 0 6px 24px var(--gold-mid) / .5, 0 1px 4px oklch(0% 0 0 / .1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(14px);
+      pointer-events: none;
+      transition: transform .5s .25s ease, opacity .4s .25s ease, box-shadow .12s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn-cta.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .btn-cta::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 30%, oklch(100% 0 0 / .18) 50%, transparent 70%);
+      background-size: 200% 100%;
+      animation: shimmer 2.6s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .btn-cta:active { transform: scale(.97) !important; }
+
+    /* ── Confetti canvas ─────────────────────────────── */
+    #ccvs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ── Particle layer ──────────────────────────────── */
+    #pcvs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 998;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .gift-wrap, .hint-finger, .btn-cta::after { animation: none; }
+    }
+  </style>
+</head>
+<body>
+<canvas id="ccvs"></canvas>
+<canvas id="pcvs"></canvas>
+
+<div class="scene">
+  <div class="card">
+
+    <!-- Header -->
+    <div class="card-header">
+      <p class="brand">Перекрёсток</p>
+
+      <div class="gift-wrap" aria-hidden="true">
+        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Shadow -->
+          <ellipse cx="48" cy="88" rx="30" ry="6" fill="oklch(0% 0 0 / .22)"/>
+          <!-- Box -->
+          <rect x="12" y="46" width="72" height="38" rx="8" fill="oklch(56% 0.19 145)"/>
+          <!-- Box lid -->
+          <rect x="8"  y="36" width="80" height="20" rx="7" fill="oklch(64% 0.20 145)"/>
+          <!-- Vertical ribbon -->
+          <rect x="43" y="36" width="10" height="48" rx="5" fill="var(--gold-hi)"/>
+          <!-- Horizontal ribbon on lid -->
+          <rect x="8"  y="43" width="80" height="8"  rx="4" fill="var(--gold-hi)"/>
+          <!-- Bow left loop -->
+          <ellipse cx="34" cy="32" rx="14" ry="9" fill="var(--gold-hi)" transform="rotate(-18 34 32)"/>
+          <!-- Bow right loop -->
+          <ellipse cx="62" cy="32" rx="14" ry="9" fill="var(--gold-hi)" transform="rotate(18 62 32)"/>
+          <!-- Bow centre -->
+          <circle cx="48" cy="33" r="7" fill="var(--gold-hi)"/>
+          <circle cx="48" cy="33" r="4" fill="oklch(90% 0.17 82)"/>
+          <!-- Stars -->
+          <circle cx="80" cy="14" r="3.5" fill="oklch(90% 0.17 82)" opacity=".9"/>
+          <circle cx="16" cy="20" r="2.5" fill="oklch(90% 0.17 82)" opacity=".7"/>
+          <!-- Sparkle star -->
+          <path d="M82 4 L83.4 8.6 L88 8.6 L84.3 11.4 L85.7 16 L82 13.2 L78.3 16 L79.7 11.4 L76 8.6 L80.6 8.6Z" fill="oklch(90% 0.17 82)"/>
+        </svg>
+      </div>
+
+      <h1 class="header-title">Личный подарок</h1>
+      <p class="header-sub">Сотрите защитный слой и узнайте</p>
+    </div>
+
+    <!-- Body -->
+    <div class="card-body">
+
+      <!-- Scratch card -->
+      <div class="scratch-zone" id="scratchZone" role="img" aria-label="Скретч-карта с подарком">
+        <div class="prize-layer" id="prizeLayer">
+          <div class="prize-sheen" aria-hidden="true"></div>
+          <div class="prize-icon"  aria-hidden="true">☕</div>
+          <div class="prize-text-main">Бесплатный кофе</div>
+          <div class="prize-text-sub">Ваш персональный купон</div>
+        </div>
+        <canvas id="cvs" aria-hidden="true"></canvas>
+      </div>
+
+      <!-- Hint -->
+      <div class="hint-row" id="hintRow" aria-label="Подсказка: стирайте пальцем">
+        <span class="hint-finger" aria-hidden="true">👆</span>
+        <span>Стирайте пальцем — под слоем подарок</span>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-track" id="progressTrack" aria-hidden="true">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+
+      <!-- Reveal all button -->
+      <button class="btn btn-clear" id="btnClear" type="button">
+        Стереть всё
+      </button>
+
+      <!-- CTA deeplink button -->
+      <a class="btn btn-cta" id="btnCta"
+         href="tsxapp://app/personal_offers_list"
+         role="button"
+         aria-label="Смотреть все персональные скидки">
+        Все мои персональные скидки →
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   CONFIG
+═══════════════════════════════════════════════════════ */
+const BRUSH       = 36;        // px — bigger = easier to scratch
+const THRESHOLD   = 0.58;      // 58% cleared → auto-reveal
+const CHECK_EVERY = 150;       // ms — how often to sample coverage
+
+/* ═══════════════════════════════════════════════════════
+   ELEMENTS
+═══════════════════════════════════════════════════════ */
+const zone         = document.getElementById('scratchZone');
+const cvs          = document.getElementById('cvs');
+const ctx          = cvs.getContext('2d');
+const prizeLayer   = document.getElementById('prizeLayer');
+const hintRow      = document.getElementById('hintRow');
+const progressFill = document.getElementById('progressFill');
+const progressTrk  = document.getElementById('progressTrack');
+const btnClear     = document.getElementById('btnClear');
+const btnCta       = document.getElementById('btnCta');
+const ccvs         = document.getElementById('ccvs');
+const cctx         = ccvs.getContext('2d');
+const pcvs         = document.getElementById('pcvs');
+const pctx         = pcvs.getContext('2d');
+
+let revealed  = false;
+let drawing   = false;
+let lastPt    = null;
+let lastCheck = 0;
+let particles = [];
+let confetti  = [];
+
+/* ═══════════════════════════════════════════════════════
+   CANVAS INIT
+═══════════════════════════════════════════════════════ */
+function initCanvas() {
+  const dpr  = window.devicePixelRatio || 1;
+  const rect = zone.getBoundingClientRect();
+  cvs.width  = rect.width  * dpr;
+  cvs.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+
+  pcvs.width  = ccvs.width  = window.innerWidth;
+  pcvs.height = ccvs.height = window.innerHeight;
+
+  paintScratchLayer(rect.width, rect.height);
+}
+
+/* Premium silver-foil scratch layer */
+function paintScratchLayer(w, h) {
+  // Base silver gradient
+  const base = ctx.createLinearGradient(0, 0, w, h);
+  base.addColorStop(0,    'oklch(76% 0.015 200)');
+  base.addColorStop(0.3,  'oklch(84% 0.010 200)');
+  base.addColorStop(0.55, 'oklch(79% 0.015 200)');
+  base.addColorStop(0.8,  'oklch(86% 0.008 200)');
+  base.addColorStop(1,    'oklch(74% 0.018 200)');
+  ctx.fillStyle = base;
+  ctx.fillRect(0, 0, w, h);
+
+  // Subtle iridescent bands
+  const bands = ctx.createLinearGradient(0, 0, w, 0);
+  bands.addColorStop(0,    'oklch(80% 0.10 200 / .10)');
+  bands.addColorStop(0.25, 'oklch(78% 0.10 145 / .08)');
+  bands.addColorStop(0.5,  'oklch(80% 0.10 80  / .10)');
+  bands.addColorStop(0.75, 'oklch(78% 0.10 300 / .08)');
+  bands.addColorStop(1,    'oklch(80% 0.10 200 / .10)');
+  ctx.fillStyle = bands;
+  ctx.fillRect(0, 0, w, h);
+
+  // Fine noise dots for texture
+  for (let i = 0; i < 600; i++) {
+    const x = Math.random() * w;
+    const y = Math.random() * h;
+    const r = Math.random() * 1.2 + 0.3;
+    const a = Math.random() * 0.25 + 0.05;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fillStyle = `oklch(${Math.random() > .5 ? 92 : 65}% 0.01 200 / ${a})`;
+    ctx.fill();
+  }
+
+  // Horizontal bright specular streak
+  const streak = ctx.createLinearGradient(0, h * .38, 0, h * .48);
+  streak.addColorStop(0, 'oklch(100% 0 0 / 0)');
+  streak.addColorStop(.5,'oklch(100% 0 0 / .18)');
+  streak.addColorStop(1, 'oklch(100% 0 0 / 0)');
+  ctx.fillStyle = streak;
+  ctx.fillRect(0, h * .38, w, h * .1);
+
+  // Clear instruction text — white on silver reads well
+  ctx.save();
+  ctx.globalCompositeOperation = 'multiply';
+  ctx.font = `600 13px Inter, -apple-system, sans-serif`;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle = 'oklch(38% 0.02 200)';
+  ctx.fillText('✦  Потрите здесь  ✦', w / 2, h / 2);
+  ctx.restore();
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCRATCH
+═══════════════════════════════════════════════════════ */
+function getXY(e) {
+  const rect = cvs.getBoundingClientRect();
+  const src  = e.changedTouches ? e.changedTouches[0] : e;
+  return {
+    x: (src.clientX - rect.left) * (cvs.width  / rect.width  / (window.devicePixelRatio||1)),
+    y: (src.clientY - rect.top)  * (cvs.height / rect.height / (window.devicePixelRatio||1)),
+  };
+}
+
+function scratchAt(x, y) {
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath();
+  if (lastPt) {
+    ctx.moveTo(lastPt.x, lastPt.y);
+    ctx.lineTo(x, y);
+    ctx.lineWidth = BRUSH * 2;
+    ctx.lineCap   = 'round';
+    ctx.lineJoin  = 'round';
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.arc(x, y, BRUSH, 0, Math.PI * 2);
+  ctx.fill();
+  lastPt = {x, y};
+
+  // Haptics
+  if (navigator.vibrate) navigator.vibrate(5);
+
+  // Scratch particle
+  emitParticle(x, y);
+
+  // Coverage check (throttled)
+  const now = performance.now();
+  if (now - lastCheck > CHECK_EVERY) {
+    lastCheck = now;
+    checkCoverage();
+  }
+}
+
+/* ═══════════════════════════════════════════════════════
+   COVERAGE
+═══════════════════════════════════════════════════════ */
+function checkCoverage() {
+  if (revealed) return;
+  const d = ctx.getImageData(0, 0, cvs.width, cvs.height).data;
+  let erased = 0;
+  const step = 4 * 8; // sample every 8th pixel
+  for (let i = 3; i < d.length; i += step) {
+    if (d[i] < 100) erased++;
+  }
+  const total = d.length / step;
+  const pct   = erased / total;
+
+  progressFill.style.width = Math.min(pct * 100, 100) + '%';
+  if (pct >= THRESHOLD) fullReveal();
+}
+
+/* ═══════════════════════════════════════════════════════
+   REVEAL
+═══════════════════════════════════════════════════════ */
+function fullReveal() {
+  if (revealed) return;
+  revealed = true;
+
+  progressFill.style.width = '100%';
+
+  // Fade canvas
+  cvs.classList.add('fading');
+
+  // Hide controls
+  hintRow.classList.add('hidden');
+  progressTrk.classList.add('hidden');
+  btnClear.classList.add('hidden');
+
+  // Prize pop
+  prizeLayer.classList.add('revealed');
+
+  // Success vibration — 3 bumps
+  if (navigator.vibrate) navigator.vibrate([40, 60, 40, 60, 80]);
+
+  // CTA appears after prize
+  setTimeout(() => {
+    btnCta.classList.add('visible');
+  }, 600);
+
+  // Confetti burst
+  setTimeout(launchConfetti, 350);
+}
+
+/* ═══════════════════════════════════════════════════════
+   EVENTS
+═══════════════════════════════════════════════════════ */
+zone.addEventListener('touchstart', e => {
+  e.preventDefault(); if (revealed) return;
+  drawing = true; lastPt = null;
+  const p = getXY(e); scratchAt(p.x, p.y);
+}, { passive: false });
+
+zone.addEventListener('touchmove', e => {
+  e.preventDefault(); if (!drawing || revealed) return;
+  const p = getXY(e); scratchAt(p.x, p.y);
+}, { passive: false });
+
+zone.addEventListener('touchend', () => { drawing = false; lastPt = null; });
+
+zone.addEventListener('mousedown', e => {
+  if (revealed) return;
+  drawing = true; lastPt = null;
+  const p = getXY(e); scratchAt(p.x, p.y);
+});
+zone.addEventListener('mousemove', e => {
+  if (!drawing || revealed) return;
+  const p = getXY(e); scratchAt(p.x, p.y);
+});
+window.addEventListener('mouseup', () => { drawing = false; lastPt = null; });
+
+btnClear.addEventListener('click', fullReveal);
+
+/* ═══════════════════════════════════════════════════════
+   PARTICLES (scratch flakes)
+═══════════════════════════════════════════════════════ */
+const FLAKE_COLS = [
+  'oklch(82% 0.02 200)',
+  'oklch(90% 0.02 200)',
+  'oklch(76% 0.02 200)',
+  'oklch(82% 0.14 80)',
+];
+
+function emitParticle(cx, cy) {
+  if (Math.random() > .4) return;
+  const rect = zone.getBoundingClientRect();
+  const dpr  = window.devicePixelRatio || 1;
+  const sx   = rect.left + (cx / dpr) * (rect.width  / (cvs.width  / dpr));
+  const sy   = rect.top  + (cy / dpr) * (rect.height / (cvs.height / dpr));
+  const angle = Math.random() * Math.PI * 2;
+  const speed = Math.random() * 3 + 1.5;
+  particles.push({
+    x: sx, y: sy,
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed - 1.5,
+    r:  Math.random() * 3.5 + 1.5,
+    a:  0.85,
+    c:  FLAKE_COLS[Math.floor(Math.random() * FLAKE_COLS.length)],
+  });
+}
+
+function tickParticles() {
+  pctx.clearRect(0, 0, pcvs.width, pcvs.height);
+  particles = particles.filter(p => p.a > 0.03);
+  for (const p of particles) {
+    p.x  += p.vx;
+    p.y  += p.vy;
+    p.vy += 0.15;
+    p.a  *= 0.87;
+    pctx.save();
+    pctx.globalAlpha = p.a;
+    pctx.fillStyle   = p.c;
+    pctx.beginPath();
+    pctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    pctx.fill();
+    pctx.restore();
+  }
+  requestAnimationFrame(tickParticles);
+}
+tickParticles();
+
+/* ═══════════════════════════════════════════════════════
+   CONFETTI
+═══════════════════════════════════════════════════════ */
+const CONF_COLS = [
+  'oklch(52% 0.18 145)',
+  'oklch(65% 0.16 145)',
+  'oklch(82% 0.16 82)',
+  '#ffffff',
+  'oklch(85% 0.08 145)',
+  'oklch(72% 0.14 78)',
+];
+
+function launchConfetti() {
+  const W = window.innerWidth, H = window.innerHeight;
+  ccvs.width  = W;
+  ccvs.height = H;
+
+  for (let i = 0; i < 130; i++) {
+    confetti.push({
+      x:   Math.random() * W,
+      y:   -20 - Math.random() * H * .3,
+      w:   Math.random() * 10 + 5,
+      h:   Math.random() * 6  + 3,
+      r:   Math.random() * Math.PI * 2,
+      vx:  (Math.random() - .5) * 4.5,
+      vy:  Math.random() * 3.5 + 2.5,
+      vr:  (Math.random() - .5) * .14,
+      c:   CONF_COLS[Math.floor(Math.random() * CONF_COLS.length)],
+      life: 1,
+    });
+  }
+  tickConfetti();
+}
+
+function tickConfetti() {
+  cctx.clearRect(0, 0, ccvs.width, ccvs.height);
+  let any = false;
+  for (const p of confetti) {
+    if (p.life <= 0) continue;
+    p.x    += p.vx;
+    p.y    += p.vy;
+    p.vy   += 0.06;
+    p.r    += p.vr;
+    p.life -= 0.005;
+    if (p.y > ccvs.height) { p.life = 0; continue; }
+    any = true;
+    cctx.save();
+    cctx.translate(p.x, p.y);
+    cctx.rotate(p.r);
+    cctx.globalAlpha = Math.max(p.life, 0);
+    cctx.fillStyle   = p.c;
+    cctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+    cctx.restore();
+  }
+  if (any) requestAnimationFrame(tickConfetti);
+  else cctx.clearRect(0, 0, ccvs.width, ccvs.height);
+}
+
+/* ═══════════════════════════════════════════════════════
+   RESIZE
+═══════════════════════════════════════════════════════ */
+window.addEventListener('resize', () => {
+  if (!revealed) initCanvas();
+  pcvs.width  = ccvs.width  = window.innerWidth;
+  pcvs.height = ccvs.height = window.innerHeight;
+});
+
+/* ═══════════════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════════════ */
+requestAnimationFrame(() => requestAnimationFrame(initCanvas));
+</script>
+</body>
+</html>

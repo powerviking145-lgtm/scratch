@@ -11,355 +11,254 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      /* Brand greens */
-      --g900: oklch(22% 0.10 145);
-      --g800: oklch(30% 0.13 145);
-      --g700: oklch(38% 0.15 145);
-      --g600: oklch(45% 0.17 145);
-      --g500: oklch(52% 0.18 145);
-      --g400: oklch(62% 0.16 145);
-      --g300: oklch(73% 0.13 145);
-      --g200: oklch(85% 0.07 145);
-      --g100: oklch(94% 0.04 145);
-      --g050: oklch(97% 0.02 145);
-      /* Gold accent */
-      --gold-hi:  oklch(82% 0.16 82);
-      --gold-mid: oklch(72% 0.17 78);
-      --gold-lo:  oklch(58% 0.14 70);
-      /* Neutrals */
-      --ink:      oklch(15% 0.01 145);
-      --muted:    oklch(52% 0.03 145);
-      --border:   oklch(88% 0.03 145);
-      --surface:  oklch(99% 0.005 145);
-      /* Space rhythm */
-      --r-sm: 10px;
-      --r-md: 18px;
-      --r-lg: 24px;
-      --r-xl: 32px;
+      --g950: oklch(16% 0.08 148);
+      --g900: oklch(22% 0.11 148);
+      --g800: oklch(30% 0.14 148);
+      --g700: oklch(37% 0.16 148);
+      --g600: oklch(44% 0.18 148);
+      --g500: oklch(51% 0.19 148);
+      --g400: oklch(60% 0.17 148);
+      --g300: oklch(70% 0.14 148);
+      --g200: oklch(83% 0.08 148);
+      --g100: oklch(93% 0.04 148);
+      --g050: oklch(97% 0.02 148);
+      --au3: oklch(84% 0.17 82);
+      --au2: oklch(74% 0.18 78);
+      --au1: oklch(60% 0.15 72);
+      --muted: oklch(50% 0.03 148);
+      --border: oklch(87% 0.03 148);
+      --surf: oklch(99% 0.005 148);
     }
 
     html, body {
       height: 100%;
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--g900);
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--g950);
       -webkit-font-smoothing: antialiased;
       overscroll-behavior: none;
       touch-action: none;
     }
 
-    /* ── Layout ──────────────────────────────────────── */
+    #ccvs, #pcvs {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 300;
+    }
+
     .scene {
       min-height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       padding: 24px 16px 40px;
     }
 
     .card {
-      width: 100%;
-      max-width: 400px;
-      background: var(--surface);
-      border-radius: var(--r-xl);
-      overflow: hidden;
+      width: 100%; max-width: 400px;
+      background: var(--surf);
+      border-radius: 28px; overflow: hidden;
       box-shadow:
-        0 0 0 1px oklch(100% 0 0 / .06),
-        0 24px 64px oklch(0% 0 0 / .55),
-        0 8px 16px oklch(0% 0 0 / .3);
+        0 0 0 1px oklch(100% 0 0 / .07),
+        0 32px 80px oklch(0% 0 0 / .55),
+        0 8px 20px  oklch(0% 0 0 / .25);
     }
 
-    /* ── Header ──────────────────────────────────────── */
+    /* ── Header ─── */
     .card-header {
-      position: relative;
-      overflow: hidden;
+      position: relative; overflow: hidden;
       background: var(--g600);
-      padding: 32px 28px 40px;
-      text-align: center;
+      padding: 32px 28px 44px; text-align: center;
     }
-
-    /* Radial glow behind gift */
     .card-header::before {
-      content: '';
-      position: absolute;
-      inset: -20px;
+      content: ''; position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse 60% 50% at 50% 30%, oklch(65% 0.18 145 / .45) 0%, transparent 70%),
-        radial-gradient(ellipse 80% 60% at 50% 100%, var(--g800) 0%, transparent 70%);
+        radial-gradient(ellipse 65% 55% at 50% 25%, oklch(62% 0.2 148 / .5) 0%, transparent 70%),
+        radial-gradient(ellipse 90% 50% at 50% 110%, var(--g800) 0%, transparent 70%);
       pointer-events: none;
     }
-
     .brand {
       position: relative;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: oklch(88% 0.09 145);
-      margin-bottom: 20px;
+      font-size: 10.5px; font-weight: 700;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: oklch(88% 0.09 148); margin-bottom: 18px;
     }
-
-    /* SVG gift — inline so we can animate parts */
     .gift-wrap {
-      position: relative;
-      width: 96px;
-      height: 96px;
-      margin: 0 auto 20px;
-      animation: hover 3.2s ease-in-out infinite;
+      position: relative; width: 92px; height: 92px;
+      margin: 0 auto 18px;
+      animation: gift-float 3.4s ease-in-out infinite;
     }
-    @keyframes hover {
-      0%,100% { transform: translateY(0)   rotate(0deg); }
-      40%      { transform: translateY(-9px) rotate(-1.5deg); }
-      70%      { transform: translateY(-5px) rotate(1deg); }
+    @keyframes gift-float {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      40%      { transform: translateY(-10px) rotate(-1.8deg); }
+      70%      { transform: translateY(-5px) rotate(1.2deg); }
     }
-
     .header-title {
       position: relative;
-      font-size: 28px;
-      font-weight: 900;
-      color: #fff;
-      letter-spacing: -.5px;
-      line-height: 1.15;
-      margin-bottom: 6px;
+      font-size: 27px; font-weight: 900;
+      color: #fff; letter-spacing: -.45px; line-height: 1.15; margin-bottom: 5px;
     }
     .header-sub {
       position: relative;
-      font-size: 14px;
-      font-weight: 500;
-      color: oklch(88% 0.07 145);
-      letter-spacing: -.1px;
+      font-size: 13.5px; font-weight: 500; color: oklch(88% 0.07 148);
     }
 
-    /* ── Card body ───────────────────────────────────── */
+    /* ── Body ─── */
     .card-body {
-      padding: 24px 20px 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
+      padding: 22px 20px 26px;
+      display: flex; flex-direction: column; align-items: center; gap: 16px;
     }
 
-    /* ── Scratch zone ────────────────────────────────── */
+    /* ── Scratch zone ─── */
     .scratch-zone {
-      width: 100%;
-      position: relative;
-      border-radius: var(--r-md);
-      overflow: hidden;
-      box-shadow:
-        inset 0 0 0 1.5px var(--border),
-        0 4px 20px oklch(0% 0 0 / .1);
-      touch-action: none;
-      cursor: crosshair;
+      width: 100%; position: relative;
+      border-radius: 16px; overflow: hidden;
+      aspect-ratio: 2 / 1;
+      touch-action: none; cursor: crosshair;
+      box-shadow: inset 0 0 0 1.5px oklch(60% 0.05 148), 0 4px 24px oklch(0% 0 0 / .08);
     }
-    /* Force 16:8 aspect */
-    .scratch-zone::before {
-      content: '';
-      display: block;
-      padding-top: 50%;
-    }
-
-    /* Prize layer — revealed content underneath */
-    .prize-layer {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 16px;
-      /* Premium light background with subtle warmth */
-      background:
-        radial-gradient(ellipse 70% 80% at 50% 40%, oklch(98% 0.015 80) 0%, var(--g050) 100%);
-      user-select: none;
-    }
-
-    /* Rainbow shimmer over prize layer */
-    .prize-sheen {
+    #cvsPrize {
       position: absolute; inset: 0;
-      background: linear-gradient(
-        110deg,
-        transparent         20%,
-        oklch(82% 0.12 200 / .18) 32%,
-        oklch(80% 0.14 145 / .15) 44%,
-        oklch(82% 0.14 80  / .18) 56%,
-        oklch(80% 0.10 300 / .12) 68%,
-        transparent         80%
-      );
-      background-size: 250% 100%;
-      animation: sheen 3.6s linear infinite;
-      pointer-events: none;
-      border-radius: inherit;
+      width: 100%; height: 100%; border-radius: 16px;
     }
-    @keyframes sheen {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -50% 0; }
+    #cvsFoil {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%; border-radius: 16px;
+      transition: opacity .65s ease;
+    }
+    #cvsFoil.fading { opacity: 0; pointer-events: none; }
+
+    /* ── Hint ─── */
+    .hint {
+      display: flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 500; color: var(--muted);
+      transition: opacity .35s;
+    }
+    .hint.gone { opacity: 0; pointer-events: none; }
+    .hint-hand { display: inline-block; font-size: 16px; animation: hint-swipe 1.9s ease-in-out infinite; }
+    @keyframes hint-swipe {
+      0%,100% { transform: translateX(-5px); opacity: .65; }
+      50%      { transform: translateX(6px); opacity: 1; }
     }
 
-    .prize-icon {
-      font-size: 44px;
-      line-height: 1;
-      transform: scale(.8);
-      opacity: 0;
-      transition: transform .5s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
+    /* ── Progress ─── */
+    .prog-track {
+      width: 100%; height: 4px;
+      background: var(--g100); border-radius: 99px; overflow: hidden; transition: opacity .35s;
     }
-    .prize-text-main {
-      font-size: 17px;
-      font-weight: 800;
-      color: var(--g700);
-      letter-spacing: -.3px;
-      text-align: center;
-      transform: translateY(8px);
-      opacity: 0;
-      transition: transform .45s .08s ease, opacity .35s .08s ease;
-    }
-    .prize-text-sub {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      text-align: center;
-      transform: translateY(8px);
-      opacity: 0;
-      transition: transform .45s .16s ease, opacity .35s .16s ease;
-    }
-
-    /* When revealed, animate children in */
-    .prize-layer.revealed .prize-icon {
-      transform: scale(1);
-      opacity: 1;
-    }
-    .prize-layer.revealed .prize-text-main,
-    .prize-layer.revealed .prize-text-sub {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* Scratch canvas — sits on top of prize layer */
-    #cvs {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: var(--r-md);
-      transition: opacity .7s ease;
-    }
-    #cvs.fading { opacity: 0; pointer-events: none; }
-
-    /* ── Hint row ────────────────────────────────────── */
-    .hint-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      transition: opacity .4s;
-    }
-    .hint-row.hidden { opacity: 0; pointer-events: none; }
-    .hint-finger {
-      display: inline-block;
-      animation: swipe 1.8s ease-in-out infinite;
-      font-size: 17px;
-    }
-    @keyframes swipe {
-      0%   { transform: translateX(-5px); opacity: .7; }
-      50%  { transform: translateX(6px);  opacity: 1;  }
-      100% { transform: translateX(-5px); opacity: .7; }
-    }
-
-    /* ── Progress bar ────────────────────────────────── */
-    .progress-track {
-      width: 100%;
-      height: 5px;
-      background: var(--g100);
-      border-radius: 99px;
-      overflow: hidden;
-      transition: opacity .4s;
-    }
-    .progress-track.hidden { opacity: 0; }
-    .progress-fill {
-      height: 100%;
-      width: 0%;
+    .prog-track.gone { opacity: 0; }
+    .prog-fill {
+      height: 100%; width: 0%;
       background: linear-gradient(90deg, var(--g500), var(--g300));
-      border-radius: 99px;
-      transition: width .08s linear;
+      border-radius: 99px; transition: width .07s linear;
     }
 
-    /* ── Buttons ─────────────────────────────────────── */
+    /* ══ BUTTONS ══ */
     .btn {
-      width: 100%;
-      padding: 16px 20px;
-      border: none;
-      border-radius: 99px;
-      font-family: inherit;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: -.15px;
+      position: relative; overflow: hidden;
+      width: 100%; height: 56px; padding: 0 24px;
+      border: none; border-radius: 99px;
+      font-family: inherit; font-size: 16px; font-weight: 700; letter-spacing: -.15px;
       cursor: pointer;
-      transition: transform .12s ease, box-shadow .12s ease, opacity .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s cubic-bezier(.34,1.56,.64,1), box-shadow .12s ease, opacity .3s ease;
     }
-    .btn:active { transform: scale(.97); }
-    .btn:disabled { opacity: .45; pointer-events: none; }
+    /* shimmer sweep */
+    .btn::after {
+      content: ''; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, oklch(100% 0 0 / .22), transparent);
+      transform: skewX(-18deg);
+      animation: btn-sweep 3.2s ease-in-out infinite;
+    }
+    @keyframes btn-sweep {
+      0%,55%  { left: -80%; }
+      70%      { left: 130%; }
+      71%,100% { left: 130%; opacity: 0; }
+    }
+    /* ripple */
+    .ripple {
+      position: absolute; border-radius: 50%;
+      background: oklch(100% 0 0 / .28);
+      transform: scale(0); pointer-events: none;
+      animation: ripple-expand .6s ease-out forwards;
+    }
+    @keyframes ripple-expand { to { transform: scale(4); opacity: 0; } }
 
+    /* Green */
     .btn-clear {
-      background: linear-gradient(135deg, var(--g500), var(--g700));
+      background: linear-gradient(155deg, var(--g400) 0%, var(--g600) 55%, var(--g800) 100%);
       color: #fff;
-      box-shadow: 0 4px 18px var(--g600) / .4, 0 1px 3px oklch(0% 0 0 / .15);
-      transition: transform .12s, box-shadow .12s, opacity .4s;
+      box-shadow:
+        inset 0  1px 0 oklch(100% 0 0 / .22),
+        inset 0 -2px 0 oklch(0% 0 0 / .18),
+        0  5px 0 var(--g900),
+        0  8px 20px oklch(44% 0.18 148 / .45),
+        0  2px  6px oklch(0% 0 0 / .18);
     }
-    .btn-clear.hidden { opacity: 0; pointer-events: none; }
+    .btn-clear:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0  1px 0 oklch(100% 0 0 / .22),
+        inset 0 -2px 0 oklch(0% 0 0 / .18),
+        0  5px 0 var(--g900),
+        0 12px 28px oklch(44% 0.18 148 / .6),
+        0  2px  6px oklch(0% 0 0 / .18);
+    }
+    .btn-clear:active {
+      transform: translateY(4px);
+      box-shadow:
+        inset 0 1px 0 oklch(100% 0 0 / .14),
+        0 1px 0 var(--g900),
+        0 3px 10px oklch(44% 0.18 148 / .3);
+    }
+    .btn-clear.gone { opacity: 0; pointer-events: none; }
 
+    /* Gold */
     .btn-cta {
-      background: linear-gradient(135deg, var(--gold-hi), var(--gold-mid));
-      color: oklch(18% 0.06 78);
-      box-shadow: 0 6px 24px var(--gold-mid) / .5, 0 1px 4px oklch(0% 0 0 / .1);
-      position: relative;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(14px);
-      pointer-events: none;
-      transition: transform .5s .25s ease, opacity .4s .25s ease, box-shadow .12s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      text-decoration: none;
+      background: linear-gradient(155deg, var(--au3) 0%, var(--au2) 55%, var(--au1) 100%);
+      color: oklch(18% 0.06 78); text-decoration: none;
+      box-shadow:
+        inset 0  1px 0 oklch(100% 0 0 / .30),
+        inset 0 -2px 0 oklch(0% 0 0 / .14),
+        0  5px 0 var(--au1),
+        0  8px 24px oklch(74% 0.18 78 / .55),
+        0  2px  6px oklch(0% 0 0 / .15);
+      opacity: 0; transform: translateY(16px) scale(.97); pointer-events: none;
+      transition: opacity .5s .3s cubic-bezier(.4,0,.2,1), transform .5s .3s cubic-bezier(.34,1.56,.64,1), box-shadow .12s ease;
+    }
+    .btn-cta:hover {
+      transform: translateY(-1px) !important;
+      box-shadow:
+        inset 0  1px 0 oklch(100% 0 0 / .32),
+        inset 0 -2px 0 oklch(0% 0 0 / .14),
+        0  5px 0 var(--au1),
+        0 14px 36px oklch(74% 0.18 78 / .7),
+        0  2px  8px oklch(0% 0 0 / .18);
+    }
+    .btn-cta:active {
+      transform: translateY(4px) scale(1) !important;
+      box-shadow:
+        inset 0 1px 0 oklch(100% 0 0 / .16),
+        0 1px 0 var(--au1),
+        0 3px 10px oklch(74% 0.18 78 / .3);
     }
     .btn-cta.visible {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+      opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;
+      animation: cta-breathe 2.8s 1s ease-in-out infinite;
     }
-    .btn-cta::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(90deg, transparent 30%, oklch(100% 0 0 / .18) 50%, transparent 70%);
-      background-size: 200% 100%;
-      animation: shimmer 2.6s ease-in-out infinite;
+    @keyframes cta-breathe {
+      0%,100% { box-shadow: inset 0 1px 0 oklch(100% 0 0 / .30), inset 0 -2px 0 oklch(0% 0 0 / .14), 0 5px 0 var(--au1), 0 8px 24px oklch(74% 0.18 78 / .55), 0 2px 6px oklch(0% 0 0 / .15); }
+      50%      { box-shadow: inset 0 1px 0 oklch(100% 0 0 / .30), inset 0 -2px 0 oklch(0% 0 0 / .14), 0 5px 0 var(--au1), 0 18px 44px oklch(74% 0.18 78 / .75), 0 4px 12px oklch(0% 0 0 / .2); }
     }
-    @keyframes shimmer {
-      0%   { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-    .btn-cta:active { transform: scale(.97) !important; }
+    .btn-cta::after { animation-duration: 3.8s; }
 
-    /* ── Confetti canvas ─────────────────────────────── */
-    #ccvs {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 999;
-    }
-
-    /* ── Particle layer ──────────────────────────────── */
-    #pcvs {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 998;
+    .scratch-zone.done { animation: ring-pulse .55s ease forwards; }
+    @keyframes ring-pulse {
+      0%  { box-shadow: inset 0 0 0 1.5px oklch(60% 0.05 148), 0 0 0 0   oklch(51% 0.19 148 / .55); }
+      50% { box-shadow: inset 0 0 0 1.5px var(--g400),          0 0 0 12px oklch(51% 0.19 148 / 0);  }
+      100%{ box-shadow: inset 0 0 0 1.5px var(--g400),          0 0 0 12px oklch(51% 0.19 148 / 0);  }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .gift-wrap, .hint-finger, .btn-cta::after { animation: none; }
+      .gift-wrap, .hint-hand { animation: none; }
+      .btn::after, .btn-cta.visible { animation: none; }
     }
   </style>
 </head>
@@ -369,424 +268,448 @@
 
 <div class="scene">
   <div class="card">
-
-    <!-- Header -->
     <div class="card-header">
       <p class="brand">Перекрёсток</p>
-
       <div class="gift-wrap" aria-hidden="true">
-        <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Shadow -->
-          <ellipse cx="48" cy="88" rx="30" ry="6" fill="oklch(0% 0 0 / .22)"/>
-          <!-- Box -->
-          <rect x="12" y="46" width="72" height="38" rx="8" fill="oklch(56% 0.19 145)"/>
-          <!-- Box lid -->
-          <rect x="8"  y="36" width="80" height="20" rx="7" fill="oklch(64% 0.20 145)"/>
-          <!-- Vertical ribbon -->
-          <rect x="43" y="36" width="10" height="48" rx="5" fill="var(--gold-hi)"/>
-          <!-- Horizontal ribbon on lid -->
-          <rect x="8"  y="43" width="80" height="8"  rx="4" fill="var(--gold-hi)"/>
-          <!-- Bow left loop -->
-          <ellipse cx="34" cy="32" rx="14" ry="9" fill="var(--gold-hi)" transform="rotate(-18 34 32)"/>
-          <!-- Bow right loop -->
-          <ellipse cx="62" cy="32" rx="14" ry="9" fill="var(--gold-hi)" transform="rotate(18 62 32)"/>
-          <!-- Bow centre -->
-          <circle cx="48" cy="33" r="7" fill="var(--gold-hi)"/>
-          <circle cx="48" cy="33" r="4" fill="oklch(90% 0.17 82)"/>
-          <!-- Stars -->
-          <circle cx="80" cy="14" r="3.5" fill="oklch(90% 0.17 82)" opacity=".9"/>
-          <circle cx="16" cy="20" r="2.5" fill="oklch(90% 0.17 82)" opacity=".7"/>
-          <!-- Sparkle star -->
-          <path d="M82 4 L83.4 8.6 L88 8.6 L84.3 11.4 L85.7 16 L82 13.2 L78.3 16 L79.7 11.4 L76 8.6 L80.6 8.6Z" fill="oklch(90% 0.17 82)"/>
+        <svg viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="46" cy="84" rx="28" ry="5.5" fill="oklch(0% 0 0 / .2)"/>
+          <rect x="11" y="44" width="70" height="36" rx="8" fill="oklch(54% 0.20 148)"/>
+          <rect x="7"  y="34" width="78" height="20" rx="7" fill="oklch(63% 0.21 148)"/>
+          <rect x="7"  y="34" width="78" height="9"  rx="7" fill="oklch(100% 0 0 / .08)"/>
+          <rect x="41" y="34" width="10" height="46" rx="5" fill="var(--au3)"/>
+          <rect x="7"  y="41" width="78" height="7"  rx="3.5" fill="var(--au3)"/>
+          <ellipse cx="32" cy="30" rx="13" ry="8.5" fill="var(--au3)" transform="rotate(-20 32 30)"/>
+          <ellipse cx="60" cy="30" rx="13" ry="8.5" fill="var(--au3)" transform="rotate(20 60 30)"/>
+          <circle cx="46" cy="31" r="7" fill="var(--au3)"/>
+          <circle cx="46" cy="31" r="4" fill="oklch(91% 0.17 82)"/>
+          <circle cx="78" cy="13" r="3.5" fill="oklch(91% 0.17 82)" opacity=".9"/>
+          <circle cx="14" cy="19" r="2.5" fill="oklch(91% 0.17 82)" opacity=".7"/>
+          <path d="M80 4 L81.4 8.6 L86 8.6 L82.3 11.4 L83.7 16 L80 13.2 L76.3 16 L77.7 11.4 L74 8.6 L78.6 8.6Z" fill="oklch(91% 0.17 82)"/>
         </svg>
       </div>
-
       <h1 class="header-title">Личный подарок</h1>
-      <p class="header-sub">Сотрите защитный слой и узнайте</p>
+      <p class="header-sub">Стирайте — под слоем кое-что приятное</p>
     </div>
 
-    <!-- Body -->
     <div class="card-body">
-
-      <!-- Scratch card -->
-      <div class="scratch-zone" id="scratchZone" role="img" aria-label="Скретч-карта с подарком">
-        <div class="prize-layer" id="prizeLayer">
-          <div class="prize-sheen" aria-hidden="true"></div>
-          <div class="prize-icon"  aria-hidden="true">☕</div>
-          <div class="prize-text-main">Бесплатный кофе</div>
-          <div class="prize-text-sub">Ваш персональный купон</div>
-        </div>
-        <canvas id="cvs" aria-hidden="true"></canvas>
+      <div class="scratch-zone" id="zone" role="img" aria-label="Скретч-карта">
+        <canvas id="cvsPrize" aria-hidden="true"></canvas>
+        <canvas id="cvsFoil"  aria-hidden="true"></canvas>
       </div>
 
-      <!-- Hint -->
-      <div class="hint-row" id="hintRow" aria-label="Подсказка: стирайте пальцем">
-        <span class="hint-finger" aria-hidden="true">👆</span>
-        <span>Стирайте пальцем — под слоем подарок</span>
+      <div class="hint" id="hint">
+        <span class="hint-hand" aria-hidden="true">👆</span>
+        <span>Стирайте пальцем — под слоем сразу видно</span>
       </div>
 
-      <!-- Progress bar -->
-      <div class="progress-track" id="progressTrack" aria-hidden="true">
-        <div class="progress-fill" id="progressFill"></div>
+      <div class="prog-track" id="progTrack" aria-hidden="true">
+        <div class="prog-fill" id="progFill"></div>
       </div>
 
-      <!-- Reveal all button -->
-      <button class="btn btn-clear" id="btnClear" type="button">
-        Стереть всё
-      </button>
+      <button class="btn btn-clear" id="btnClear" type="button">Стереть всё</button>
 
-      <!-- CTA deeplink button -->
       <a class="btn btn-cta" id="btnCta"
          href="tsxapp://app/personal_offers_list"
-         role="button"
-         aria-label="Смотреть все персональные скидки">
-        Все мои персональные скидки →
+         role="button" aria-label="Все персональные скидки">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M3 10h14M11 4l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Все мои персональные скидки
       </a>
-
     </div>
   </div>
 </div>
 
 <script>
-/* ═══════════════════════════════════════════════════════
-   CONFIG
+/* ═══ CONFIG ═════════════════════════════════════════════
+   BRUSH smaller = harder to scratch (was 38, now 22)
+   More swipes needed = more satisfying
 ═══════════════════════════════════════════════════════ */
-const BRUSH       = 36;        // px — bigger = easier to scratch
-const THRESHOLD   = 0.58;      // 58% cleared → auto-reveal
-const CHECK_EVERY = 150;       // ms — how often to sample coverage
+const BRUSH     = 22;    // smaller brush = more work to scratch
+const THRESHOLD = 0.60;  // need 60% cleared
+const TICK_MS   = 100;
 
-/* ═══════════════════════════════════════════════════════
-   ELEMENTS
+/* ═══ ELEMENTS ══════════════════════════════════════════ */
+const zone      = document.getElementById('zone');
+const cvsPrize  = document.getElementById('cvsPrize');
+const ctxPrize  = cvsPrize.getContext('2d');
+const cvsFoil   = document.getElementById('cvsFoil');
+const ctxFoil   = cvsFoil.getContext('2d');
+const hint      = document.getElementById('hint');
+const progFill  = document.getElementById('progFill');
+const progTrk   = document.getElementById('progTrack');
+const btnClear  = document.getElementById('btnClear');
+const btnCta    = document.getElementById('btnCta');
+const ccvs      = document.getElementById('ccvs');
+const cctx      = ccvs.getContext('2d');
+const pcvs      = document.getElementById('pcvs');
+const pctx      = pcvs.getContext('2d');
+
+let revealed = false, drawing = false, lastPt = null, lastTick = 0;
+let flakes = [], confettiPieces = [];
+
+/* ═══ AUDIO ═════════════════════════════════════════════
+   Crisp scratch tick — neutral, louder, short
 ═══════════════════════════════════════════════════════ */
-const zone         = document.getElementById('scratchZone');
-const cvs          = document.getElementById('cvs');
-const ctx          = cvs.getContext('2d');
-const prizeLayer   = document.getElementById('prizeLayer');
-const hintRow      = document.getElementById('hintRow');
-const progressFill = document.getElementById('progressFill');
-const progressTrk  = document.getElementById('progressTrack');
-const btnClear     = document.getElementById('btnClear');
-const btnCta       = document.getElementById('btnCta');
-const ccvs         = document.getElementById('ccvs');
-const cctx         = ccvs.getContext('2d');
-const pcvs         = document.getElementById('pcvs');
-const pctx         = pcvs.getContext('2d');
-
-let revealed  = false;
-let drawing   = false;
-let lastPt    = null;
-let lastCheck = 0;
-let particles = [];
-let confetti  = [];
-
-/* ═══════════════════════════════════════════════════════
-   CANVAS INIT
-═══════════════════════════════════════════════════════ */
-function initCanvas() {
-  const dpr  = window.devicePixelRatio || 1;
-  const rect = zone.getBoundingClientRect();
-  cvs.width  = rect.width  * dpr;
-  cvs.height = rect.height * dpr;
-  ctx.scale(dpr, dpr);
-
-  pcvs.width  = ccvs.width  = window.innerWidth;
-  pcvs.height = ccvs.height = window.innerHeight;
-
-  paintScratchLayer(rect.width, rect.height);
+let audioCtx = null;
+function ensureAudio() {
+  if (audioCtx) return;
+  try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){}
 }
 
-/* Premium silver-foil scratch layer */
-function paintScratchLayer(w, h) {
-  // Base silver gradient
-  const base = ctx.createLinearGradient(0, 0, w, h);
-  base.addColorStop(0,    'oklch(76% 0.015 200)');
-  base.addColorStop(0.3,  'oklch(84% 0.010 200)');
-  base.addColorStop(0.55, 'oklch(79% 0.015 200)');
-  base.addColorStop(0.8,  'oklch(86% 0.008 200)');
-  base.addColorStop(1,    'oklch(74% 0.018 200)');
-  ctx.fillStyle = base;
-  ctx.fillRect(0, 0, w, h);
+let lastSnd = 0;
+function playTick() {
+  if (!audioCtx) return;
+  const now = audioCtx.currentTime;
+  if (now - lastSnd < 0.03) return; // throttle: max ~33 ticks/sec
+  lastSnd = now;
 
-  // Subtle iridescent bands
-  const bands = ctx.createLinearGradient(0, 0, w, 0);
-  bands.addColorStop(0,    'oklch(80% 0.10 200 / .10)');
-  bands.addColorStop(0.25, 'oklch(78% 0.10 145 / .08)');
-  bands.addColorStop(0.5,  'oklch(80% 0.10 80  / .10)');
-  bands.addColorStop(0.75, 'oklch(78% 0.10 300 / .08)');
-  bands.addColorStop(1,    'oklch(80% 0.10 200 / .10)');
-  ctx.fillStyle = bands;
-  ctx.fillRect(0, 0, w, h);
-
-  // Fine noise dots for texture
-  for (let i = 0; i < 600; i++) {
-    const x = Math.random() * w;
-    const y = Math.random() * h;
-    const r = Math.random() * 1.2 + 0.3;
-    const a = Math.random() * 0.25 + 0.05;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = `oklch(${Math.random() > .5 ? 92 : 65}% 0.01 200 / ${a})`;
-    ctx.fill();
+  // White noise burst — short & crisp, like real scratch
+  const sr  = audioCtx.sampleRate;
+  const dur = 0.045; // seconds
+  const buf = audioCtx.createBuffer(1, sr * dur, sr);
+  const d   = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) {
+    d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / d.length, 1.5);
   }
 
-  // Horizontal bright specular streak
-  const streak = ctx.createLinearGradient(0, h * .38, 0, h * .48);
-  streak.addColorStop(0, 'oklch(100% 0 0 / 0)');
-  streak.addColorStop(.5,'oklch(100% 0 0 / .18)');
-  streak.addColorStop(1, 'oklch(100% 0 0 / 0)');
-  ctx.fillStyle = streak;
-  ctx.fillRect(0, h * .38, w, h * .1);
+  const src  = audioCtx.createBufferSource();
+  src.buffer = buf;
 
-  // Clear instruction text — white on silver reads well
-  ctx.save();
-  ctx.globalCompositeOperation = 'multiply';
-  ctx.font = `600 13px Inter, -apple-system, sans-serif`;
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillStyle = 'oklch(38% 0.02 200)';
-  ctx.fillText('✦  Потрите здесь  ✦', w / 2, h / 2);
-  ctx.restore();
+  // Bandpass centered on papery scratch frequency ~2.8 kHz
+  const bp   = audioCtx.createBiquadFilter();
+  bp.type    = 'bandpass';
+  bp.frequency.value = 2800;
+  bp.Q.value = 0.9;
+
+  // High-shelf to add brightness
+  const hs   = audioCtx.createBiquadFilter();
+  hs.type    = 'highshelf';
+  hs.frequency.value = 5000;
+  hs.gain.value = 5;
+
+  // Louder gain (0.55 vs old 0.18)
+  const gain = audioCtx.createGain();
+  gain.gain.value = 0.55;
+
+  src.connect(bp); bp.connect(hs); hs.connect(gain); gain.connect(audioCtx.destination);
+  src.start();
 }
 
-/* ═══════════════════════════════════════════════════════
-   SCRATCH
-═══════════════════════════════════════════════════════ */
-function getXY(e) {
-  const rect = cvs.getBoundingClientRect();
+/* ═══ INIT ══════════════════════════════════════════════ */
+function initCanvas() {
+  const dpr  = devicePixelRatio || 1;
+  const rect = zone.getBoundingClientRect();
+  const W = rect.width, H = rect.height;
+  for (const c of [cvsPrize, cvsFoil]) { c.width = W * dpr; c.height = H * dpr; }
+  ctxPrize.scale(dpr, dpr);
+  ctxFoil.scale(dpr, dpr);
+  ccvs.width = pcvs.width  = innerWidth;
+  ccvs.height = pcvs.height = innerHeight;
+  drawPrize(W, H);
+  drawFoil(W, H);
+}
+
+/* ── Prize layer ── */
+function drawPrize(w, h) {
+  const bg = ctxPrize.createRadialGradient(w/2, h*.4, 0, w/2, h*.4, Math.max(w,h)*.7);
+  bg.addColorStop(0,   'oklch(98% 0.018 80)');
+  bg.addColorStop(0.6, 'oklch(96% 0.03 148)');
+  bg.addColorStop(1,   'oklch(93% 0.05 148)');
+  ctxPrize.fillStyle = bg;
+  ctxPrize.fillRect(0, 0, w, h);
+
+  const sheen = ctxPrize.createLinearGradient(0, 0, w, 0);
+  sheen.addColorStop(0,   'oklch(82% 0.12 200 / .18)');
+  sheen.addColorStop(.25, 'oklch(80% 0.14 148 / .15)');
+  sheen.addColorStop(.5,  'oklch(82% 0.14 78  / .18)');
+  sheen.addColorStop(.75, 'oklch(78% 0.10 310 / .12)');
+  sheen.addColorStop(1,   'oklch(82% 0.12 200 / .18)');
+  ctxPrize.fillStyle = sheen;
+  ctxPrize.fillRect(0, 0, w, h);
+
+  ctxPrize.save();
+  ctxPrize.shadowColor = 'oklch(60% 0.12 78 / .35)';
+  ctxPrize.shadowBlur  = 16;
+  ctxPrize.shadowOffsetY = 4;
+  const emojiSize = Math.min(h * .48, 50);
+  ctxPrize.font = `${emojiSize}px serif`;
+  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
+  ctxPrize.fillText('☕', w / 2, h * .38);
+  ctxPrize.restore();
+
+  ctxPrize.save();
+  ctxPrize.font = `800 ${Math.min(h * .16, 18)}px Inter, system-ui, sans-serif`;
+  ctxPrize.fillStyle = 'oklch(37% 0.16 148)';
+  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
+  ctxPrize.fillText('Бесплатный кофе', w / 2, h * .68);
+  ctxPrize.restore();
+
+  ctxPrize.save();
+  ctxPrize.font = `500 ${Math.min(h * .11, 12)}px Inter, system-ui, sans-serif`;
+  ctxPrize.fillStyle = 'oklch(50% 0.03 148)';
+  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
+  ctxPrize.fillText('Персональный купон · только для вас', w / 2, h * .82);
+  ctxPrize.restore();
+}
+
+/* ── Foil layer — DARKER, brighter label ── */
+function drawFoil(w, h) {
+  // Much darker base — around 42-48% lightness instead of 76-88%
+  const base = ctxFoil.createLinearGradient(0, 0, w, h);
+  base.addColorStop(0,   'oklch(42% 0.025 200)');
+  base.addColorStop(.25, 'oklch(50% 0.020 200)');
+  base.addColorStop(.55, 'oklch(44% 0.028 200)');
+  base.addColorStop(.80, 'oklch(52% 0.018 200)');
+  base.addColorStop(1,   'oklch(40% 0.030 200)');
+  ctxFoil.fillStyle = base;
+  ctxFoil.fillRect(0, 0, w, h);
+
+  // Iridescent tint — more vivid on dark background
+  const iri = ctxFoil.createLinearGradient(0, 0, w, 0);
+  iri.addColorStop(0,   'oklch(75% 0.14 200 / .15)');
+  iri.addColorStop(.25, 'oklch(72% 0.14 148 / .12)');
+  iri.addColorStop(.5,  'oklch(75% 0.14 80  / .15)');
+  iri.addColorStop(.75, 'oklch(72% 0.14 310 / .12)');
+  iri.addColorStop(1,   'oklch(75% 0.14 200 / .15)');
+  ctxFoil.fillStyle = iri;
+  ctxFoil.fillRect(0, 0, w, h);
+
+  // Fine grain on dark
+  for (let i = 0; i < 600; i++) {
+    const x = Math.random()*w, y = Math.random()*h;
+    ctxFoil.beginPath();
+    ctxFoil.arc(x, y, Math.random()*.9+.2, 0, Math.PI*2);
+    ctxFoil.fillStyle = `oklch(${Math.random()>.5?70:30}% 0.02 200 / ${Math.random()*.18+.03})`;
+    ctxFoil.fill();
+  }
+
+  // Bright specular streak — more visible on dark
+  const streak = ctxFoil.createLinearGradient(0, h*.35, 0, h*.47);
+  streak.addColorStop(0,  'oklch(100% 0 0 / 0)');
+  streak.addColorStop(.5, 'oklch(100% 0 0 / .22)');
+  streak.addColorStop(1,  'oklch(100% 0 0 / 0)');
+  ctxFoil.fillStyle = streak;
+  ctxFoil.fillRect(0, h*.35, w, h*.12);
+
+  // BRIGHT label — white + glow on dark foil
+  // Glow pass
+  ctxFoil.save();
+  ctxFoil.shadowColor = 'oklch(100% 0 0 / .9)';
+  ctxFoil.shadowBlur  = 12;
+  ctxFoil.font = `700 14px Inter, system-ui, sans-serif`;
+  ctxFoil.textAlign = 'center'; ctxFoil.textBaseline = 'middle';
+  ctxFoil.fillStyle = 'oklch(95% 0.04 80)'; // warm white
+  ctxFoil.fillText('✦  С Т И Р А Й  ✦', w/2, h/2);
+  ctxFoil.restore();
+  // Second pass without shadow for crispness
+  ctxFoil.save();
+  ctxFoil.font = `700 14px Inter, system-ui, sans-serif`;
+  ctxFoil.textAlign = 'center'; ctxFoil.textBaseline = 'middle';
+  ctxFoil.fillStyle = '#fff';
+  ctxFoil.fillText('✦  С Т И Р А Й  ✦', w/2, h/2);
+  ctxFoil.restore();
+}
+
+/* ═══ SCRATCH ═══════════════════════════════════════════ */
+function getPos(e) {
+  const rect = cvsFoil.getBoundingClientRect();
+  const dpr  = devicePixelRatio || 1;
   const src  = e.changedTouches ? e.changedTouches[0] : e;
   return {
-    x: (src.clientX - rect.left) * (cvs.width  / rect.width  / (window.devicePixelRatio||1)),
-    y: (src.clientY - rect.top)  * (cvs.height / rect.height / (window.devicePixelRatio||1)),
+    x: (src.clientX - rect.left) * dpr,
+    y: (src.clientY - rect.top)  * dpr,
   };
 }
 
 function scratchAt(x, y) {
-  ctx.globalCompositeOperation = 'destination-out';
-  ctx.beginPath();
+  ctxFoil.globalCompositeOperation = 'destination-out';
   if (lastPt) {
-    ctx.moveTo(lastPt.x, lastPt.y);
-    ctx.lineTo(x, y);
-    ctx.lineWidth = BRUSH * 2;
-    ctx.lineCap   = 'round';
-    ctx.lineJoin  = 'round';
-    ctx.stroke();
+    ctxFoil.beginPath();
+    ctxFoil.moveTo(lastPt.x, lastPt.y);
+    ctxFoil.lineTo(x, y);
+    ctxFoil.lineWidth = BRUSH * 2; ctxFoil.lineCap = 'round'; ctxFoil.lineJoin = 'round';
+    ctxFoil.stroke();
   }
-  ctx.beginPath();
-  ctx.arc(x, y, BRUSH, 0, Math.PI * 2);
-  ctx.fill();
+  ctxFoil.beginPath();
+  ctxFoil.arc(x, y, BRUSH, 0, Math.PI*2);
+  ctxFoil.fill();
   lastPt = {x, y};
 
-  // Haptics
-  if (navigator.vibrate) navigator.vibrate(5);
+  if (navigator.vibrate) navigator.vibrate(4);
+  playTick();
+  spawnFlakes(x, y);   // more flakes, bigger, darker colour
 
-  // Scratch particle
-  emitParticle(x, y);
-
-  // Coverage check (throttled)
   const now = performance.now();
-  if (now - lastCheck > CHECK_EVERY) {
-    lastCheck = now;
-    checkCoverage();
-  }
+  if (now - lastTick > TICK_MS) { lastTick = now; checkCoverage(); }
 }
 
-/* ═══════════════════════════════════════════════════════
-   COVERAGE
-═══════════════════════════════════════════════════════ */
+/* ═══ COVERAGE ══════════════════════════════════════════ */
 function checkCoverage() {
   if (revealed) return;
-  const d = ctx.getImageData(0, 0, cvs.width, cvs.height).data;
-  let erased = 0;
-  const step = 4 * 8; // sample every 8th pixel
-  for (let i = 3; i < d.length; i += step) {
-    if (d[i] < 100) erased++;
-  }
-  const total = d.length / step;
-  const pct   = erased / total;
-
-  progressFill.style.width = Math.min(pct * 100, 100) + '%';
-  if (pct >= THRESHOLD) fullReveal();
+  const d = ctxFoil.getImageData(0, 0, cvsFoil.width, cvsFoil.height).data;
+  let cleared = 0;
+  for (let i = 3; i < d.length; i += 32) if (d[i] < 100) cleared++;
+  const pct = cleared / (d.length / 32);
+  progFill.style.width = Math.min(pct * 100, 100) + '%';
+  if (pct >= THRESHOLD) revealAll();
 }
 
-/* ═══════════════════════════════════════════════════════
-   REVEAL
-═══════════════════════════════════════════════════════ */
-function fullReveal() {
+/* ═══ REVEAL ════════════════════════════════════════════ */
+function revealAll() {
   if (revealed) return;
   revealed = true;
-
-  progressFill.style.width = '100%';
-
-  // Fade canvas
-  cvs.classList.add('fading');
-
-  // Hide controls
-  hintRow.classList.add('hidden');
-  progressTrk.classList.add('hidden');
-  btnClear.classList.add('hidden');
-
-  // Prize pop
-  prizeLayer.classList.add('revealed');
-
-  // Success vibration — 3 bumps
-  if (navigator.vibrate) navigator.vibrate([40, 60, 40, 60, 80]);
-
-  // CTA appears after prize
-  setTimeout(() => {
-    btnCta.classList.add('visible');
-  }, 600);
-
-  // Confetti burst
-  setTimeout(launchConfetti, 350);
+  progFill.style.width = '100%';
+  cvsFoil.classList.add('fading');
+  zone.classList.add('done');
+  hint.classList.add('gone');
+  progTrk.classList.add('gone');
+  btnClear.classList.add('gone');
+  if (navigator.vibrate) navigator.vibrate([35,55,35,55,90]);
+  setTimeout(() => btnCta.classList.add('visible'), 650);
+  setTimeout(launchConfetti, 380);
 }
 
-/* ═══════════════════════════════════════════════════════
-   EVENTS
-═══════════════════════════════════════════════════════ */
+/* ═══ EVENTS ════════════════════════════════════════════ */
 zone.addEventListener('touchstart', e => {
   e.preventDefault(); if (revealed) return;
-  drawing = true; lastPt = null;
-  const p = getXY(e); scratchAt(p.x, p.y);
-}, { passive: false });
-
+  ensureAudio(); drawing = true; lastPt = null;
+  const p = getPos(e); scratchAt(p.x, p.y);
+}, {passive:false});
 zone.addEventListener('touchmove', e => {
   e.preventDefault(); if (!drawing || revealed) return;
-  const p = getXY(e); scratchAt(p.x, p.y);
-}, { passive: false });
-
+  const p = getPos(e); scratchAt(p.x, p.y);
+}, {passive:false});
 zone.addEventListener('touchend', () => { drawing = false; lastPt = null; });
-
 zone.addEventListener('mousedown', e => {
   if (revealed) return;
-  drawing = true; lastPt = null;
-  const p = getXY(e); scratchAt(p.x, p.y);
+  ensureAudio(); drawing = true; lastPt = null;
+  const p = getPos(e); scratchAt(p.x, p.y);
 });
 zone.addEventListener('mousemove', e => {
   if (!drawing || revealed) return;
-  const p = getXY(e); scratchAt(p.x, p.y);
+  const p = getPos(e); scratchAt(p.x, p.y);
 });
 window.addEventListener('mouseup', () => { drawing = false; lastPt = null; });
+btnClear.addEventListener('click', () => { ensureAudio(); revealAll(); });
 
-btnClear.addEventListener('click', fullReveal);
+[btnClear, btnCta].forEach(btn =>
+  btn.addEventListener('pointerdown', e => {
+    const r = btn.getBoundingClientRect();
+    const size = Math.max(r.width, r.height) * 1.5;
+    const el = document.createElement('span');
+    el.className = 'ripple';
+    el.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-r.left-size/2}px;top:${e.clientY-r.top-size/2}px;`;
+    btn.appendChild(el);
+    el.addEventListener('animationend', () => el.remove());
+  })
+);
 
-/* ═══════════════════════════════════════════════════════
-   PARTICLES (scratch flakes)
+/* ═══ FLAKES — foil chips flying off ═══════════════════
+   Dark silver + gold chips, larger, more of them
 ═══════════════════════════════════════════════════════ */
-const FLAKE_COLS = [
-  'oklch(82% 0.02 200)',
-  'oklch(90% 0.02 200)',
-  'oklch(76% 0.02 200)',
-  'oklch(82% 0.14 80)',
+const FLAKE_COLORS = [
+  // Dark foil chips (matches the new dark foil)
+  'oklch(42% 0.02 200)',
+  'oklch(52% 0.03 200)',
+  'oklch(38% 0.02 200)',
+  'oklch(60% 0.02 200)',
+  // Gold flecks
+  'oklch(78% 0.14 82)',
+  'oklch(65% 0.12 78)',
+  // Bright specular flakes
+  'oklch(88% 0.02 200)',
 ];
 
-function emitParticle(cx, cy) {
-  if (Math.random() > .4) return;
-  const rect = zone.getBoundingClientRect();
-  const dpr  = window.devicePixelRatio || 1;
-  const sx   = rect.left + (cx / dpr) * (rect.width  / (cvs.width  / dpr));
-  const sy   = rect.top  + (cy / dpr) * (rect.height / (cvs.height / dpr));
-  const angle = Math.random() * Math.PI * 2;
-  const speed = Math.random() * 3 + 1.5;
-  particles.push({
-    x: sx, y: sy,
-    vx: Math.cos(angle) * speed,
-    vy: Math.sin(angle) * speed - 1.5,
-    r:  Math.random() * 3.5 + 1.5,
-    a:  0.85,
-    c:  FLAKE_COLS[Math.floor(Math.random() * FLAKE_COLS.length)],
-  });
+function spawnFlakes(cx, cy) {
+  // Spawn more flakes (was 38%, now always spawn 2-5)
+  const count = Math.floor(Math.random() * 4) + 2;
+  const dpr   = devicePixelRatio || 1;
+  const rect  = zone.getBoundingClientRect();
+  const sx    = rect.left + cx / dpr;
+  const sy    = rect.top  + cy / dpr;
+
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const speed = Math.random() * 5 + 2;       // faster
+    const size  = Math.random() * 5 + 2;       // bigger (was 3.5+1.5)
+    // Random shape: circle or small rect
+    const isRect = Math.random() > .5;
+    flakes.push({
+      x: sx + (Math.random()-0.5)*4,
+      y: sy + (Math.random()-0.5)*4,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 2.5,
+      r: size,
+      w: isRect ? size * 2.2 : size,     // rect width
+      h: isRect ? size * 0.9 : size,     // rect height
+      rot: Math.random() * Math.PI * 2,
+      vr: (Math.random() - 0.5) * 0.4,  // rotation speed
+      isRect,
+      a: 0.92,
+      c: FLAKE_COLORS[Math.floor(Math.random() * FLAKE_COLORS.length)],
+    });
+  }
 }
 
-function tickParticles() {
+function tickFlakes() {
   pctx.clearRect(0, 0, pcvs.width, pcvs.height);
-  particles = particles.filter(p => p.a > 0.03);
-  for (const p of particles) {
-    p.x  += p.vx;
-    p.y  += p.vy;
-    p.vy += 0.15;
+  flakes = flakes.filter(p => p.a > .02);
+  for (const p of flakes) {
+    p.x  += p.vx; p.y += p.vy; p.vy += .20;  // gravity
+    p.rot += p.vr;
     p.a  *= 0.87;
     pctx.save();
     pctx.globalAlpha = p.a;
     pctx.fillStyle   = p.c;
-    pctx.beginPath();
-    pctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    pctx.fill();
+    if (p.isRect) {
+      pctx.translate(p.x, p.y); pctx.rotate(p.rot);
+      pctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+    } else {
+      pctx.beginPath(); pctx.arc(p.x, p.y, p.r, 0, Math.PI*2); pctx.fill();
+    }
     pctx.restore();
   }
-  requestAnimationFrame(tickParticles);
+  requestAnimationFrame(tickFlakes);
 }
-tickParticles();
+tickFlakes();
 
-/* ═══════════════════════════════════════════════════════
-   CONFETTI
-═══════════════════════════════════════════════════════ */
-const CONF_COLS = [
-  'oklch(52% 0.18 145)',
-  'oklch(65% 0.16 145)',
-  'oklch(82% 0.16 82)',
-  '#ffffff',
-  'oklch(85% 0.08 145)',
-  'oklch(72% 0.14 78)',
-];
-
+/* ═══ CONFETTI ══════════════════════════════════════════ */
+const CONF = ['oklch(51% 0.19 148)','oklch(63% 0.18 148)','oklch(84% 0.17 82)','#ffffff','oklch(86% 0.09 148)','oklch(74% 0.17 78)'];
 function launchConfetti() {
-  const W = window.innerWidth, H = window.innerHeight;
-  ccvs.width  = W;
-  ccvs.height = H;
-
-  for (let i = 0; i < 130; i++) {
-    confetti.push({
-      x:   Math.random() * W,
-      y:   -20 - Math.random() * H * .3,
-      w:   Math.random() * 10 + 5,
-      h:   Math.random() * 6  + 3,
-      r:   Math.random() * Math.PI * 2,
-      vx:  (Math.random() - .5) * 4.5,
-      vy:  Math.random() * 3.5 + 2.5,
-      vr:  (Math.random() - .5) * .14,
-      c:   CONF_COLS[Math.floor(Math.random() * CONF_COLS.length)],
-      life: 1,
-    });
-  }
-  tickConfetti();
+  ccvs.width = innerWidth; ccvs.height = innerHeight;
+  confettiPieces = [];
+  for (let i = 0; i < 140; i++) confettiPieces.push({
+    x: Math.random()*innerWidth,
+    y: -20-Math.random()*innerHeight*.25,
+    w: Math.random()*10+5, h: Math.random()*6+3,
+    r: Math.random()*Math.PI*2, vx: (Math.random()-.5)*5,
+    vy: Math.random()*4+2.5, vr: (Math.random()-.5)*.14,
+    c: CONF[Math.floor(Math.random()*CONF.length)], life: 1,
+  });
+  tickConf();
 }
-
-function tickConfetti() {
-  cctx.clearRect(0, 0, ccvs.width, ccvs.height);
+function tickConf() {
+  cctx.clearRect(0,0,ccvs.width,ccvs.height);
   let any = false;
-  for (const p of confetti) {
-    if (p.life <= 0) continue;
-    p.x    += p.vx;
-    p.y    += p.vy;
-    p.vy   += 0.06;
-    p.r    += p.vr;
-    p.life -= 0.005;
-    if (p.y > ccvs.height) { p.life = 0; continue; }
-    any = true;
-    cctx.save();
-    cctx.translate(p.x, p.y);
-    cctx.rotate(p.r);
-    cctx.globalAlpha = Math.max(p.life, 0);
-    cctx.fillStyle   = p.c;
-    cctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+  for (const p of confettiPieces) {
+    if (p.life<=0||p.y>ccvs.height){p.life=0;continue;}
+    p.x+=p.vx; p.y+=p.vy; p.vy+=.055; p.r+=p.vr; p.life-=.005;
+    any=true;
+    cctx.save(); cctx.translate(p.x,p.y); cctx.rotate(p.r);
+    cctx.globalAlpha=Math.max(p.life,0); cctx.fillStyle=p.c;
+    cctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
     cctx.restore();
   }
-  if (any) requestAnimationFrame(tickConfetti);
-  else cctx.clearRect(0, 0, ccvs.width, ccvs.height);
+  if (any) requestAnimationFrame(tickConf);
 }
 
-/* ═══════════════════════════════════════════════════════
-   RESIZE
-═══════════════════════════════════════════════════════ */
+/* ═══ RESIZE ════════════════════════════════════════════ */
 window.addEventListener('resize', () => {
   if (!revealed) initCanvas();
-  pcvs.width  = ccvs.width  = window.innerWidth;
-  pcvs.height = ccvs.height = window.innerHeight;
+  pcvs.width=ccvs.width=innerWidth; pcvs.height=ccvs.height=innerHeight;
 });
 
-/* ═══════════════════════════════════════════════════════
-   BOOT
-═══════════════════════════════════════════════════════ */
 requestAnimationFrame(() => requestAnimationFrame(initCanvas));
 </script>
 </body>

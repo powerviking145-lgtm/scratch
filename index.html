@@ -6,7 +6,7 @@
   <title>Ваш подарок — Перекрёсток</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -32,7 +32,7 @@
 
     html, body {
       height: 100%;
-      font-family: 'Inter', system-ui, sans-serif;
+      font-family: 'Manrope', system-ui, sans-serif;
       background: var(--g950);
       -webkit-font-smoothing: antialiased;
       overscroll-behavior: none;
@@ -260,6 +260,63 @@
       .gift-wrap, .hint-hand { animation: none; }
       .btn::after, .btn-cta.visible { animation: none; }
     }
+    /* Visual edition: emerald glass, warm metal and restrained motion. */
+    html, body { background: #052c24; touch-action: auto; }
+    .scene { padding: 22px 16px 40px; background: radial-gradient(ellipse at 10% 15%, #12865b55, transparent 55%), radial-gradient(ellipse at 100% 85%, #dbb65722, transparent 50%); }
+    .card { max-width: 420px; border-radius: 34px; background: #fcfff5; border: 1px solid #c7ffe65c; box-shadow: 0 30px 90px #001d1acc, 0 0 65px #37e99d12; }
+    .card-header { padding: 24px 24px 30px; background: linear-gradient(145deg,#158f62,#07533e 65%,#033a30); }
+    .card-header::before { background: radial-gradient(ellipse at 50% 25%,#c5ff9b55,transparent 60%); animation: ambient-glow 6s ease-in-out infinite alternate; }
+    .card-header::after { content:''; position:absolute; width:280px; height:280px; left:50%; top:-70px; margin-left:-140px; border:1px solid #dbffcf22; border-radius:50%; box-shadow:0 0 0 32px #dcffb809,0 0 0 64px #dcffb805; pointer-events:none; }
+    .brand { display:inline-flex; border:1px solid #e8ffd64a; background:#f4ffdb12; border-radius:30px; padding:8px 16px; color:#e5ffce; font-size:10px; margin-bottom:14px; }
+    .gift-wrap { width:82px; height:82px; margin-bottom:14px; filter:drop-shadow(0 12px 16px #001a2880); z-index:1; }
+    .gift-wrap svg { overflow:visible; }
+    .gift-wrap svg rect { stroke:#faffd126; stroke-width:.7; }
+    .header-title { font-size:32px; letter-spacing:-1.1px; font-weight:800; text-shadow:0 3px 20px #002d3866; z-index:1; }
+    .header-sub { color:#d0edcd; font-size:13px; max-width:280px; margin:9px auto 0; line-height:1.55; z-index:1; }
+    .card-body { padding:22px 20px 28px; gap:17px; background:radial-gradient(ellipse at 100% 20%,#e6f8b466,transparent 65%),#fcfff5; }
+    .scratch-zone { aspect-ratio:1.45; border-radius:23px; outline:1px solid #bea66788; box-shadow:0 10px 26px #25423522,0 0 0 5px #e6ebd9; isolation:isolate; }
+    #cvsPrize, #cvsFoil { border-radius:23px; }
+    #foilLight { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; border-radius:23px; transition:opacity .65s; }
+    .scratch-zone.done #foilLight { opacity:0; }
+    .hint { font-size:12px; color:#607767; text-align:center; gap:9px; }
+    .hint-hand { color:#148553; display:flex; }
+    .prog-track { height:5px; background:#dfe9d8; }
+    .prog-fill { background:linear-gradient(90deg,#00845f,#9de45f,#ebcb7d); box-shadow:0 0 10px #8bd95c88; }
+    .btn { min-height:59px; height:auto; padding:17px 18px; border-radius:19px; font-weight:800; font-size:15px; line-height:1.3; border:1px solid #ffffff55; }
+    .btn::before { content:''; position:absolute; top:1px; left:12px; right:12px; height:46%; border-radius:16px 16px 50% 50%; background:linear-gradient(#ffffff24,#ffffff00); pointer-events:none; }
+    .btn::after { animation:lux-sweep 4s ease-in-out infinite; background:linear-gradient(90deg,transparent,#fff9,transparent); width:35%; }
+    .btn-clear { background:linear-gradient(150deg,#39cf85,#079968 48%,#006a50); box-shadow:inset 0 1px 1px #ffffff88,inset 0 -2px 1px #004e4280,0 5px 0 #005740,0 12px 25px #06976440; }
+    .btn-clear:hover { background:linear-gradient(150deg,#65e8a0,#0aad77 48%,#00765a); }
+    .btn-cta { background:linear-gradient(135deg,#fff1ab,#f9cf65 48%,#e5ad43); color:#3a2b0e; box-shadow:inset 0 1px 1px #fff8da,0 5px 0 #b58232,0 12px 28px #e4b44f55; visibility:hidden; }
+    .btn-cta.visible { visibility:visible; animation:gold-glow 4s 1s ease-in-out infinite; }
+    .btn-cta svg { order:2; flex-shrink:0; transition:transform .25s; }
+    .btn-cta:hover svg { transform:translateX(4px); }
+    .btn:focus-visible { outline:3px solid #36a0c1; outline-offset:6px; }
+    .hint.gone, .prog-track.gone, .btn-clear.gone { display:none; }
+    .btn-cta:not(.visible) { display:none; }
+    @keyframes ambient-glow { from {opacity:.55;transform:scale(.9)} to {opacity:1;transform:scale(1.12)} }
+    @keyframes lux-sweep { 0%,55%{left:-80%;opacity:0} 57%{opacity:1} 85%{left:145%;opacity:1} 86%,100%{left:145%;opacity:0} }
+    @keyframes gold-glow { 0%,100%{box-shadow:inset 0 1px 1px #fff8da,0 5px 0 #b58232,0 12px 28px #e4b44f55} 50%{box-shadow:inset 0 1px 1px #fff8da,0 5px 0 #b58232,0 15px 34px #e4b44f99} }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important} }
+    /* Motion and typography refinement; scratch coordinates stay untouched. */
+    .header-title { font-family:'Manrope',sans-serif; font-weight:800; font-size:clamp(27px,8vw,34px); letter-spacing:-1.25px; line-height:1.18; }
+    .header-sub { font-weight:500; letter-spacing:-.15px; }
+    .btn { font-family:'Manrope',sans-serif; letter-spacing:-.35px; font-weight:800; background-size:220% 220%; }
+    .btn-clear { animation:liquid-color 5s ease-in-out infinite; }
+    .btn-cta.visible { animation:cta-arrive .65s cubic-bezier(.22,1.3,.4,1) both, liquid-color 5s ease-in-out infinite, gold-glow 3s ease-in-out infinite; }
+    .btn::after { animation-duration:2.6s; }
+    .btn-cta.visible svg { animation:arrow-invite 2s ease-in-out infinite; }
+    .gift-wrap { animation:gift-float 2.9s ease-in-out infinite; }
+    .gift-wrap svg > circle { transform-box:fill-box; transform-origin:center; animation:sparkle-bloom 2.4s ease-in-out infinite alternate; }
+    .gift-wrap svg > circle:nth-last-of-type(2) { animation-delay:-1.3s; }
+    .card-header::after { animation:halo-breathe 4s ease-in-out infinite; }
+    .prog-fill { background-size:220% 100%; animation:liquid-color 2.5s ease-in-out infinite; }
+    @keyframes liquid-color { 0%,100% {background-position:0% 50%} 50% {background-position:100% 50%} }
+    @keyframes arrow-invite { 0%,65%,100% {transform:translateX(0)} 40% {transform:translateX(5px)} }
+    @keyframes sparkle-bloom { from {opacity:.4;transform:scale(.8)} to {opacity:1;transform:scale(1.2)} }
+    @keyframes halo-breathe { 0%,100% {transform:scale(.95);opacity:.5} 50% {transform:scale(1.1);opacity:1} }
+    @keyframes cta-arrive { from {opacity:0;transform:translateY(14px) scale(.94)} to {opacity:1;transform:translateY(0) scale(1)} }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after {animation:none!important;transition:none!important} }
   </style>
 </head>
 <body>
@@ -295,6 +352,7 @@
       <div class="scratch-zone" id="zone" role="img" aria-label="Скретч-карта">
         <canvas id="cvsPrize" aria-hidden="true"></canvas>
         <canvas id="cvsFoil"  aria-hidden="true"></canvas>
+        <canvas id="foilLight" aria-hidden="true"></canvas>
       </div>
 
       <div class="hint" id="hint">
@@ -350,10 +408,42 @@ let flakes = [], confettiPieces = [];
 
 /* Soft continuous rustle: one loop, no repeated noise bursts. */
 let audioCtx = null, rustleGain = null, audioPoint = null;
+let resumePending = false, feedbackUntil = 0, lastResumeAttempt = -Infinity;
+let lastHaptic = -Infinity;
+function hapticTick() {
+  const now = performance.now();
+  if (now - lastHaptic < 65) return;
+  lastHaptic = now;
+  try { if (navigator.vibrate) navigator.vibrate(8); } catch (_) {}
+}
+function scheduleRustle() {
+  if (!audioCtx || !rustleGain || audioCtx.state !== 'running' ||
+      !drawing || revealed || performance.now() > feedbackUntil) return;
+  const now = audioCtx.currentTime;
+  holdRustle(now);
+  rustleGain.gain.setTargetAtTime(0.24, now, 0.035);
+  rustleGain.gain.setTargetAtTime(0, now + 0.09, 0.035);
+}
+function resumeAudio() {
+  if (!audioCtx || audioCtx.state === 'closed') return;
+  if (audioCtx.state === 'running') { scheduleRustle(); return; }
+  // A pending resume from an earlier, non-activated event must not block
+  // retrying inside the next trusted user gesture.
+  if (performance.now() - lastResumeAttempt < 40) return;
+  lastResumeAttempt = performance.now();
+  resumePending = true;
+  audioCtx.resume().then(() => {
+    resumePending = false;
+    scheduleRustle();
+  }, () => { resumePending = false; });
+}
 function ensureAudio() {
   try {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      audioCtx.addEventListener('statechange', scheduleRustle);
+      // Request activation inside the original gesture, before buffer setup.
+      resumeAudio();
       const sr = audioCtx.sampleRate;
       const buffer = audioCtx.createBuffer(1, sr * 4, sr);
       const data = buffer.getChannelData(0);
@@ -377,7 +467,7 @@ function ensureAudio() {
       lowpass.connect(rustleGain); rustleGain.connect(audioCtx.destination);
       source.start();
     }
-    if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+    resumeAudio();
   } catch (_) { /* Audio is optional; scratching still works. */ }
 }
 function holdRustle(now) {
@@ -392,16 +482,14 @@ function holdRustle(now) {
 function playTick(x, y) {
   const previous = audioPoint;
   audioPoint = { x, y };
-  if (!previous || !audioCtx || !rustleGain || audioCtx.state !== 'running') return;
-  if (Math.hypot(x - previous.x, y - previous.y) < 0.5) return;
-  const now = audioCtx.currentTime;
-  holdRustle(now);
-  rustleGain.gain.setTargetAtTime(0.24, now, 0.035);
-  // Fade out even when the finger stays down but stops moving.
-  rustleGain.gain.setTargetAtTime(0, now + 0.09, 0.035);
+  if (previous && Math.hypot(x - previous.x, y - previous.y) < 0.5) return;
+  feedbackUntil = performance.now() + 150;
+  // First contact also requests feedback; replay it after async activation.
+  ensureAudio();
 }
 function stopRustle() {
   audioPoint = null;
+  feedbackUntil = 0;
   if (!audioCtx || !rustleGain) return;
   const now = audioCtx.currentTime;
   holdRustle(now);
@@ -427,45 +515,59 @@ function initCanvas() {
 
 /* ── Prize layer ── */
 function drawPrize(w, h) {
-  const bg = ctxPrize.createRadialGradient(w/2, h*.4, 0, w/2, h*.4, Math.max(w,h)*.7);
-  bg.addColorStop(0,   'oklch(98% 0.018 80)');
-  bg.addColorStop(0.6, 'oklch(96% 0.03 148)');
-  bg.addColorStop(1,   'oklch(93% 0.05 148)');
-  ctxPrize.fillStyle = bg;
-  ctxPrize.fillRect(0, 0, w, h);
-
-  const sheen = ctxPrize.createLinearGradient(0, 0, w, 0);
-  sheen.addColorStop(0,   'oklch(82% 0.12 200 / .18)');
-  sheen.addColorStop(.25, 'oklch(80% 0.14 148 / .15)');
-  sheen.addColorStop(.5,  'oklch(82% 0.14 78  / .18)');
-  sheen.addColorStop(.75, 'oklch(78% 0.10 310 / .12)');
-  sheen.addColorStop(1,   'oklch(82% 0.12 200 / .18)');
-  ctxPrize.fillStyle = sheen;
-  ctxPrize.fillRect(0, 0, w, h);
-
-  ctxPrize.save();
-  ctxPrize.shadowColor = 'oklch(60% 0.12 78 / .35)';
-  ctxPrize.shadowBlur  = 16;
-  ctxPrize.shadowOffsetY = 4;
-  const emojiSize = Math.min(h * .48, 50);
-  ctxPrize.font = `${emojiSize}px serif`;
-  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
-  ctxPrize.fillText('☕', w / 2, h * .38);
-  ctxPrize.restore();
-
-  ctxPrize.save();
-  ctxPrize.font = `800 ${Math.min(h * .16, 18)}px Inter, system-ui, sans-serif`;
-  ctxPrize.fillStyle = 'oklch(37% 0.16 148)';
-  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
-  ctxPrize.fillText('Бесплатный кофе', w / 2, h * .68);
-  ctxPrize.restore();
-
-  ctxPrize.save();
-  ctxPrize.font = `500 ${Math.min(h * .11, 12)}px Inter, system-ui, sans-serif`;
-  ctxPrize.fillStyle = 'oklch(50% 0.03 148)';
-  ctxPrize.textAlign = 'center'; ctxPrize.textBaseline = 'middle';
-  ctxPrize.fillText('Персональный купон · только для вас', w / 2, h * .82);
-  ctxPrize.restore();
+  const c = ctxPrize;
+  c.save();
+  const bg = c.createLinearGradient(0, 0, w, h);
+  bg.addColorStop(0, '#fff9df'); bg.addColorStop(.55, '#f8ffe9'); bg.addColorStop(1, '#d5efc4');
+  c.fillStyle = bg; c.fillRect(0, 0, w, h);
+  c.strokeStyle = '#92b16b25'; c.lineWidth = 1;
+  for (let i = 0; i < 4; i++) {
+    c.beginPath(); c.ellipse(w*.5, h*.36, w*.26+i*15, h*.25+i*12, -.15, 0, Math.PI*2); c.stroke();
+  }
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.font = '700 10px Manrope, sans-serif'; c.fillStyle = '#537347';
+  c.fillText('ВАШ МАЛЕНЬКИЙ РИТУАЛ', w/2, h*.09);
+  // Draw a ceramic cup as vector paths: no platform-dependent emoji.
+  c.save(); c.translate(w/2-8, h*.37); c.scale(h/265, h/265);
+  const ellipse = (x,y,rx,ry,fill) => {
+    c.beginPath(); c.ellipse(x,y,rx,ry,0,0,Math.PI*2); c.fillStyle=fill; c.fill();
+  };
+  c.shadowColor='#47614745'; c.shadowBlur=14; c.shadowOffsetY=8;
+  ellipse(6,58,83,14,'#acba8d'); c.shadowBlur=0; c.shadowOffsetY=0;
+  const plate=c.createLinearGradient(0,42,0,68);
+  plate.addColorStop(0,'#ffffff'); plate.addColorStop(.5,'#e4e8bf'); plate.addColorStop(1,'#97b17f');
+  ellipse(6,53,84,16,plate); ellipse(4,49,70,10,'#fffceb');
+  // Handle behind body.
+  c.lineWidth=14; c.strokeStyle='#689f76';
+  c.beginPath(); c.ellipse(58,9,24,26,-.15,0,Math.PI*2); c.stroke();
+  c.lineWidth=7; c.strokeStyle='#e0f6c0';
+  c.beginPath(); c.ellipse(59,6,22,24,-.15,0,Math.PI*2); c.stroke();
+  const ceramic=c.createLinearGradient(-61,0,60,0);
+  ceramic.addColorStop(0,'#08624b'); ceramic.addColorStop(.17,'#2ca06c'); ceramic.addColorStop(.38,'#92d992'); ceramic.addColorStop(.62,'#3daa70'); ceramic.addColorStop(1,'#055340');
+  c.beginPath(); c.moveTo(-61,-13); c.bezierCurveTo(-61,39,-39,54,0,55); c.bezierCurveTo(40,56,60,32,60,-13); c.closePath(); c.fillStyle=ceramic; c.fill();
+  c.lineWidth=2; c.strokeStyle='#c6eeb05c'; c.stroke();
+  ellipse(0,-14,61,21,'#effad3'); ellipse(0,-14,55,16,'#b97a3e');
+  const coffee=c.createLinearGradient(0,-28,0,3);
+  coffee.addColorStop(0,'#502b19'); coffee.addColorStop(.6,'#96572c'); coffee.addColorStop(1,'#dcae69');
+  ellipse(0,-13,51,14,coffee);
+  // Latte heart, foamy rim and reflected light.
+  c.save(); c.translate(0,-13); c.scale(1,.55);
+  c.beginPath(); c.moveTo(0,18); c.bezierCurveTo(-43,-6,-20,-30,0,-9); c.bezierCurveTo(20,-30,43,-6,0,18); c.fillStyle='#ffeac0'; c.fill(); c.restore();
+  c.strokeStyle='#d1a16a'; c.lineWidth=1; c.beginPath(); c.ellipse(0,-13,47,11,0,0,Math.PI*2); c.stroke();
+  c.strokeStyle='#edffd480'; c.lineWidth=4; c.lineCap='round'; c.beginPath(); c.moveTo(-43,3); c.quadraticCurveTo(-40,24,-30,32); c.stroke();
+  // Steam moves subtly, while the cup stays still beneath the scratch mask.
+  const phase=window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : performance.now()/1200;
+  c.lineWidth=2; c.strokeStyle='#65845355';
+  for (let i=-1;i<=1;i++) {
+    const x=i*20, drift=Math.sin(phase+i)*5;
+    c.beginPath(); c.moveTo(x,-42); c.bezierCurveTo(x-10,-52,x+12+drift,-62,x+drift,-74); c.stroke();
+  }
+  c.restore();
+  c.fillStyle='#0a533e'; c.font=`800 ${Math.min(w*.067,25)}px Manrope,sans-serif`;
+  c.fillText('Бесплатный кофе',w/2,h*.75);
+  c.font='500 12px Manrope,sans-serif'; c.fillStyle='#57714b';
+  c.fillText('Персональный купон',w/2,h*.855,w-28);
+  c.restore();
 }
 
 /* ── Foil layer — DARKER, brighter label ── */
@@ -512,14 +614,14 @@ function drawFoil(w, h) {
   ctxFoil.save();
   ctxFoil.shadowColor = 'oklch(100% 0 0 / .9)';
   ctxFoil.shadowBlur  = 12;
-  ctxFoil.font = `700 14px Inter, system-ui, sans-serif`;
+  ctxFoil.font = `700 14px Manrope, system-ui, sans-serif`;
   ctxFoil.textAlign = 'center'; ctxFoil.textBaseline = 'middle';
   ctxFoil.fillStyle = 'oklch(95% 0.04 80)'; // warm white
   ctxFoil.fillText('✦  С Т И Р А Й  ✦', w/2, h/2);
   ctxFoil.restore();
   // Second pass without shadow for crispness
   ctxFoil.save();
-  ctxFoil.font = `700 14px Inter, system-ui, sans-serif`;
+  ctxFoil.font = `700 14px Manrope, system-ui, sans-serif`;
   ctxFoil.textAlign = 'center'; ctxFoil.textBaseline = 'middle';
   ctxFoil.fillStyle = '#fff';
   ctxFoil.fillText('✦  С Т И Р А Й  ✦', w/2, h/2);
@@ -553,7 +655,7 @@ function scratchAt(x, y) {
   ctxFoil.fill();
   lastPt = {x, y};
 
-  if (navigator.vibrate) navigator.vibrate(4);
+  hapticTick();
   playTick(x, y);
   spawnFlakes(x, y);   // more flakes, bigger, darker colour
 
@@ -589,26 +691,64 @@ function revealAll() {
 }
 
 /* ═══ EVENTS ════════════════════════════════════════════ */
-zone.addEventListener('touchstart', e => {
-  e.preventDefault(); if (revealed) return;
-  ensureAudio(); drawing = true; lastPt = null;
-  const p = getPos(e); scratchAt(p.x, p.y);
-}, {passive:false});
-zone.addEventListener('touchmove', e => {
-  e.preventDefault(); if (!drawing || revealed) return;
-  const p = getPos(e); scratchAt(p.x, p.y);
-}, {passive:false});
-zone.addEventListener('touchend', () => { drawing = false; lastPt = null; });
-zone.addEventListener('mousedown', e => {
-  if (revealed) return;
-  ensureAudio(); drawing = true; lastPt = null;
-  const p = getPos(e); scratchAt(p.x, p.y);
-});
-zone.addEventListener('mousemove', e => {
-  if (!drawing || revealed) return;
-  const p = getPos(e); scratchAt(p.x, p.y);
-});
-window.addEventListener('mouseup', () => { drawing = false; lastPt = null; });
+let activePointer = null;
+function endStroke(e) {
+  if (e && e.pointerId !== undefined && e.pointerId !== activePointer) return;
+  activePointer = null;
+  drawing = false; lastPt = null;
+  stopRustle();
+}
+if (window.PointerEvent) {
+  zone.addEventListener('pointerdown', e => {
+    if (revealed || !e.isPrimary || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    // Keep the trusted down event uncancelled. CSS touch-action prevents scroll.
+    activePointer = e.pointerId;
+    drawing = true; lastPt = null; audioPoint = null;
+    lastHaptic = -Infinity;
+    feedbackUntil = performance.now() + 150;
+    ensureAudio();
+    zone.setPointerCapture(e.pointerId);
+    const p = getPos(e); scratchAt(p.x, p.y);
+  });
+  zone.addEventListener('pointermove', e => {
+    if (!drawing || revealed || e.pointerId !== activePointer) return;
+    const p = getPos(e); scratchAt(p.x, p.y);
+  });
+  zone.addEventListener('pointerup', e => {
+    if (e.pointerId !== activePointer) return;
+    endStroke(e);
+    // Some browsers grant audio activation only at the end of a touch.
+    ensureAudio();
+  });
+  zone.addEventListener('pointercancel', endStroke);
+  zone.addEventListener('lostpointercapture', endStroke);
+} else {
+  zone.addEventListener('touchstart', e => {
+    if (revealed) return;
+    drawing = true; lastPt = null; audioPoint = null;
+    lastHaptic = -Infinity; ensureAudio();
+    const p = getPos(e); scratchAt(p.x, p.y);
+  }, {passive:true});
+  zone.addEventListener('touchmove', e => {
+    if (!drawing || revealed) return;
+    e.preventDefault();
+    const p = getPos(e); scratchAt(p.x, p.y);
+  }, {passive:false});
+  zone.addEventListener('touchend', () => { endStroke(); ensureAudio(); });
+  zone.addEventListener('touchcancel', () => endStroke());
+  zone.addEventListener('mousedown', e => {
+    if (revealed) return;
+    drawing = true; lastPt = null; audioPoint = null;
+    lastHaptic = -Infinity; ensureAudio();
+    const p = getPos(e); scratchAt(p.x, p.y);
+  });
+  zone.addEventListener('mousemove', e => {
+    if (!drawing || revealed) return;
+    const p = getPos(e); scratchAt(p.x, p.y);
+  });
+  window.addEventListener('mouseup', () => endStroke());
+}
+window.addEventListener('blur', () => endStroke());
 btnClear.addEventListener('click', () => { ensureAudio(); revealAll(); });
 
 [btnClear, btnCta].forEach(btn =>
@@ -730,6 +870,50 @@ window.addEventListener('resize', () => {
 });
 
 requestAnimationFrame(() => requestAnimationFrame(initCanvas));
+
+// Animate the prize independently: never repaint or reset the scratched foil.
+const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+const lightCanvas = document.getElementById('foilLight');
+const lightContext = lightCanvas.getContext('2d');
+let lastVisualFrame = 0;
+let cardInView = true;
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(entries => { cardInView = entries[0].isIntersecting; }).observe(zone);
+}
+function animatePrizeAndLight(time) {
+  requestAnimationFrame(animatePrizeAndLight);
+  if (document.hidden || !cardInView || time - lastVisualFrame < 33) return;
+  lastVisualFrame = time;
+  if (!cvsPrize.width || !cvsFoil.width) return;
+  const transform = ctxPrize.getTransform();
+  const w = cvsPrize.width / transform.a, h = cvsPrize.height / transform.d;
+  if (!motionPreference.matches) drawPrize(w, h);
+  if (lightCanvas.width !== cvsFoil.width || lightCanvas.height !== cvsFoil.height) {
+    lightCanvas.width = cvsFoil.width; lightCanvas.height = cvsFoil.height;
+  }
+  const c = lightContext, W = lightCanvas.width, H = lightCanvas.height;
+  c.clearRect(0, 0, W, H);
+  if (revealed || motionPreference.matches) return;
+  // Use the remaining foil alpha as the mask, so the moving light cannot
+  // paint over the holes or obscure the coffee during scratching.
+  c.globalCompositeOperation = 'source-over';
+  c.drawImage(cvsFoil, 0, 0);
+  c.globalCompositeOperation = 'source-in';
+  const x = ((time % 4200) / 4200 * 2 - .5) * W;
+  const shine = c.createLinearGradient(x - W*.3, 0, x + W*.3, H*.25);
+  shine.addColorStop(0, 'rgba(180,255,228,0)');
+  shine.addColorStop(.35, 'rgba(167,245,210,.06)');
+  shine.addColorStop(.5, 'rgba(255,245,199,.26)');
+  shine.addColorStop(.65, 'rgba(218,192,255,.08)');
+  shine.addColorStop(1, 'rgba(218,192,255,0)');
+  c.fillStyle = shine; c.fillRect(0, 0, W, H);
+  c.globalCompositeOperation = 'source-over';
+}
+requestAnimationFrame(animatePrizeAndLight);
+if (document.fonts) document.fonts.ready.then(() => {
+  const t = ctxPrize.getTransform();
+  drawPrize(cvsPrize.width / t.a, cvsPrize.height / t.d);
+});
 </script>
 </body>
 </html>

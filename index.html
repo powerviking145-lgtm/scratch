@@ -603,7 +603,6 @@ let flakes = [], confettiPieces = [];
 let audioCtx = null, rustleGain = null, audioPoint = null;
 let resumePending = false, feedbackUntil = 0, lastResumeAttempt = -Infinity;
 let lastHaptic = -Infinity;
-let feedbackStarted = false;
 
 function hapticTick() {
   const now = performance.now();
@@ -619,11 +618,11 @@ function startRustleNow() {
   rustleGain.gain.exponentialRampToValueAtTime(0.24, now + 0.012);
 }
 function activateFeedback() {
-  if (feedbackStarted) return;
-  feedbackStarted = true;
   const now = performance.now();
-  lastHaptic = now;
-  try { if (navigator.vibrate) navigator.vibrate(16); } catch (_) {}
+  if (now - lastHaptic >= 65) {
+    lastHaptic = now;
+    try { if (navigator.vibrate) navigator.vibrate(16); } catch (_) {}
+  }
   ensureAudio();
   startRustleNow();
   resumeAudio();
@@ -683,7 +682,7 @@ function playTick(x, y) {
   scheduleRustle();
 }
 function stopRustle() {
-  audioPoint = null; feedbackUntil = 0; feedbackStarted = false;
+  audioPoint = null; feedbackUntil = 0;
   if (!audioCtx || !rustleGain) return;
   const now = audioCtx.currentTime;
   holdRustle(now); rustleGain.gain.setTargetAtTime(0, now, 0.025);
@@ -866,6 +865,18 @@ function endStroke(e) {
   if (e && e.pointerId !== undefined && e.pointerId !== activePointer) return;
   activePointer = null; drawing = false; lastPt = null; stopRustle();
 }
+
+/* Activate feedback on the native touch gesture too. Some mobile WebViews
+   delay pointerdown audio activation until the next touch. This listener only
+   primes sound/vibration; drawing itself remains unchanged below. */
+zone.addEventListener('touchstart', () => {
+  if (revealed) return;
+  if (!drawing) {
+    drawing = true; lastPt = null; audioPoint = null;
+    lastHaptic = -Infinity;
+  }
+  activateFeedback();
+}, {passive:true, capture:true});
 
 if (window.PointerEvent) {
   zone.addEventListener('pointerdown', e => {

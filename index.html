@@ -370,7 +370,8 @@
     .claim-title { font-size:17px; font-weight:800; letter-spacing:-.5px; }
     .claim p { font-size:13px; line-height:1.7; margin:0; }
     .select-word { letter-spacing:1px; font-weight:800; }
-    .claim-foot { font-size:11px!important; color:#6e755e; margin-top:9px!important; }
+    .claim-details { color:#6e755e; text-decoration:underline; text-decoration-color:#b9ae8c; text-underline-offset:2px; font-weight:600; white-space:nowrap; }
+    .claim-details:hover { color:#315c43; text-decoration-color:#315c43; }
     .scratch-zone.done .coffee-title { animation:title-pop .65s ease both; }
     @keyframes steam-rise { 0% { opacity:0; transform:translateY(8px) scaleX(.85); } 25% { opacity:.85; } 65% { opacity:.65; } 100% { opacity:0; transform:translateY(-23px) scaleX(1.1); } }
     @keyframes cup-float { 0%,100% { transform:translateY(0) rotate(-2deg); } 50% { transform:translateY(-4px) rotate(1deg); } }
@@ -560,7 +561,7 @@
 
       <section class="claim" id="claim" hidden aria-live="polite" aria-labelledby="claimTitle">
         <div class="claim-top"><span class="claim-check" aria-hidden="true">✓</span><h2 class="claim-title" id="claimTitle">Ваш кешбэк — 100%</h2></div>
-        <p>При покупке кофе в кафе <span class="select-word">SELECT</span> предъявите <strong>карту лояльности</strong>, чтобы получить 100% кешбэк за кофе.</p>
+        <p>При покупке кофе в кафе <span class="select-word">SELECT</span> предъявите <strong>карту лояльности в приложении</strong>, чтобы получить 100% кешбэк за кофе. <a class="claim-details" href="https://files.perekrestok.ru/static/files/92/d0/9f5453d1e5a9aa5329b7d1046d4a.pdf" target="_blank" rel="noopener noreferrer">узнать подробнее</a></p>
       </section>
       <p class="more-teaser" id="moreTeaser" hidden>А дальше — ещё больше приятного</p>
       <a class="btn btn-cta" id="btnCta"

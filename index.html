@@ -612,7 +612,7 @@ function hapticTick() {
 }
 function scheduleRustle() {
   if (!audioCtx || !rustleGain || audioCtx.state !== 'running' ||
-      !drawing || revealed || performance.now() > feedbackUntil) return;
+      !drawing || revealed) return;
   const now = audioCtx.currentTime;
   holdRustle(now);
   rustleGain.gain.setTargetAtTime(0.22, now, 0.035);
@@ -631,7 +631,6 @@ function ensureAudio() {
     if (!audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       audioCtx.addEventListener('statechange', scheduleRustle);
-      resumeAudio();
       const sr = audioCtx.sampleRate;
       const buf = audioCtx.createBuffer(1, sr * 4, sr);
       const d = buf.getChannelData(0);
@@ -648,6 +647,7 @@ function ensureAudio() {
       rustleGain = audioCtx.createGain(); rustleGain.gain.value = 0;
       src.connect(hp); hp.connect(lp); lp.connect(rustleGain); rustleGain.connect(audioCtx.destination);
       src.start();
+      resumeAudio();
     }
     resumeAudio();
   } catch (_) {}
@@ -658,9 +658,9 @@ function holdRustle(now) {
   else { const v = g.value; g.cancelScheduledValues(now); g.setValueAtTime(v, now); }
 }
 function playTick(x, y) {
-  const prev = audioPoint; audioPoint = {x, y};
-  if (prev && Math.hypot(x - prev.x, y - prev.y) < 0.5) return;
+  audioPoint = {x, y};
   feedbackUntil = performance.now() + 150;
+  hapticTick();
   ensureAudio();
 }
 function stopRustle() {

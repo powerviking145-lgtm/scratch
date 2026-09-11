@@ -176,8 +176,28 @@
     #cvsFoil {
       position: absolute; inset: 0;
       width: 100%; height: 100%; border-radius: 18px;
+      z-index: 3;
+      /* Immediate opaque fallback while the real foil is drawn. */
+      background:
+        radial-gradient(ellipse at 50% 25%, #59656b 0%, #3b464c 48%, #263137 100%);
       transition: opacity .70s cubic-bezier(.4,0,.2,1);
     }
+    /* Guaranteed first-paint cover: prevents the prize from flashing before the foil canvas is ready. */
+    .scratch-zone::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      border-radius: inherit;
+      pointer-events: none;
+      background: radial-gradient(ellipse at 50% 25%, #59656b 0%, #3b464c 48%, #263137 100%);
+    }
+    .scratch-zone.foil-ready::before { display: none; }
+
+    /* Keep the prize hidden until the opaque canvas is fully painted. */
+    .scratch-zone:not(.foil-ready) .coffee-prize,
+    .scratch-zone:not(.foil-ready) #cvsPrize { visibility: hidden; }
+    .scratch-zone.foil-ready #cvsFoil { background: transparent; }
     #cvsFoil.fading { opacity: 0; pointer-events: none; }
 
     /* ── HINT ── */
@@ -699,7 +719,9 @@ function initCanvas() {
   for (const c of [cvsPrize, cvsFoil]) { c.width = W * dpr; c.height = H * dpr; }
   ctxPrize.scale(dpr, dpr); ctxFoil.scale(dpr, dpr);
   ccvs.width = pcvs.width = innerWidth; ccvs.height = pcvs.height = innerHeight;
-  drawPrize(W, H); drawFoil(W, H);
+  drawPrize(W, H);
+  drawFoil(W, H);
+  zone.classList.add('foil-ready');
 }
 
 /* ── PRIZE LAYER ── */

@@ -603,6 +603,7 @@ let flakes = [], confettiPieces = [];
 let audioCtx = null, rustleGain = null, audioPoint = null;
 let resumePending = false, feedbackUntil = 0, lastResumeAttempt = -Infinity;
 let lastHaptic = -Infinity;
+let feedbackStarted = false;
 
 function hapticTick() {
   const now = performance.now();
@@ -610,21 +611,40 @@ function hapticTick() {
   lastHaptic = now;
   try { if (navigator.vibrate) navigator.vibrate(8); } catch (_) {}
 }
-function scheduleRustle() {
-  if (!audioCtx || !rustleGain || audioCtx.state !== 'running' ||
-      !drawing || revealed) return;
+function startRustleNow() {
+  if (!audioCtx || !rustleGain || !drawing || revealed) return;
   const now = audioCtx.currentTime;
   holdRustle(now);
-  rustleGain.gain.setTargetAtTime(0.22, now, 0.035);
-  rustleGain.gain.setTargetAtTime(0, now + 0.09, 0.035);
+  rustleGain.gain.setValueAtTime(0.0001, now);
+  rustleGain.gain.exponentialRampToValueAtTime(0.24, now + 0.012);
+}
+function activateFeedback() {
+  if (feedbackStarted) return;
+  feedbackStarted = true;
+  const now = performance.now();
+  lastHaptic = now;
+  try { if (navigator.vibrate) navigator.vibrate(16); } catch (_) {}
+  ensureAudio();
+  startRustleNow();
+  resumeAudio();
+}
+function scheduleRustle() {
+  if (!audioCtx || !rustleGain || audioCtx.state !== 'running' || !drawing || revealed) return;
+  const now = audioCtx.currentTime;
+  holdRustle(now);
+  rustleGain.gain.setTargetAtTime(0.24, now, 0.018);
+  rustleGain.gain.setTargetAtTime(0, now + 0.12, 0.035);
 }
 function resumeAudio() {
   if (!audioCtx || audioCtx.state === 'closed') return;
-  if (audioCtx.state === 'running') { scheduleRustle(); return; }
+  if (audioCtx.state === 'running') { startRustleNow(); return; }
   const now = performance.now();
   if (resumePending || now - lastResumeAttempt < 40) return;
   lastResumeAttempt = now; resumePending = true;
-  audioCtx.resume().then(() => { resumePending = false; scheduleRustle(); }, () => { resumePending = false; });
+  audioCtx.resume().then(() => {
+    resumePending = false;
+    startRustleNow();
+  }, () => { resumePending = false; });
 }
 function ensureAudio() {
   try {
@@ -660,11 +680,10 @@ function holdRustle(now) {
 function playTick(x, y) {
   audioPoint = {x, y};
   feedbackUntil = performance.now() + 150;
-  hapticTick();
-  ensureAudio();
+  scheduleRustle();
 }
 function stopRustle() {
-  audioPoint = null; feedbackUntil = 0;
+  audioPoint = null; feedbackUntil = 0; feedbackStarted = false;
   if (!audioCtx || !rustleGain) return;
   const now = audioCtx.currentTime;
   holdRustle(now); rustleGain.gain.setTargetAtTime(0, now, 0.025);
@@ -852,7 +871,7 @@ if (window.PointerEvent) {
   zone.addEventListener('pointerdown', e => {
     if (revealed || !e.isPrimary || (e.pointerType==='mouse' && e.button!==0)) return;
     activePointer = e.pointerId; drawing = true; lastPt = null; audioPoint = null;
-    lastHaptic = -Infinity; feedbackUntil = performance.now()+150; ensureAudio();
+    lastHaptic = -Infinity; feedbackUntil = performance.now()+150; activateFeedback();
     zone.setPointerCapture(e.pointerId);
     const p = getPos(e); scratchAt(p.x, p.y);
   });
@@ -870,7 +889,7 @@ if (window.PointerEvent) {
   zone.addEventListener('touchstart', e => {
     if (revealed) return;
     drawing = true; lastPt = null; audioPoint = null;
-    lastHaptic = -Infinity; ensureAudio();
+    lastHaptic = -Infinity; activateFeedback();
     const p = getPos(e); scratchAt(p.x, p.y);
   }, {passive:true});
   zone.addEventListener('touchmove', e => {
@@ -882,7 +901,7 @@ if (window.PointerEvent) {
   zone.addEventListener('mousedown', e => {
     if (revealed) return;
     drawing = true; lastPt = null; audioPoint = null;
-    lastHaptic = -Infinity; ensureAudio();
+    lastHaptic = -Infinity; activateFeedback();
     const p = getPos(e); scratchAt(p.x, p.y);
   });
   zone.addEventListener('mousemove', e => {
